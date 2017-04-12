@@ -7,19 +7,13 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Monster;
 
-/** Class : MonsterDB.java
- * @author: Rick Price
- * @version: 1.0
- * Course: ITEC 3860
- * Written: Mar 01, 2017
- *
- * This class handles all database acces for the Monster class
- */
+
 public class MonsterDB
 {
-	/** Method: getNextMonsterID
-	 * Purpose: Gets the id for the next monster. 
+	/** Method: getRandomMonster
+	 * Purpose: Gets the id for the next random monster. 
 	 * @return int
+	 * 
 	 */
 	public int getNextMonsterID()
 	{
@@ -54,6 +48,9 @@ public class MonsterDB
 			mon.setHitPoints(rs.getInt("hitPoints"));
 			mon.setMaxDamage(rs.getInt("maxDamage"));
 			mon.setMinDamage(rs.getInt("minDamage"));
+			mon.setMinDamage(rs.getInt("elementalDamage"));
+			mon.setMinDamage(rs.getInt("damagePerTurn"));
+			mon.setMinDamage(rs.getInt("numTurns"));
 		}
 		sdb.close();
 		return mon;
@@ -81,6 +78,9 @@ public class MonsterDB
 			mon.setHitPoints(rs.getInt("hitPoints"));
 			mon.setMaxDamage(rs.getInt("maxDamage"));
 			mon.setMinDamage(rs.getInt("minDamage"));
+			mon.setMinDamage(rs.getInt("elementalDamage"));
+			mon.setMinDamage(rs.getInt("damagePerTurn"));
+			mon.setMinDamage(rs.getInt("numTurns"));
 			monsters.add(mon);
 		}
 		

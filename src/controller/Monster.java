@@ -21,6 +21,11 @@ public class Monster
 	private int hitPoints;
 	private int minDamage;
 	private int maxDamage;
+	private int elemantalDamage;
+	private int damagePerTurn;
+	private int numTurns;
+	
+	
 	
 	/** Constructor: Monster
 	 */

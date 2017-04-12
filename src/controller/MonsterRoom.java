@@ -21,6 +21,9 @@ public class MonsterRoom
 	private int hitPoints;
 	private int maxDamage;
 	private int minDamage;
+	private int elemantalDamage;
+	private int damagePerTurn;
+	private int numTurns;
 	private int roomNumber;
 	private String roomName;
 	private String roomDescription;

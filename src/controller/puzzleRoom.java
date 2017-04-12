@@ -1,6 +1,6 @@
 package controller;
 
-public class puzzleRoom extends Room {
+public class PuzzleRoom extends Room {
 	private String question;
 	private String answerOne;
 	private String answerTwo;
