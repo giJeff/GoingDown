@@ -1,6 +1,6 @@
 package controller;
 
-public class Armor extends Item{
+public class Armor extends Item {
 	private double damageReduction;
 
 	public double getDamageReduction() {

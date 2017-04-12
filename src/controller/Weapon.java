@@ -1,6 +1,7 @@
 package controller;
 
 public class Weapon extends Item{
+	
 	private int minDamage;
 	private int maxDamage;
 	private int specialDamage;

@@ -1,6 +1,7 @@
 package controller;
 
 public class PuzzleRoom extends Room {
+	
 	private String question;
 	private String answerOne;
 	private String answerTwo;

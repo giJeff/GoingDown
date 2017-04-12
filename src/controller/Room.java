@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import model.RoomDB;
 
 public class Room {
+	
 		private int roomID;
 		private String roomName;
 		private String roomDescription;
@@ -17,6 +18,7 @@ public class Room {
 		private int isFloorExit; // 0 or 1 boolean value
 		private int isPuzzleRoom;
 		private int isMonsterRoom;
+		private int isBossRoom;
 		private int isSafeRoom;
 		
 		public Room getRoom(int id) throws SQLException
@@ -95,6 +97,12 @@ public class Room {
 		}
 		public void setIsMonsterRoom(int isMonsterRoom) {
 			this.isMonsterRoom = isMonsterRoom;
+		}
+		public int getIsBossRoom() {
+			return isBossRoom;
+		}
+		public void setIsBossRoom(int isBossRoom) {
+			this.isBossRoom = isBossRoom;
 		}
 		public int getIsSafeRoom() {
 			return isSafeRoom;

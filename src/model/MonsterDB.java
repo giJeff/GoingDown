@@ -48,9 +48,9 @@ public class MonsterDB
 			mon.setHitPoints(rs.getInt("hitPoints"));
 			mon.setMaxDamage(rs.getInt("maxDamage"));
 			mon.setMinDamage(rs.getInt("minDamage"));
-			mon.setMinDamage(rs.getInt("elementalDamage"));
-			mon.setMinDamage(rs.getInt("damagePerTurn"));
-			mon.setMinDamage(rs.getInt("numTurns"));
+			mon.setElemantalDamage(rs.getInt("elementalDamage"));
+			mon.setDamagePerTurn(rs.getInt("damagePerTurn"));
+			mon.setNumTurns(rs.getInt("numTurns"));
 		}
 		sdb.close();
 		return mon;
@@ -78,9 +78,9 @@ public class MonsterDB
 			mon.setHitPoints(rs.getInt("hitPoints"));
 			mon.setMaxDamage(rs.getInt("maxDamage"));
 			mon.setMinDamage(rs.getInt("minDamage"));
-			mon.setMinDamage(rs.getInt("elementalDamage"));
-			mon.setMinDamage(rs.getInt("damagePerTurn"));
-			mon.setMinDamage(rs.getInt("numTurns"));
+			mon.setElemantalDamage(rs.getInt("elementalDamage"));
+			mon.setDamagePerTurn(rs.getInt("damagePerTurn"));
+			mon.setNumTurns(rs.getInt("numTurns"));
 			monsters.add(mon);
 		}
 		
