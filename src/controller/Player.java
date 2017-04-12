@@ -12,6 +12,7 @@ public class Player extends Combat{
 	private int numTurns;
 	
 	
+	
 	public int getPlayerID() {
 		return playerID;
 	}
