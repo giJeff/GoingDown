@@ -1,10 +1,12 @@
 package controller;
 
 public class Item {
+	
 	private String itemName;
 	private double itemWeight;
+	private int rarity;
 
-	 
+
 	public String getItemName() {
 		return itemName;
 	}
@@ -18,5 +20,13 @@ public class Item {
 
 	public void setItemWeight(double itemWeight) {
 		this.itemWeight = itemWeight;
+	}
+		
+	public int getRarity() {
+		return rarity;
+	}
+
+	public void setRarity(int rarity) {
+		this.rarity = rarity;
 	}
 }

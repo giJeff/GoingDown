@@ -1,6 +1,7 @@
 package controller;
 
 public class Potion extends Item {
+	
 	private int numOfTurn;
 	private int healPerTurn;
 	
