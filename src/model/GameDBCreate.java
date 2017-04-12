@@ -37,15 +37,12 @@ public class GameDBCreate
 	 */
 	public void buildRoom() throws SQLException
 	{
-		sdb = GameController.getDB();
-		String sql = "CREATE TABLE Room(roomNumber int Primary Key not Null, roomName text not null, roomDescription text not null, exits text not null)";
+	    sdb = GameController.getDB();
+		String sql = "CREATE TABLE Room(roomNumber int Primary Key not null, floorNumber int not null, roomName text not null, roomDescription text not null, exitNorth int, exitEast int, exitSouth int, exitWest int, roomClear int not null, isFloorExit int not null, isPuzzleRoom int not null, isMonsterRoom int not null, isBossRoom int not null, isSafeRoom int not null)";
 		sdb.updateDB(sql);
-		sql = "INSERT INTO Room(roomNumber, roomName, roomDescription, exits) Values(1, 'Entrance', 'A dark, spooky, hole in the ground', 'east, west')";
+		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest, roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) Values(1, 1, 'Entrance', 'This is the entrance room', null, 2, null, null, 1, 0, 0, 0, 0, 1)";
 		sdb.updateDB(sql);
-		sql = "INSERT INTO Room(roomNumber, roomName, roomDescription, exits) Values(2, 'Hall', 'A dark, slimy, tunnel leading down', 'east, west')";
-		sdb.updateDB(sql);
-		sql = "INSERT INTO Room(roomNumber, roomName, roomDescription, exits) Values(3, 'Cavern', 'A huge, dark, cave. You cannot see across the cave, it disappears to the east.', 'west')";
-		sdb.updateDB(sql);
+
 		sdb.close();
 	}
 	
