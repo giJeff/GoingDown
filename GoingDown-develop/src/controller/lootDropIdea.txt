@@ -1,0 +1,51 @@
+CONSTANT BEAST_NAME = 0
+CONSTANT BEAST_DROPRATE = 1
+CONSTANT BEAST_RARITY = 2
+CONSTANT DROP_NAME = 0
+CONSTANT DROP_RATE = 1
+//Those constants are used for a better readability of the arrays
+ 
+On start of the project, fill the arrays with the correct values
+array aBeast(6,3)   //The array that contains the values for each beast
+array aDrop(6,2)    //The array that contains the values for each item
+array aTemp(0)      //A temporary array that will allow us what item type to drop
+array aStats(6)     //The array that will contain the amount of each item dropped
+ 
+On button clicked
+    Call function "SlainBeast(100)"
+ 
+Function SlainBest (Repetitions)
+    int BeastDrops = 0 //The variable that will keep the count of how many beasts did drop item
+    Text.text = ""
+    aStats().clear //Resets all the values contained in this array to make new statistics for the current batch
+    Repeat Repetitions times
+        int BeastType
+        int DropChance
+        int Rarity
+        BeastType = Random(6) //Since we have 6 beasts in our array
+        Rarity = aBeast(BeastType, BEAST_RARITY) //Get the rarity of items the beast should drop from the aBeast array
+        DropChance = ceil(random(100)) //Picks a number between 0 and 100)
+        Text.text = Text.text & loopindex & " _ " & aBeast(BeastType,BEAST_NAME) & "is slain"
+         
+        If DropChance > aBeast(BeastType,BEAST_DROPRATE)
+            //The DropChance is bigger than the droprate for this beast
+            Text.text = Text.text & "." & newline
+            //We stop here, this beast is considered to not have dropped an item.
+         
+        If DropChance <= aBeast(BeastType,BEAST_DROPRATE)
+           Text.text = Text.Text & " dropping " //We will put some text to display what item was dropped
+           //On the other hand, DropChance is less or equal the droprate for this beast
+            aTemp(0) //We clear/clean the aTemp array in which we will push entries to determine what item type to drop
+                For a = 0 to aDrop.Width //We will loop through every elements of the aDrop array
+                    aDrop(a,DROP_RATE) >= Rarity //When the item drop rate is greater or equal the expected Rarity
+                        Push aTemp,a //We put the current a index in the temp array. We know that this index is a possible item type to drop
+                int DropType
+                DropType = random(aTemp.width) //The DropType is one of the indexes contained in the temporary array
+                Text.text = Text.text & aDrop(DropType, DROP_NAME) & "." & newline //We display the item name that was dropped
+                //We do some statistics
+                aStats(DropType) = aStats(DropType) + 1
+                BeastDrops = BeastDrops + 1
+            TextStats.Text = BeastDrops & " beasts dropped items." & newline
+            For a = 0 to aStats.width //Display each item amount that was dropped
+            and aStats(a) > 0
+                TextStats.Text = TextStats.Text & aStats(a) & " " & aDrop(a,DROP_NAME) & " "
