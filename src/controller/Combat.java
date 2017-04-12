@@ -4,7 +4,7 @@ import java.util.Random;
 
 
 
-public class Combat extends Sprite {
+public class Combat {
 	
 	private int attack;
 
