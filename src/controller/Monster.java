@@ -10,13 +10,17 @@ public class Monster extends Combat{
 	
 	private int monsterID;
 	private String monsterName;
-	private String monsterDescription;
+	private String monsterDescription; 
+	private String immune; // new var
 	private int hitPoints;
 	private int minDamage;
 	private int maxDamage;
 	private int elemantalDamage;
 	private int damagePerTurn;
 	private int numTurns;
+
+	private int attackFirst;  // 0 no  and 1 yes
+	private int combatDelay;  // number of turns before monster attacks
 	
 	
 	/** Constructor: Monster

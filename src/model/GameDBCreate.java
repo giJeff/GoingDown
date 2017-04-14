@@ -381,6 +381,25 @@ public class GameDBCreate
 
 		sdb.close();
 	}
+
+	/** Method: buildWeapon
+	 * Purpose: Build the weapon table and load data
+	 * @throws SQLException
+	 * @return void
+	 */
+	public void buildWeapon() throws SQLException
+	{
+		sdb = GameController.getDB(weaponNumber int not null, weaponName int not null, handed int not null, attackType text, minDamage int not null, maxDamage int not null, attribute text, rarity int not null, "
+			+"weight int not null, dropRate int not null);
+		String sql = "CREATE TABLE Weapon() "
+				+"Values()";
+		sdb.updateDB(sql);
+
+		sql = "INSERT INTO Weapon()";
+		sdb.updateDB(sql);
+
+		sdb.close();
+	}
 	
 	/** Method: buildMonster
 	 * Purpose: Build the Monster table and load data
@@ -390,17 +409,15 @@ public class GameDBCreate
 	public void buildMonster() throws SQLException
 	{
 		sdb = GameController.getDB();
-		String sql = "CREATE TABLE Monster(monsterNumber int Primary Key not Null, monsterName text not null, monsterDescription text not null, hitPoints int not null, "
-				+"minDamage int not null, maxDamage int not null)";
+		String sql = "CREATE TABLE Monster(monsterNumber int Primary Key not Null, monsterName text not null, monsterDescription text not null, immune text not null, hitPoints int not null, "
+				+"minDamage int not null, maxDamage int not null, commonDrop int not null, uncommonDrop int not null, rareDrop int not null, "
+				+"legendaryDrop int not null, spawnChance int not null)";
 		sdb.updateDB(sql);
-		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, hitPoints, minDamage, maxDamage) " 
-				+ " Values(1, 'Giant Rat', 'A large snarling rat with an extremely long pointed and tooth filled snout', "
-				+ "10, 3, 10)";
+
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(1, 'Skeletal Archer', 'Ranged', 'none', 30, 6, 10, 60, 25, 10, 5, 15)";
 		sdb.updateDB(sql);
-		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, hitPoints, minDamage, maxDamage) " 
-				+ " Values(2, 'Red Dragon', 'A huge red dragon breathing fire', "
-				+ "100, 10, 40)";
-		sdb.updateDB(sql);
+
 		sdb.close();
 	}
 	
