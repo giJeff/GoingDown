@@ -265,7 +265,7 @@ public class GameDBCreate
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest, roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) Values(73, 5, 'Puzzle', 'This is the puzzle room', 71, 74, 77, null, 0, 0, 1, 0, 0, 0)";
 		sdb.updateDB(sql);
 
-		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest, roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) Values(68, 5, 'MegaBoss', 'This is the MegaBoss room', 70, null, 76, 73, 0, 0, 0, 0, 1, 0)";
+		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest, roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) Values(74, 5, 'MegaBoss', 'This is the MegaBoss room', 70, null, 76, 73, 0, 0, 0, 0, 1, 0)";
 		sdb.updateDB(sql);
 
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest, roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) Values(75, 5, 'Puzzle', 'This is the puzzle room', null, null, 83, 76, 0, 0, 1, 0, 0, 0)";
@@ -298,24 +298,6 @@ public class GameDBCreate
 
 		sdb.close();
 	}
-
-	/** Method: buildWeapon
-	 * Purpose: Build the weapon table and load data
-	 * @throws SQLException
-	 * @return void
-	 */
-	public void buildWeapon() throws SQLException
-	{
-		sdb = GameController.getDB();
-		String sql = "CREATE TABLE Weapon(weaponNumber int not null, weaponName int not null, handed int not null, attackType text, minDamage int not null, maxDamage int not null, attribute text, rarity int not null, "
-			+"weight int not null, dropRate int not null) Values()";
-		sdb.updateDB(sql);
-
-		sql = "INSERT INTO Weapon()";
-		sdb.updateDB(sql);
-
-		sdb.close();
-	}
 	
 	/** Method: buildMonster
 	 * Purpose: Build the Monster table and load data
@@ -326,13 +308,92 @@ public class GameDBCreate
 	{
 		sdb = GameController.getDB();
 		String sql = "CREATE TABLE Monster(monsterNumber int Primary Key not Null, monsterName text not null, monsterDescription text not null, immune text not null, hitPoints int not null, "
-				+"minDamage int not null, maxDamage int not null, commonDrop int not null, uncommonDrop int not null, rareDrop int not null, "
+				+"minDamage int not null, maxDamage int not null, attackFirst int not null, turnToHitPlayer int not null, commonDrop int not null, uncommonDrop int not null, rareDrop int not null, "
 				+"legendaryDrop int not null, spawnChance int not null)";
 		sdb.updateDB(sql);
 
-		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
-				+ " Values(1, 'Skeletal Archer', 'Ranged', 'none', 30, 6, 10, 60, 25, 10, 5, 15)";
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(1, 'Skeletal Archer', 'Ranged', 'none', 30, 6, 10, 1, 0, 60, 25, 10, 5, 15)";
 		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(2, 'Gaurd', 'Melee', 'none', 50, 10, 20, 0, 0, 60, 25, 10, 5, 20)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(3, 'Gargoyle', 'Melee', 'Melee', 20, 4, 8, 1, 0, 75, 15, 7, 3, 10)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(4, 'Skeleton', 'Melee', 'Poison', 40, 8, 12, 0, 1, 70, 15, 10, 5, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(5, 'Golem', 'Melee', 'Fire', 100, 15, 25, 0, 3, 10, 40, 40, 10, 5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(6, 'Dragon', 'Ranged', 'Fire', 80, 20, 30, 0, 0, 15, 30, 30, 25, 5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(7, 'Undead', 'Melee', 'none', 20, 3, 6, 0, 1, 84, 10, 5, 1, 10)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(8, 'Spearman', 'Ranged', 'none', 50, 6, 15, 1, 0, 70, 15, 10, 5, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(9, 'Goblin', 'Melee', 'none', 25, 4, 10, 1, 0, 45, 25, 15, 15, 5)";
+		sdb.updateDB(sql);
+		
+//start elite!!!!!!!*****#**#&*@#*(@(
+
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(10, 'Elite Skeletal Archer', 'Ranged', 'none', 75, 15, 25, 1, 0, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(11, 'Elite Gaurd', 'Melee', 'none', 125, 25, 50, 0, 0, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(12, 'Elite Gargoyle', 'Melee', 'Melee', 50, 10, 20, 1, 0, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(13, 'Elite Skeleton', 'Melee', 'Poison', 100, 20, 30, 0, 1, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(14, 'Elite Golem', 'Melee', 'Fire', 250, 40, 65, 0, 3, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(15, 'Elite Dragon', 'Ranged', 'Fire', 200, 50, 75, 0, 0, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+
+		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
+				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
+				+ " Values(16, 'Elite Spearman', 'Ranged', 'none', 125, 15, 40, 1, 0, 0, 40, 30, 30, 15)";
+		sdb.updateDB(sql);
+		
 
 		sdb.close();
 	}

@@ -5,27 +5,35 @@ import java.util.ArrayList;
 
 import model.MonsterDB;
 
-
-public class Monster extends Combat{
-	
+/** Class : Monster.java
+ * @author: Rick Price
+ * @version: 1.0
+ * Course: ITEC 3860
+ * Written: Feb 28, 2017
+ *
+ * This class is the Monster class handling business logic for the Monster class
+ */
+public class Monster
+{
 	private int monsterID;
 	private String monsterName;
-	private String monsterDescription; 
-	private String immune; // new var
+	private String monsterDescription;
+	private String immune;
 	private int hitPoints;
 	private int minDamage;
 	private int maxDamage;
-	private int elemantalDamage;
-	private int damagePerTurn;
-	private int numTurns;
-
-	private int attackFirst;  // 0 no  and 1 yes
-	private int combatDelay;  // number of turns before monster attacks
-	
+	private int attackFirst;
+	private int turnToHitPlayer;
+	private int commonDrop;
+	private int uncommonDrop;
+	private int rareDrop;
+	private int legendaryDrop;
+	private int spawnChance;
 	
 	/** Constructor: Monster
 	 */
-	public Monster() {
+	public Monster()
+	{
 		MonsterDB  mdb = new MonsterDB();
 		monsterID = mdb.getNextMonsterID();
 	}
@@ -36,7 +44,8 @@ public class Monster extends Combat{
 	 * @return Monster
 	 * @throws SQLException
 	 */
-	public Monster getMonster(int id) throws SQLException {
+	public Monster getMonster(int id) throws SQLException
+	{
 		MonsterDB  mdb = new MonsterDB();
 		return mdb.getMonster(id);
 	}
@@ -46,87 +55,232 @@ public class Monster extends Combat{
 	 * @return ArrayList<Monster>
 	 * @throws SQLException
 	 */
-	public ArrayList<Monster> getAllMonsters() throws SQLException {
+	public ArrayList<Monster> getAllMonsters() throws SQLException
+	{
 		MonsterDB  mdb = new MonsterDB();
 		return mdb.getAllMonsters();
 	}
 
-	public int getMonsterID() {
+	/** Method: getMonsterID
+	 * @return the monsterID
+	 */
+	public int getMonsterID()
+	{
 		return monsterID;
 	}
 
-	public void setMonsterID(int monsterID) {
+	/** Method: setMonsterID
+	 * @param monsterID the monsterID to set
+	 */
+	public void setMonsterID(int monsterID)
+	{
 		this.monsterID = monsterID;
 	}
 
-	public String getMonsterName() {
+	/** Method: getMonsterName
+	 * @return the monsterName
+	 */
+	public String getMonsterName()
+	{
 		return monsterName;
 	}
 
-	public void setMonsterName(String monsterName) {
+	/** Method: setMonsterName
+	 * @param monsterName the monsterName to set
+	 */
+	public void setMonsterName(String monsterName)
+	{
 		this.monsterName = monsterName;
 	}
 
-	public String getMonsterDescription() {
+	/** Method: getMonsterDescription
+	 * @return the monsterDescription
+	 */
+	public String getMonsterDescription()
+	{
 		return monsterDescription;
 	}
 
-	public void setMonsterDescription(String monsterDescription) {
+	/** Method: setMonsterDescription
+	 * @param monsterDescription the monsterDescription to set
+	 */
+	public void setMonsterDescription(String monsterDescription)
+	{
 		this.monsterDescription = monsterDescription;
 	}
 
-	public int getHitPoints() {
+	/** Method: getHitPoints
+	 * @return the hitPoints
+	 */
+	public int getHitPoints()
+	{
 		return hitPoints;
 	}
 
-	public void setHitPoints(int hitPoints) {
+	/** Method: setHitPoints
+	 * @param hitPoints the hitPoints to set
+	 */
+	public void setHitPoints(int hitPoints)
+	{
 		this.hitPoints = hitPoints;
 	}
 
-	public int getMinDamage() {
+	/** Method: getMinDamage
+	 * @return the minDamage
+	 */
+	public int getMinDamage()
+	{
 		return minDamage;
 	}
 
-	public void setMinDamage(int minDamage) {
+	/** Method: setMinDamage
+	 * @param minDamage the minDamage to set
+	 */
+	public void setMinDamage(int minDamage)
+	{
 		this.minDamage = minDamage;
 	}
 
-	public int getMaxDamage() {
+	/** Method: getMaxDamage
+	 * @return the maxDamage
+	 */
+	public int getMaxDamage()
+	{
 		return maxDamage;
 	}
 
-	public void setMaxDamage(int maxDamage) {
+	/** Method: setMaxDamage
+	 * @param maxDamage the maxDamage to set
+	 */
+	public void setMaxDamage(int maxDamage)
+	{
 		this.maxDamage = maxDamage;
 	}
 
-	public int getElemantalDamage() {
-		return elemantalDamage;
+	/**
+	 * @return the immune
+	 */
+	public String getImmune() {
+		return immune;
 	}
 
-	public void setElemantalDamage(int elemantalDamage) {
-		this.elemantalDamage = elemantalDamage;
+	/**
+	 * @param immune the immune to set
+	 */
+	public void setImmune(String immune) {
+		this.immune = immune;
 	}
 
-	public int getDamagePerTurn() {
-		return damagePerTurn;
+	/**
+	 * @return the attackFirst
+	 */
+	public int getAttackFirst() {
+		return attackFirst;
 	}
 
-	public void setDamagePerTurn(int damagePerTurn) {
-		this.damagePerTurn = damagePerTurn;
+	/**
+	 * @param attackFirst the attackFirst to set
+	 */
+	public void setAttackFirst(int attackFirst) {
+		this.attackFirst = attackFirst;
 	}
 
-	public int getNumTurns() {
-		return numTurns;
+	/**
+	 * @return the turnToHitPlayer
+	 */
+	public int getTurnToHitPlayer() {
+		return turnToHitPlayer;
 	}
 
-	public void setNumTurns(int numTurns) {
-		this.numTurns = numTurns;
+	/**
+	 * @param turnToHitPlayer the turnToHitPlayer to set
+	 */
+	public void setTurnToHitPlayer(int turnToHitPlayer) {
+		this.turnToHitPlayer = turnToHitPlayer;
 	}
 
+	/**
+	 * @return the commonDrop
+	 */
+	public int getCommonDrop() {
+		return commonDrop;
+	}
+
+	/**
+	 * @param commonDrop the commonDrop to set
+	 */
+	public void setCommonDrop(int commonDrop) {
+		this.commonDrop = commonDrop;
+	}
+
+	/**
+	 * @return the uncommonDrop
+	 */
+	public int getUncommonDrop() {
+		return uncommonDrop;
+	}
+
+	/**
+	 * @param uncommonDrop the uncommonDrop to set
+	 */
+	public void setUncommonDrop(int uncommonDrop) {
+		this.uncommonDrop = uncommonDrop;
+	}
+
+	/**
+	 * @return the rareDrop
+	 */
+	public int getRareDrop() {
+		return rareDrop;
+	}
+
+	/**
+	 * @param rareDrop the rareDrop to set
+	 */
+	public void setRareDrop(int rareDrop) {
+		this.rareDrop = rareDrop;
+	}
+
+	/**
+	 * @return the legendaryDrop
+	 */
+	public int getLegendaryDrop() {
+		return legendaryDrop;
+	}
+
+	/**
+	 * @param legendaryDrop the legendaryDrop to set
+	 */
+	public void setLegendaryDrop(int legendaryDrop) {
+		this.legendaryDrop = legendaryDrop;
+	}
+
+	/**
+	 * @return the spawnChance
+	 */
+	public int getSpawnChance() {
+		return spawnChance;
+	}
+
+	/**
+	 * @param spawnChance the spawnChance to set
+	 */
+	public void setSpawnChance(int spawnChance) {
+		this.spawnChance = spawnChance;
+	}
+
+	/** Method: toString
+	 * Purpose: Returns a String of the Monster class
+	 * @return
+	 */
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Monster monsterID = " + monsterID + "\nmonsterName = " + monsterName + "\nmonsterDescription = "
-				+ monsterDescription;
+				+ monsterDescription + "\nimmune = " + immune + "\nhitPoints = " + hitPoints + "\nminDamage = " + minDamage 
+				+ "\nmaxDamage = " + maxDamage + "\nattackFirst = " + attackFirst + "\nturnToHitPlayer = " + turnToHitPlayer
+				+ "\ncommonDrop = " + commonDrop + "\nuncommonDrop = " + uncommonDrop + "\nrareDrop = " + rareDrop 
+				+ "\nlegendaryDrop = " + legendaryDrop + "\nspawnChance = " + spawnChance; 
 	}
 
 

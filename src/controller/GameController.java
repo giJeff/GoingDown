@@ -14,17 +14,22 @@ import model.SQLiteDB;
  * This class is the main controller for the DB Demo program.  
  * Will hold utility functions as well as central functionality 
  */
-public class GameController {
+public class GameController
+{
 	private static SQLiteDB sdb;
 
 	
 	/** Method: getDB
 	 * @return the db
 	 */
-	public static SQLiteDB getDB() {
-		try {
+	public static SQLiteDB getDB()
+	{
+		try
+		{
 			sdb = new SQLiteDB();
-		} catch (ClassNotFoundException | SQLException e) {
+		} 
+		catch (ClassNotFoundException | SQLException e)
+		{
 			System.out.println("ERROR!\nThere was a problem opening the database \n" + e.getMessage());
 		}
 
@@ -36,7 +41,8 @@ public class GameController {
 	 * String
 	 * @throws SQLException 
 	 */
-	public String getRoomData(int roomNumber) throws SQLException {
+	public String getRoomData(int roomNumber) throws SQLException
+	{
 		Room rm = new Room();
 		rm = rm.getRoom(roomNumber);
 		return rm.toString();
@@ -47,12 +53,14 @@ public class GameController {
 	 * @return ArrayList<String>
 	 * @throws SQLException
 	 */
-	public ArrayList<String> getAllRoomsData() throws SQLException {
+	public ArrayList<String> getAllRoomsData() throws SQLException
+	{
 		ArrayList<Room> rooms = null;
 		Room rm = new Room();
 		rooms = rm.getAllRooms();
 		ArrayList<String> roomStrs = new ArrayList<String>();
-		for(Room room : rooms) {
+		for(Room room : rooms)
+		{
 			roomStrs.add(room.toString());
 		}
 		return roomStrs;
@@ -63,7 +71,8 @@ public class GameController {
 	 * String
 	 * @throws SQLException 
 	 */
-	public String getMonsterData(int monsterNumber) throws SQLException {
+	public String getMonsterData(int monsterNumber) throws SQLException
+	{
 		Monster mon = new Monster();
 		mon = mon.getMonster(monsterNumber);
 		return mon.toString();
@@ -75,12 +84,14 @@ public class GameController {
 	 * @throws SQLException
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllMonstersData() throws SQLException {
+	public ArrayList<String> getAllMonstersData() throws SQLException
+	{
 		Monster mon = new Monster();
 		ArrayList<Monster> monsters = null;
 		monsters = mon.getAllMonsters();
 		ArrayList<String> monstersStr = new ArrayList<String>();
-		for(Monster monster : monsters) {
+		for(Monster monster : monsters)
+		{
 			monstersStr.add(monster.toString());
 		}		
 		return monstersStr;
@@ -91,7 +102,8 @@ public class GameController {
 	 * void
 	 * @throws SQLException 
 	 */
-	public String getMonsterRoomData(int monsterRoomNumber) throws SQLException {
+	public String getMonsterRoomData(int monsterRoomNumber) throws SQLException
+	{
 		MonsterRoom mr = new MonsterRoom();
 		mr = mr.getMonster(monsterRoomNumber);
 		return mr.toString();
@@ -102,12 +114,14 @@ public class GameController {
 	 * @throws SQLException
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllMonsterRoomData() throws SQLException {
+	public ArrayList<String> getAllMonsterRoomData() throws SQLException
+	{
 		MonsterRoom mr = new MonsterRoom();
 		ArrayList<MonsterRoom> monsterRooms = null;
 		monsterRooms = mr.getAllMonsters();
 		ArrayList<String> mrStrs = new ArrayList<String>();	
-		for(MonsterRoom monsterRoom : monsterRooms) {
+		for(MonsterRoom monsterRoom : monsterRooms)
+		{
 			mrStrs.add(monsterRoom.toString());
 		}		
 		return mrStrs;

@@ -29,7 +29,6 @@ public class ConsoleUI
 		GameController gc = new GameController();
 		try
 		{
-			System.out.println(gc.getRoomData(1));
 			printStrs(gc.getAllRoomsData());
 		} 
 		catch (SQLException e2)
