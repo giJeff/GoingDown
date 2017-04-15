@@ -7,13 +7,19 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Monster;
 
-
+/** Class : MonsterDB.java
+ * @author: Rick Price
+ * @version: 1.0
+ * Course: ITEC 3860
+ * Written: Mar 01, 2017
+ *
+ * This class handles all database acces for the Monster class
+ */
 public class MonsterDB
 {
-	/** Method: getRandomMonster
-	 * Purpose: Gets the id for the next random monster. 
+	/** Method: getNextMonsterID
+	 * Purpose: Gets the id for the next monster. 
 	 * @return int
-	 * 
 	 */
 	public int getNextMonsterID()
 	{
@@ -45,12 +51,18 @@ public class MonsterDB
 			mon.setMonsterID(rs.getInt("monsterNumber"));
 			mon.setMonsterName(rs.getString("monsterName"));
 			mon.setMonsterDescription(rs.getString("monsterDescription"));
+			mon.setImmune(rs.getString("immune"));
 			mon.setHitPoints(rs.getInt("hitPoints"));
 			mon.setMaxDamage(rs.getInt("maxDamage"));
 			mon.setMinDamage(rs.getInt("minDamage"));
-			mon.setElemantalDamage(rs.getInt("elementalDamage"));
-			mon.setDamagePerTurn(rs.getInt("damagePerTurn"));
-			mon.setNumTurns(rs.getInt("numTurns"));
+			mon.setAttackFirst(rs.getInt("attackFirst"));
+			mon.setTurnToHitPlayer(rs.getInt("turnToHitPlayer"));
+			mon.setCommonDrop(rs.getInt("commonDrop"));
+			mon.setUncommonDrop(rs.getInt("uncommonDrop"));
+			mon.setRareDrop(rs.getInt("rareDrop"));
+			mon.setLegendaryDrop(rs.getInt("legendaryDrop"));
+			mon.setSpawnChance(rs.getInt("spawnChance"));
+
 		}
 		sdb.close();
 		return mon;
@@ -75,12 +87,17 @@ public class MonsterDB
 			mon.setMonsterID(rs.getInt("monsterNumber"));
 			mon.setMonsterName(rs.getString("monsterName"));
 			mon.setMonsterDescription(rs.getString("monsterDescription"));
+			mon.setImmune(rs.getString("immune"));
 			mon.setHitPoints(rs.getInt("hitPoints"));
 			mon.setMaxDamage(rs.getInt("maxDamage"));
 			mon.setMinDamage(rs.getInt("minDamage"));
-			mon.setElemantalDamage(rs.getInt("elementalDamage"));
-			mon.setDamagePerTurn(rs.getInt("damagePerTurn"));
-			mon.setNumTurns(rs.getInt("numTurns"));
+			mon.setAttackFirst(rs.getInt("attackFirst"));
+			mon.setTurnToHitPlayer(rs.getInt("turnToHitPlayer"));
+			mon.setCommonDrop(rs.getInt("commonDrop"));
+			mon.setUncommonDrop(rs.getInt("uncommonDrop"));
+			mon.setRareDrop(rs.getInt("rareDrop"));
+			mon.setLegendaryDrop(rs.getInt("legendaryDrop"));
+			mon.setSpawnChance(rs.getInt("spawnChance"));
 			monsters.add(mon);
 		}
 		

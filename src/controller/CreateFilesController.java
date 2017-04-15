@@ -10,11 +10,15 @@ public class CreateFilesController
 	 * Purpose: Create the database for DOA
 	 * @return void
 	 */
-	public void createFile() {
-		try {
+	public void createFile()
+	{
+		try
+		{
 			GameDBCreate sdb = new GameDBCreate();
 			sdb.buildTables();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			System.out.println("Creation failed");
 		}
 	}

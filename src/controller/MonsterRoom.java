@@ -5,18 +5,22 @@ import java.util.ArrayList;
 
 import model.MonsterRoomDB;
 
-
-public class MonsterRoom {
-	
+/** Class : MonsterRoom.java
+ * @author: Rick Price
+ * @version: 1.0
+ * Course: ITEC 3860, Spring 2017
+ * Written: Feb 28, 2017
+ *
+ * Purpose: Provide the logic for the association table mapping monsters to rooms. 
+ */
+public class MonsterRoom
+{
 	private int monsterNumber;
 	private String monsterName;
 	private String monsterDescription;
 	private int hitPoints;
 	private int maxDamage;
 	private int minDamage;
-	private int elemantalDamage;
-	private int damagePerTurn;
-	private int numTurns;
 	private int roomNumber;
 	private String roomName;
 	private String roomDescription;
@@ -27,7 +31,8 @@ public class MonsterRoom {
 	 * @return MonsterROom
 	 * @throws SQLException
 	 */
-	public MonsterRoom getMonster(int roomID) throws SQLException {
+	public MonsterRoom getMonster(int roomID) throws SQLException
+	{
 		MonsterRoomDB  mdb = new MonsterRoomDB();
 		return mdb.getMonster(roomID);
 	}
@@ -37,110 +42,163 @@ public class MonsterRoom {
 	 * @return ArrayList<MonsterRoom>
 	 * @throws SQLException
 	 */
-	public ArrayList<MonsterRoom> getAllMonsters() throws SQLException {
+	public ArrayList<MonsterRoom> getAllMonsters() throws SQLException
+	{
 		MonsterRoomDB  mdb = new MonsterRoomDB();
 		return mdb.getAllMonsters();
 	}
 
-	public int getMonsterNumber() {
+	/** Method: getMonsterNumber
+	 * @return the monsterNumber
+	 */
+	public int getMonsterNumber()
+	{
 		return monsterNumber;
 	}
 
-	public void setMonsterNumber(int monsterNumber) {
+	/** Method: setMonsterNumber
+	 * @param monsterNumber the monsterNumber to set
+	 */
+	public void setMonsterNumber(int monsterNumber)
+	{
 		this.monsterNumber = monsterNumber;
 	}
 
-	public String getMonsterName() {
+	/** Method: getMonsterName
+	 * @return the monsterName
+	 */
+	public String getMonsterName()
+	{
 		return monsterName;
 	}
 
-	public void setMonsterName(String monsterName) {
+	/** Method: setMonsterName
+	 * @param monsterName the monsterName to set
+	 */
+	public void setMonsterName(String monsterName)
+	{
 		this.monsterName = monsterName;
 	}
 
-	public String getMonsterDescription() {
+	/** Method: getMonsterDescription
+	 * @return the monsterDescription
+	 */
+	public String getMonsterDescription()
+	{
 		return monsterDescription;
 	}
 
-	public void setMonsterDescription(String monsterDescription) {
+	/** Method: setMonsterDescription
+	 * @param monsterDescription the monsterDescription to set
+	 */
+	public void setMonsterDescription(String monsterDescription)
+	{
 		this.monsterDescription = monsterDescription;
 	}
 
-	public int getHitPoints() {
+	/** Method: getHitPoints
+	 * @return the hitPoints
+	 */
+	public int getHitPoints()
+	{
 		return hitPoints;
 	}
 
-	public void setHitPoints(int hitPoints) {
+	/** Method: setHitPoints
+	 * @param hitPoints the hitPoints to set
+	 */
+	public void setHitPoints(int hitPoints)
+	{
 		this.hitPoints = hitPoints;
 	}
 
-	public int getMaxDamage() {
+	/** Method: getMaxDamage
+	 * @return the maxDamage
+	 */
+	public int getMaxDamage()
+	{
 		return maxDamage;
 	}
 
-	public void setMaxDamage(int maxDamage) {
+	/** Method: setMaxDamage
+	 * @param maxDamage the maxDamage to set
+	 */
+	public void setMaxDamage(int maxDamage)
+	{
 		this.maxDamage = maxDamage;
 	}
 
-	public int getMinDamage() {
+	/** Method: getMinDamage
+	 * @return the minDamage
+	 */
+	public int getMinDamage()
+	{
 		return minDamage;
 	}
 
-	public void setMinDamage(int minDamage) {
+	/** Method: setMinDamage
+	 * @param minDamage the minDamage to set
+	 */
+	public void setMinDamage(int minDamage)
+	{
 		this.minDamage = minDamage;
 	}
 
-	public int getElemantalDamage() {
-		return elemantalDamage;
-	}
-
-	public void setElemantalDamage(int elemantalDamage) {
-		this.elemantalDamage = elemantalDamage;
-	}
-
-	public int getDamagePerTurn() {
-		return damagePerTurn;
-	}
-
-	public void setDamagePerTurn(int damagePerTurn) {
-		this.damagePerTurn = damagePerTurn;
-	}
-
-	public int getNumTurns() {
-		return numTurns;
-	}
-
-	public void setNumTurns(int numTurns) {
-		this.numTurns = numTurns;
-	}
-
-	public int getRoomNumber() {
+	/** Method: getRoomNumber
+	 * @return the roomNumber
+	 */
+	public int getRoomNumber()
+	{
 		return roomNumber;
 	}
 
-	public void setRoomNumber(int roomNumber) {
+	/** Method: setRoomNumber
+	 * @param roomNumber the roomNumber to set
+	 */
+	public void setRoomNumber(int roomNumber)
+	{
 		this.roomNumber = roomNumber;
 	}
 
-	public String getRoomName() {
+	/** Method: getRoomName
+	 * @return the roomName
+	 */
+	public String getRoomName()
+	{
 		return roomName;
 	}
 
-	public void setRoomName(String roomName) {
+	/** Method: setRoomName
+	 * @param roomName the roomName to set
+	 */
+	public void setRoomName(String roomName)
+	{
 		this.roomName = roomName;
 	}
 
-	public String getRoomDescription() {
+	/** Method: getRoomDescription
+	 * @return the roomDescription
+	 */
+	public String getRoomDescription()
+	{
 		return roomDescription;
 	}
 
-	public void setRoomDescription(String roomDescription) {
+	/** Method: setRoomDescription
+	 * @param roomDescription the roomDescription to set
+	 */
+	public void setRoomDescription(String roomDescription)
+	{
 		this.roomDescription = roomDescription;
 	}
 
-
+	/** Method: toString
+	 * Purpose: Returns a String representation of the MonsterRoom data.    
+	 * @return
+	 */
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "MonsterRoom,  monsterNumber = " + monsterNumber + ", monsterName = " + monsterName + "\n monsterDescription = "
 				+ monsterDescription + "\nwith hitPoints = " + hitPoints + " causing maxDamage = " + maxDamage + " and minDamage = "
 				+ minDamage + ".\nIs in roomNumber = " + roomNumber + ", roomName = " + roomName + ", roomDescription = "
