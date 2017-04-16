@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/bserr/src/3860/DBTutorial/sqlite-jdbc-3.16.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mezol/src/3860/GoingDown/sqlite-jdbc-3.16.1.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="sqlite-jdbc-3.16.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
