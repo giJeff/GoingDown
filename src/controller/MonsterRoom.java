@@ -38,7 +38,7 @@ public class MonsterRoom
 	}
 	
 	/** Method: getAllMonsters
-	 * Purpose: gets all mosters and their associated rooms
+	 * Purpose: gets all monsters and their associated rooms
 	 * @return ArrayList<MonsterRoom>
 	 * @throws SQLException
 	 */
