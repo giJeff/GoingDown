@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import model.SQLiteDB;
 
 /** Class : GameController.java
- * @author: Rick Price
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: ITEC 3860
- * Written: Mar 01, 2017
+ * Written: April 01, 2017
  *
- * This class is the main controller for the DB Demo program.  
+ * This class is the main controller for the GoingDown program.  
  * Will hold utility functions as well as central functionality 
  */
 public class GameController
@@ -125,6 +125,96 @@ public class GameController
 			mrStrs.add(monsterRoom.toString());
 		}		
 		return mrStrs;
+	}
+	
+	/** Method: getWeaponData
+	 * Purpose: Gets the weapon and displays list of attributes
+	 * void
+	 * @throws SQLException 
+	 */
+	public String getWeaponData(int weaponNumber) throws SQLException
+	{
+		Weapon wep = new Weapon();
+		wep = wep.getWeapon(weaponNumber);
+		return wep.toString();
+	}
+	
+	/** Method: getAllWeaponData
+	 * Purpose: Get all of the weapon data.
+	 * @throws SQLException
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllWeaponData() throws SQLException
+	{
+		Weapon wep = new Weapon();
+		ArrayList<Weapon> weapons = null;
+		weapons = wep.getAllWeapons();
+		ArrayList<String> wepStrs = new ArrayList<String>();	
+		for(Weapon weapon : weapons)
+		{
+			wepStrs.add(weapon.toString());
+		}		
+		return wepStrs;
+	}
+	
+	/** Method: getArmorData
+	 * Purpose: Gets the armor and displays list of attributes
+	 * void
+	 * @throws SQLException 
+	 */
+	public String getArmorData(int armorNumber) throws SQLException
+	{
+		Armor arm = new Armor();
+		arm = arm.getArmor(armorNumber);
+		return arm.toString();
+	}
+	
+	/** Method: getAllArmorData
+	 * Purpose: Get all of the armor data.
+	 * @throws SQLException
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllArmorData() throws SQLException
+	{
+		Armor arm = new Armor();
+		ArrayList<Armor> armors = null;
+		armors = arm.getAllArmors();
+		ArrayList<String> armStrs = new ArrayList<String>();	
+		for(Armor armor : armors)
+		{
+			armStrs.add(armor.toString());
+		}		
+		return armStrs;
+	}
+	
+	/** Method: getPotionData
+	 * Purpose: Gets the potion and displays list of attributes
+	 * void
+	 * @throws SQLException 
+	 */
+	public String getPotionData(int potionNumber) throws SQLException
+	{
+		Potion pot = new Potion();
+		pot = pot.getPotion(potionNumber);
+		return pot.toString();
+	}
+	
+	/** Method: getAllPotionData
+	 * Purpose: Get all of the potion data.
+	 * @throws SQLException
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllPotionData() throws SQLException
+	{
+		Potion pot = new Potion();
+		ArrayList<Potion> potions = null;
+		potions = pot.getAllPotions();
+		ArrayList<String> potStrs = new ArrayList<String>();	
+		for(Potion potion : potions)
+		{
+			potStrs.add(potion.toString());
+		}		
+		return potStrs;
 	}
 
 

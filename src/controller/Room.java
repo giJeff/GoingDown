@@ -268,11 +268,11 @@ public class Room
 	@Override
 	public String toString()
 	{
-		return "Room roomID = " + roomID  + "\nfloorNumber = " + floorNumber + "\nroomName = " + roomName + "\nroomDescription = " 
+		return "Room {\nroomID = " + roomID  + "\nfloorNumber = " + floorNumber + "\nroomName = " + roomName + "\nroomDescription = " 
 				+ roomDescription + "\nexitNorth = " + exitNorth + "\nexitEast = " + exitEast  + "\nexitSouth = " + exitSouth
 				 + "\nexitWest = " + exitWest + "\nroomClear = " + roomClear + "\nisFloorExit = " + isFloorExit
 				 + "\nisPuzzleRoom = " + isPuzzleRoom + "\nisMonsterRoom = " + isMonsterRoom + "\nisBossRoom = " + isBossRoom
-				 + "\nisSafeRoom = " + isSafeRoom;
+				 + "\nisSafeRoom = " + isSafeRoom + "\n}";
 	}
 	
 }

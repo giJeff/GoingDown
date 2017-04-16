@@ -90,12 +90,32 @@ public class UIController
 				}
 				case 5:
 				{
-					retStr = gc.getMonsterRoomData(1);
+					retStr = gc.getWeaponData(1);
 					break;
 				}
 				case 6:
 				{
-					retStr = buildStrs(gc.getAllMonsterRoomData());
+					retStr = buildStrs(gc.getAllWeaponData());
+					break;
+				}
+				case 7:
+				{
+					retStr = gc.getArmorData(1);
+					break;
+				}
+				case 8:
+				{
+					retStr = buildStrs(gc.getAllArmorData());
+					break;
+				}
+				case 9:
+				{
+					retStr = gc.getPotionData(1);
+					break;
+				}
+				case 10:
+				{
+					retStr = buildStrs(gc.getAllPotionData());
 					break;
 				}
 				default:

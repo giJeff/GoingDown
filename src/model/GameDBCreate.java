@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import controller.GameController;
 
 /** Class : GameDBCreate
- * @author: Rick Price
+ * @author: Jeff Graves based off Rick Price GameDBCreate
  * @version: 1.0
  * Course: 
- * Written: Feb 27, 2017
+ * Written: April 1, 2017
  *
  * This class creates the Game db if it doesn't exist
  *
@@ -27,7 +27,10 @@ public class GameDBCreate
 	{
 		buildRoom();
 		buildMonster();
-		buildMonsterRoom();
+		buildWeapon();
+		buildArmor();
+		buildPotion();
+		//buildMonsterRoom();
 	}
 	
 	/** Method: buildRoom
@@ -44,6 +47,8 @@ public class GameDBCreate
 				+ " isSafeRoom int not null)";
 		sdb.updateDB(sql);
 
+		
+//FLOOR 1 ***********************************************************************************************************************
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest,"
 				+ " roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) "
 				+ "Values(1, 1, 'Entrance', 'This is the entrance room', null, 2, null, null, 0, 0, 0, 0, 0, 1)";
@@ -80,7 +85,7 @@ public class GameDBCreate
 		sdb.updateDB(sql);
 
 		
-		
+// FLOOR 2 *******************************************************************************************************************		
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest,"
 				+ " roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) "
 				+ "Values(8, 2, 'Entrance', 'This is the entrance room', 16, null, null, 9, 0, 0, 0, 0, 0, 1)";
@@ -177,7 +182,7 @@ public class GameDBCreate
 		sdb.updateDB(sql);
 
 
-		
+// FLOOR 3 *******************************************************************************************************************		
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest,"
 				+ " roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) "
 				+ "Values(27, 3, 'Entrance', 'This is the entrance room', 28, null, 38, null, 0, 0, 0, 0, 0, 1)";
@@ -269,7 +274,7 @@ public class GameDBCreate
 		sdb.updateDB(sql);
 
 
-
+// FLOOR 4 *******************************************************************************************************************
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest,"
 				+ " roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) "
 				+ "Values(46, 4, 'Entrance', 'This is the entrance room', null, 47, 53, null, 0, 0, 0, 0, 0, 1)";
@@ -366,7 +371,7 @@ public class GameDBCreate
 		sdb.updateDB(sql);
 
 		
-
+// FLOOR 5 *******************************************************************************************************************
 		sql = "INSERT INTO Room(roomNumber, floorNumber, roomName, roomDescription, exitNorth, exitEast, exitSouth, exitWest,"
 				+ " roomClear, isFloorExit, isPuzzleRoom, isMonsterRoom, isBossRoom, isSafeRoom) "
 				+ "Values(65, 5, 'Entrance', 'This is the entrance room', null, 72, null, null, 0, 0, 0, 0, 0, 1)";
@@ -526,7 +531,7 @@ public class GameDBCreate
 				+ " Values(9, 'Goblin', 'Melee', 'none', 25, 4, 10, 1, 0, 45, 25, 15, 15, 5)";
 		sdb.updateDB(sql);
 		
-//start elite!!!!!!!*****#**#&*@#*(@(
+//START ELITE MONSTERS     !!!!!!!*****#**#&*@#*(@(
 
 		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
 				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
@@ -572,7 +577,7 @@ public class GameDBCreate
 	 * @throws SQLException
 	 * @return void
 	 */
-	public void buildMonsterRoom(int monster, int room) throws SQLException
+	public void buildMonsterRoom() throws SQLException
 	{
 		sdb = GameController.getDB();
 		String sql = "CREATE TABLE MonsterRoom(monsterNumber int not Null, roomNumber int not Null)";
@@ -583,6 +588,173 @@ public class GameDBCreate
 		sdb.updateDB(sql);
 		sdb.close();
 	}
+	
+	/** Method: buildWeapon
+	 * Purpose: Build the Weapon table and load data
+	 * @throws SQLException
+	 * @return void
+	 */
+	public void buildWeapon() throws SQLException
+	{
+		sdb = GameController.getDB();
+		String sql = "CREATE TABLE Weapon(weaponNumber int Primary Key not null, weaponName text not null, equipSlot int not null, "
+				+ "attackType text not null, minDamage int not null, maxDamage int not null, extra text not null, "
+				+ "commonDamage float(2) not null, uncommonDamage float(2) not null, rareDamage float(2) not null, "
+				+ "legendaryDamage float(2) not null, weight float(2) not null)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(1, 'Knights Zweihander', 2, 'melee', 30, 60, 'none', 1.00, 1.10, 1.25, 1.50, 30)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(2, 'Xiphos', 1, 'melee', 20, 30, 'none', 1.00, 1.10, 1.25, 1.50, 20)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(3, 'Serpents Sabre', 1, 'melee', 20, 25, 'none', 1.00, 1.10, 1.25, 1.50, 10)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(4, 'Spark Sword', 1, 'melee', 12, 18, 'all', 1.00, 1.10, 1.25, 1.50, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(5, 'Lightning Staff', 2, 'melee', 12, 20, 'lightning', 1.00, 1.10, 1.25, 1.50, 25)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(6, 'Maple Bow', 1, 'ranged', 0, 0, 'none', 1.00, 1.10, 1.25, 1.50, 10)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(7, 'Bow of Slaying', 1, 'ranged', 0, 0, 'none', 1.10, 1.25, 1.50, 1.75, 15)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(8, 'Buckler', 0, 'shield', 0, 0, 'block10', 1.00, 1.10, 1.25, 1.50, 5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(9, 'Skirmishers Kite Shield', 0, 'shield', 0, 0, 'block20', 1.00, 1.10, 1.25, 1.50, 10)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(10, 'Crusaders Shield', 0, 'shield', 0, 0, 'block30', 1.00, 1.10, 1.25, 1.50, 20)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(11, 'Arrow', 0, 'arrow', 10, 20, 'none', 1.00, 1.10, 1.25, 1.50, 0.5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(12, 'Poison Arrow', 0, 'arrow', 8, 16, 'Poison', 1.00, 1.10, 1.25, 1.50, 0.5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(13, 'Flame Arrow', 0, 'arrow', 12, 18, 'Fire', 1.00, 1.10, 1.25, 1.50, 0.5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Weapon(weaponNumber, weaponName, equipSlot, attackType, minDamage, maxDamage, extra, "
+				+ "commonDamage, uncommonDamage, rareDamage, legendaryDamage, weight) "
+				+ "Values(14, 'Lightning Arrow', 0, 'arrow', 8, 12, 'lightning', 1.00, 1.10, 1.25, 1.50, 0.5)";
+		sdb.updateDB(sql);
+		
+		sdb.close();
+	}
 
+	/** Method: buildArmor
+	 * Purpose: Build the Armor table and load data
+	 * @throws SQLException
+	 * @return void
+	 */
+	public void buildArmor() throws SQLException
+	{
+		sdb = GameController.getDB();
+		String sql = "CREATE TABLE Armor(armorNumber int Primary Key not Null, equipSlot int not null, armorType text not null,"
+				+ " commonDamageReduction float not null, uncommonDamageReduction float not null, rareDamageReduction float not null,"
+				+ " legendaryDamageReduction float not null, weight float not null)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+				+ "rareDamageReduction, legendaryDamageReduction, weight) "
+				+ "Values(1, 'Helmet', 3, 0.99, 0.98, 0.95, 0.90, 2)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+				+ "rareDamageReduction, legendaryDamageReduction, weight) "
+				+ "Values(2, 'Chestpiece', 4, 0.99, 0.98, 0.95, 0.90, 4)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+				+ "rareDamageReduction, legendaryDamageReduction, weight) "
+				+ "Values(3, 'Legs', 5, 0.99, 0.98, 0.95, 0.90, 3)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+				+ "rareDamageReduction, legendaryDamageReduction, weight) "
+				+ "Values(4, 'Gloves', 6, 0.99, 0.98, 0.95, 0.90, 0.5)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+				+ "rareDamageReduction, legendaryDamageReduction, weight) "
+				+ "Values(5, 'Boots', 7, 0.99, 0.98, 0.95, 0.90, 0.5)";
+		sdb.updateDB(sql);
+		
+		sdb.close();
+	}
+	
+	/** Method: buildArmor
+	 * Purpose: Build the Armor table and load data
+	 * @throws SQLException
+	 * @return void
+	 */
+	public void buildPotion() throws SQLException
+	{
+		sdb = GameController.getDB();
+		String sql = "CREATE TABLE Potion(potionNumber int Primary Key not Null, potionName text not null, healPerTurn int not null,"
+				+ " numberOfTurn int not null,  extra text not null, weight float(2) not null)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Potion(potionNumber, potionName, healPerTurn, numberOfTurn,  extra, weight) "
+				+ "Values(1, 'Health Potion', 30, 0, 'none', 0.1)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Potion(potionNumber, potionName, healPerTurn, numberOfTurn,  extra, weight) "
+				+ "Values(2, 'Greater Health Potion', 60, 0, 'none', 0.1)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Potion(potionNumber, potionName, healPerTurn, numberOfTurn,  extra, weight) "
+				+ "Values(3, 'Max Health Potion', 0, 0, 'all', 0.1)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Potion(potionNumber, potionName, healPerTurn, numberOfTurn,  extra, weight) "
+				+ "Values(4, 'Regen Health Potion', 12, 15, 'none', 0.1)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Potion(potionNumber, potionName, healPerTurn, numberOfTurn,  extra, weight) "
+				+ "Values(5, 'Greater Regen Health Potion', 15, 10, 'none', 0.1)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Potion(potionNumber, potionName, healPerTurn, numberOfTurn,  extra, weight) "
+				+ "Values(6, 'Cure Potion', 0, 0, 'cure', 0.1)";
+		sdb.updateDB(sql);
+		
+		
+		sdb.close();
+	}
 
 }

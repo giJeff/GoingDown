@@ -8,6 +8,8 @@ import controller.GameController;
 import controller.Monster;
 import controller.MonsterRoom;
 import controller.Room;
+import controller.Weapon;
+import controller.Armor;
 
 /** Class : ConsoleUI.java
  * @author: Rick Price
@@ -42,7 +44,6 @@ public class ConsoleUI
 		
 		try
 		{
-			System.out.println(gc.getMonsterData(1));
 			printStrs(gc.getAllMonstersData());
 		} 
 		catch (SQLException e1)
@@ -50,13 +51,36 @@ public class ConsoleUI
 			e1.printStackTrace();
 		}
 		
-		System.out.println("Please press a key to see Monster/Room data");
+		System.out.println("Please press a key to see Weapon data");
 		input.nextLine();
 		
 		try
 		{
-			System.out.println(gc.getMonsterRoomData(1));
-			printStrs(gc.getAllMonsterRoomData());
+			printStrs(gc.getAllWeaponData());
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		System.out.println("Please press a key to see Armor data");
+		input.nextLine();
+		
+		try
+		{
+			printStrs(gc.getAllArmorData());
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		System.out.println("Please press a key to see Potion data");
+		input.nextLine();
+		
+		try
+		{
+			printStrs(gc.getAllPotionData());
 		} 
 		catch (SQLException e)
 		{

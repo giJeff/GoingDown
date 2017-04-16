@@ -276,11 +276,11 @@ public class Monster
 	@Override
 	public String toString()
 	{
-		return "Monster monsterID = " + monsterID + "\nmonsterName = " + monsterName + "\nmonsterDescription = "
+		return "Monster {\nmonsterID = " + monsterID + "\nmonsterName = " + monsterName + "\nmonsterDescription = "
 				+ monsterDescription + "\nimmune = " + immune + "\nhitPoints = " + hitPoints + "\nminDamage = " + minDamage 
 				+ "\nmaxDamage = " + maxDamage + "\nattackFirst = " + attackFirst + "\nturnToHitPlayer = " + turnToHitPlayer
 				+ "\ncommonDrop = " + commonDrop + "\nuncommonDrop = " + uncommonDrop + "\nrareDrop = " + rareDrop 
-				+ "\nlegendaryDrop = " + legendaryDrop + "\nspawnChance = " + spawnChance; 
+				+ "\nlegendaryDrop = " + legendaryDrop + "\nspawnChance = " + spawnChance +"\n}"; 
 	}
 
 
