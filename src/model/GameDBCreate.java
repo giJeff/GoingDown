@@ -30,6 +30,7 @@ public class GameDBCreate
 		buildWeapon();
 		buildArmor();
 		buildPotion();
+		buildPlayer();
 		//buildMonsterRoom();
 	}
 	
@@ -755,6 +756,12 @@ public class GameDBCreate
 		
 		
 		sdb.close();
+	}
+	
+	public void buildPlayer() throws SQLException
+	{
+		sdb = GameController.getDB();
+		String sql = "CREATE TABLE Player(playerID, playerName, ";
 	}
 
 }
