@@ -14,7 +14,13 @@ public class Player
 	private String playerName;
 	private int score;
 	private int health; 
-
+	
+public Player()
+{
+	this.playerName = "";
+	this.score = 0;
+	this.health = 100;
+}
 	public Player(String playerName, int score, int health) {
 		super();
 		this.playerName = playerName;
