@@ -761,7 +761,7 @@ public class GameDBCreate
 	public void buildPlayer() throws SQLException
 	{
 		sdb = GameController.getDB();
-		String sql = "CREATE TABLE Player(playerID, playerName, )";
+		String sql = "CREATE TABLE Potion(playerID int Primary Key not Null, playerName text not null,  )";
 	}
 
 }
