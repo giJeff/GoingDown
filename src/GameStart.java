@@ -1,6 +1,7 @@
 
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.IllegalFormatException;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ import view.GameUI;;
 public class GameStart extends Application
 {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 		File dbFile = new File("Game.db");
 		if (!dbFile.exists())
