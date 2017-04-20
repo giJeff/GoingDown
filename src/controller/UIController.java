@@ -69,7 +69,7 @@ public class UIController
 			{
 				case 1:
 				{
-					retStr = gc.getRoomData(1);
+					//retStr = gc.getRoomData(1);
 					break;
 				}
 				case 2:

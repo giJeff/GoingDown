@@ -26,66 +26,102 @@ public class ConsoleUI
 	 * Purpose: handles the demo 
 	 * void
 	 */
+	Scanner in = new Scanner(System.in);
 	public void startGame()
 	{
 		GameController gc = new GameController();
-		try
-		{
-			printStrs(gc.getAllRoomsData());
-		} 
-		catch (SQLException e2)
-		{
-			e2.printStackTrace();
-		}
+		Room room = new Room();
+		boolean game = false;
+		int floorNumber= 1;
+		int currentRoom = 1;
 		
-		System.out.println("Please press a key to see Monster data");
-		Scanner input = new Scanner(System.in);
-		input.nextLine();
-		
-		try
-		{
-			printStrs(gc.getAllMonstersData());
-		} 
-		catch (SQLException e1)
-		{
+		try {
+			room = gc.getRoomData(currentRoom);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		System.out.println("Please press a key to see Weapon data");
-		input.nextLine();
-		
-		try
-		{
-			printStrs(gc.getAllWeaponData());
-		} 
-		catch (SQLException e)
-		{
-			e.printStackTrace();
+		while(!game) {
+			try {
+				if(room.getRoomClear()== 0) {
+					if(room.getIsSafeRoom() == 1) {
+						System.out.println(room.getRoomDescription());
+						room = gc.getRoomData(choosePath(room));
+					}
+					if(room.getIsMonsterRoom() == 1) {
+						System.out.println(room.getRoomDescription());
+						room = gc.getRoomData(choosePath(room));
+					}
+					if(room.getIsBossRoom() == 1) {
+						System.out.println(room.getRoomDescription());
+						room = gc.getRoomData(choosePath(room));
+					}
+					if(room.getIsPuzzleRoom() == 1) {
+						System.out.println(room.getRoomDescription());
+						room = gc.getRoomData(choosePath(room));
+					}
+					if(room.getIsFloorExit() == 1) {
+						System.out.println(room.getRoomDescription());
+						//if quests complete do this next
+						currentRoom = room.getRoomID();
+						room = gc.getRoomData(++currentRoom);
+					}
+				} // what if room is clear? need more stuffs here
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
-		System.out.println("Please press a key to see Armor data");
-		input.nextLine();
-		
-		try
+	}
+	
+	public int choosePath(Room room) 
+	{
+		boolean path = false;
+		int nextRoom=0;
+		while(!path) 
 		{
-			printStrs(gc.getAllArmorData());
-		} 
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
-		System.out.println("Please press a key to see Potion data");
-		input.nextLine();
-		
-		try
-		{
-			printStrs(gc.getAllPotionData());
-		} 
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
+			System.out.println("-----------------------------------");
+			System.out.println("Choose your direction. Enter a number: ");
+			System.out.println(room.getExitNorth() + "\t1. North");
+			System.out.println(room.getExitEast() + "\t2. East");
+			System.out.println(room.getExitSouth() + "\t3. South");
+			System.out.println(room.getExitWest() + "\t4. West");
+			System.out.println("-----------------------------------");
+			int userIn = in.nextInt();
+			if(userIn == 1) {
+				if(room.getExitNorth() == 0) {
+					System.out.println("There is a wall here try again.");
+				} else {
+					nextRoom = room.getExitNorth();
+					path = true;
+				}
+			} else if(userIn == 2) {
+				if(room.getExitEast() == 0) {
+					System.out.println("There is a wall here try again.");
+				} else {
+					nextRoom = room.getExitEast();
+					path = true;
+				}
+				
+			} else if(userIn == 3) {
+				if(room.getExitSouth() == 0) {
+					System.out.println("There is a wall here try again.");
+				} else {
+					nextRoom = room.getExitSouth();
+					path = true;
+				}
+			} else if(userIn == 4) {
+				if(room.getExitWest() == 0) {
+					System.out.println("There is a wall here try again.");
+				} else {
+					nextRoom = room.getExitWest();
+					path = true;
+				}
+			}
+		} return nextRoom;
 	}
 	
 	/** Method: printStrs

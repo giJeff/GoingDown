@@ -41,11 +41,11 @@ public class GameController
 	 * String
 	 * @throws SQLException 
 	 */
-	public String getRoomData(int roomNumber) throws SQLException
+	public Room getRoomData(int roomNumber) throws SQLException
 	{
 		Room rm = new Room();
 		rm = rm.getRoom(roomNumber);
-		return rm.toString();
+		return rm;
 	}
 	
 	/** Method: getAllRoomsData
