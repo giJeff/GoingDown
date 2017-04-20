@@ -9,6 +9,8 @@ import controller.Monster;
 import controller.MonsterRoom;
 import controller.Room;
 import controller.Weapon;
+import model.DB;
+import model.SQLiteDB;
 import controller.Armor;
 
 /** Class : ConsoleUI.java
@@ -27,12 +29,13 @@ public class ConsoleUI
 	 * void
 	 */
 	Scanner in = new Scanner(System.in);
-	public void startGame()
+	public void startGame() throws ClassNotFoundException, SQLException
 	{
 		GameController gc = new GameController();
+		SQLiteDB sql = new SQLiteDB();
 		Room room = new Room();
 		boolean game = false;
-		int floorNumber= 1;
+		int currentFloor = 1;
 		int currentRoom = 1;
 		
 		try {
@@ -63,7 +66,9 @@ public class ConsoleUI
 					if(room.getIsFloorExit() == 1) {
 						System.out.println(room.getRoomDescription());
 						//if quests complete do this next
-						currentRoom = room.getRoomID();
+						currentRoom = sql.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
+						currentFloor++;
+						
 						room = gc.getRoomData(++currentRoom);
 					}
 				} // what if room is clear? need more stuffs here

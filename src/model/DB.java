@@ -97,5 +97,21 @@ abstract public class DB
 		}
 		return max;
 	}
+	public int getMaxOfSomething(String columnName,String table, String where, int value)
+	{
+		int max = 0;
+		try
+		{
+			Statement stmt = conn.createStatement();
+			String sql = "Select MAX(" + columnName + ") from " + table + " where " + where + " = " + value;
+			ResultSet rs =  stmt.executeQuery(sql);
+			max = rs.getInt(1);
+		}
+		catch(SQLException sqe)
+		{
+			System.out.println(sqe.getMessage());
+		}
+		return max;
+	}
 	
 }
