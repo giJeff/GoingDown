@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import model.PlayerDB;
 import model.SQLiteDB;
@@ -56,7 +57,17 @@ public class Player
 	}
 	
 	
-	
+	public boolean playerAttack(boolean playerDead, boolean monsterDead, Player player, Monster monster) {
+		int randomPlayerAttack = ThreadLocalRandom.current().nextInt(player.getMinDamage(), player.getMaxDamage() + 1);
+		if(!playerDead && !monsterDead) {
+			monster.setHitPoints(monster.getHitPoints()-randomPlayerAttack);
+			System.out.println("Monster took " + randomPlayerAttack + " damage this turn!");
+			if(monster.getHitPoints() < 1) {
+				monsterDead = true;
+			}
+		}
+		return monsterDead;
+	}
 	
 	/**
 	 * @return the playerID
