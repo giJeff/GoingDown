@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import model.MonsterDB;
 
 /** Class : Monster.java
- * @author: Rick Price
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: ITEC 3860
  * Written: Feb 28, 2017
@@ -55,7 +55,6 @@ public class Monster
 	{
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster mon = new Monster();
-		Random rand = new Random();
 		for (int i = 0; i < numMonster; i++) 
 		{
 			try 
