@@ -2,19 +2,14 @@ package view;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import controller.GameController;
 import controller.Monster;
-import controller.MonsterRoom;
 import controller.Player;
 import controller.Room;
-import controller.Weapon;
-import model.DB;
 import model.SQLiteDB;
-import controller.Armor;
 
 /** Class : ConsoleUI.java
  * @author: Jeff Graves
@@ -40,9 +35,10 @@ public class ConsoleUI
 		boolean game = false;
 		int currentFloor = 1;
 		int currentRoom = 1;
-		
+
 		try {
 			room = gc.getRoomData(currentRoom);
+			player.getPlayer(1);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -56,7 +52,8 @@ public class ConsoleUI
 					}
 					if(room.getIsMonsterRoom() == 1) {
 						System.out.println(room.getRoomDescription());
-						startCombat();
+						System.out.println("Player has " + player.getHitPoints() + "  health left");
+						startCombat(player);
 						room = gc.getRoomData(choosePath(room));
 					}
 					if(room.getIsBossRoom() == 1) {
@@ -74,20 +71,20 @@ public class ConsoleUI
 						currentRoom = sdb.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
 						sdb.close();
 						currentFloor++;
-						
+
 						room = gc.getRoomData(++currentRoom);
 					}
 				} // what if room is clear? need more stuffs here
-				
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public int choosePath(Room room) 
 	{
 		boolean path = false;
@@ -122,7 +119,7 @@ public class ConsoleUI
 					nextRoom = room.getExitEast();
 					path = true;
 				}
-				
+
 			} else if(userIn == 3) {
 				if(room.getExitSouth() == 0) {
 					System.out.println("There is a wall here try again.");
@@ -140,8 +137,8 @@ public class ConsoleUI
 			}
 		} return nextRoom;
 	}
-	
-	public void startCombat() {
+
+	public void startCombat(Player player) {
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster mon = new Monster();
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);
@@ -150,13 +147,70 @@ public class ConsoleUI
 
 		for (Monster monster : monsterList) {
 			System.out.println(monster);
+			battle(monster, player);
 		}
 	}
-	
-	public void battle() {
+
+	public void battle(Monster monster, Player player) {
+		boolean playerDead = false;
+		boolean monsterDead = false;
+		int userIn = 0;
+
 		
+		while(!playerDead && !monsterDead) {
+
+			int randomMonsterAttack = ThreadLocalRandom.current().nextInt(monster.getMinDamage(), monster.getMaxDamage() + 1);
+			int randomPlayerAttack = ThreadLocalRandom.current().nextInt(player.getMinDamage(), player.getMaxDamage() + 1);
+
+			System.out.println("-----------------------------------");
+			System.out.println("A " + monster.getMonsterName() + " has " + monster.getHitPoints() + " health left");
+			System.out.println("\t1. Attack");
+			System.out.println("\t2. Run");
+			System.out.println("-----------------------------------");
+			System.out.println("Player has " + player.getHitPoints() + "  health left");
+			
+			if (!in.hasNextInt()) {
+				in.next();
+			} else {
+				userIn = in.nextInt();
+			}
+			
+			if(userIn == 1) {
+				if(monster.getAttackFirst() == 1) {
+					player.setHitPoints(player.getHitPoints()-randomMonsterAttack);
+					System.out.println("Player took " + randomMonsterAttack + " damage this turn!");
+					if(player.getHitPoints() < 1) {
+						playerDead = true;
+					} else {
+						monster.setHitPoints(monster.getHitPoints()-randomPlayerAttack);
+						System.out.println("Monster took " + randomPlayerAttack + " damage this turn!");
+						if(monster.getHitPoints() < 1) {
+							monsterDead = true;
+						}
+					}
+
+				} else {
+					monster.setHitPoints(monster.getHitPoints()-randomPlayerAttack);
+					System.out.println("Monster took " + randomPlayerAttack + " damage this turn!");
+					if(monster.getHitPoints() < 1) {
+						monsterDead = true;
+					} else {
+						player.setHitPoints(player.getHitPoints()-randomMonsterAttack);
+						System.out.println("Player took " + randomMonsterAttack + " damage this turn!");
+						if(player.getHitPoints() < 1) {
+							playerDead = true;
+						}
+					}
+				}
+			} else {
+				System.out.println("no run logic yet!");
+			}
+			
+			System.out.println("playerDead = " + playerDead + " monsterDead = " + monsterDead);
+		}
+
 	}
-	
+
 	/** Method: printStrs
 	 * Purpose: Print the ArrayList of Strings
 	 * @param strs
@@ -169,5 +223,5 @@ public class ConsoleUI
 			System.out.println(str);
 		}
 	}
-	
+
 }
