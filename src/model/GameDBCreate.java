@@ -769,7 +769,7 @@ public class GameDBCreate
 		
 		sql = "INSERT INTO Player(playerNumber, playerName, gender, hitPoints, minDamage, maxDamage, score, numKilled,"
 				+ " numSolved, weight, maxWeight, currentRoom, peekNorth, peekEast, peekSouth, peekWest) "
-				+ "Values(1, 'Name', 'Male', 100, 4, 8, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0)";
+				+ "Values(1, 'Name', 'Male', 100, 20, 30, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0)";
 		sdb.updateDB(sql);
 		
 		sdb.close();
