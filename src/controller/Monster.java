@@ -2,6 +2,8 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import model.MonsterDB;
 
@@ -49,7 +51,27 @@ public class Monster
 		MonsterDB  mdb = new MonsterDB();
 		return mdb.getMonster(id);
 	}
-	
+	public ArrayList<Monster> getNormalMonsters(int numMonster)
+	{
+		ArrayList<Monster> monsterList = new ArrayList<>();
+		Monster mon = new Monster();
+		Random rand = new Random();
+		for (int i = 0; i < numMonster; i++) 
+		{
+			try 
+			{
+				int randomNum = ThreadLocalRandom.current().nextInt(1, 9 + 1);
+				System.out.println("get the moster ID " + randomNum);
+				monsterList.add(mon.getMonster(randomNum));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return monsterList;
+	}
 	/** Method: getAllMonsters
 	 * Purpose: gets all monsters from the Monster table
 	 * @return ArrayList<Monster>
