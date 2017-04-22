@@ -8,7 +8,7 @@ import controller.GameController;
 import controller.Room;
 
 /** Class : RoomDB.java
- * @author: Rick Price
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: ITEC 3860
  * Written: Mar 01, 2017

@@ -17,7 +17,7 @@ import model.SQLiteDB;
 import controller.Armor;
 
 /** Class : ConsoleUI.java
- * @author: Rick Price
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: ITEC 3860
  * Written: Mar 01, 2017
@@ -52,8 +52,6 @@ public class ConsoleUI
 				if(room.getRoomClear()== 0) {
 					if(room.getIsSafeRoom() == 1) {
 						System.out.println(room.getRoomDescription());
-						System.out.println("Would you like to save?  1 yes or 2 no");
-						//player.savePlayer();
 						room = gc.getRoomData(choosePath(room));
 					}
 					if(room.getIsMonsterRoom() == 1) {
@@ -72,9 +70,9 @@ public class ConsoleUI
 					if(room.getIsFloorExit() == 1) {
 						System.out.println(room.getRoomDescription());
 						//if quests complete do this next
-						SQLiteDB sql = new SQLiteDB();
-						currentRoom = sql.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
-						sql.close();
+						SQLiteDB sdb = GameController.getDB();
+						currentRoom = sdb.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
+						sdb.close();
 						currentFloor++;
 						
 						room = gc.getRoomData(++currentRoom);
@@ -95,7 +93,6 @@ public class ConsoleUI
 		boolean path = false;
 		int nextRoom=0;
 		int userIn=0;
-		PATH:
 		while(!path) 
 		{
 			System.out.println("-----------------------------------");
@@ -145,7 +142,6 @@ public class ConsoleUI
 	}
 	
 	public void startCombat() {
-		Random rand = new Random();
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster mon = new Monster();
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);

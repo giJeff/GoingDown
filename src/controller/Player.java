@@ -56,22 +56,6 @@ public class Player
 	}
 	
 	
-//	public void savePlayer() throws ClassNotFoundException, SQLException {
-//		SQLiteDB sql = new SQLiteDB();
-//		sql.updateTableInt("Player", "hitPoints", getHitPoints(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "minDamage", getMinDamage(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "maxDamage", getMaxDamage(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "score", getScore(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "numKilled", getNumKilled(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "numSolved", getNumSolved(),  "playerNumber", getPlayerID());
-//		sql.updateTableFloat("Player", "weight", getWeight(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "currentRoom", getCurrentRoom(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "peekNorth", getPeekNorth(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "peekEast", getPeekEast(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "peekSouth", getPeekSouth(),  "playerNumber", getPlayerID());
-//		sql.updateTableInt("Player", "peekWest", getPeekWest(),  "playerNumber", getPlayerID());
-//		sql.close();
-//	}
 	
 	
 	/**

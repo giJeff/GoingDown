@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import controller.GameController;
 
 /** Class : GameDBCreate
- * @author: Jeff Graves based off Rick Price GameDBCreate
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: 
  * Written: April 1, 2017

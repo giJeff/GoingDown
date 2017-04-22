@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /** Class : DB.java
- * @author: Rick Price
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: ITEC 3860
  * Written: Feb 25, 2017
@@ -113,39 +113,6 @@ abstract public class DB
 		}
 		return max;
 	}
-	public void updateTableInt(String table, String columnName, int setValue,  String where, int id) {
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			String sql = "UPDATE " + table + " SET " + columnName + " = " + setValue + " WHERE " + where + " = " + id;
-			stmt.executeQuery(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void updateTableFloat(String table, String columnName, float setValue,  String where, int id) {
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			String sql = "UPDATE " + table + " SET " + columnName + " = " + setValue + " WHERE " + where + " = " + id;
-			stmt.executeQuery(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
-	public void updateTableString(String table, String columnName, String setValue,  String where, int id) {
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			String sql = "UPDATE " + table + " SET " + columnName + " = " + setValue + " WHERE " + where + " = " + id;
-			stmt.executeQuery(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 }

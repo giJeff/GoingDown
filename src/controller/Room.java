@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import model.RoomDB;
 
 /** Class : Room.java
- * @author: Rick Price
+ * @author: Jeff Graves
  * @version: 1.0
  * Course: ITEC 3860
  * Written: Mar 01, 2017
