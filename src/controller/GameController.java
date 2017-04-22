@@ -216,6 +216,18 @@ public class GameController
 		}		
 		return potStrs;
 	}
+	
+	/** Method: getPlayerData
+	 * Purpose: Gets the player and displays list of attributes
+	 * void
+	 * @throws SQLException 
+	 */
+	public String getPlayerData(int playerNumber) throws SQLException
+	{
+		Player player = new Player();
+		player = player.getPlayer(playerNumber);
+		return player.toString();
+	}
 
 
 }

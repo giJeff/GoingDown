@@ -30,7 +30,7 @@ public class GameDBCreate
 		buildWeapon();
 		buildArmor();
 		buildPotion();
-		//buildPlayer();
+		buildPlayer();
 		//buildMonsterRoom();
 	}
 	
@@ -761,7 +761,18 @@ public class GameDBCreate
 	public void buildPlayer() throws SQLException
 	{
 		sdb = GameController.getDB();
-		String sql = "CREATE TABLE Player(playerID int Primary Key not Null, playerName text not null,  )";
+		String sql = "CREATE TABLE Player(playerNumber int Primary Key not Null, playerName text not null, gender text not null,"
+				+ " hitPoints int not null, minDamage int not null, maxDamage int not null, score int not null, numKilled int not null,"
+				+ " numSolved int not null, weight float(2) not null, maxWeight float(2) not null, currentRoom int not null,"
+				+ " peekNorth int not null, peekEast int not null, peekSouth int not null, peekWest int not null)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Player(playerNumber, playerName, gender, hitPoints, minDamage, maxDamage, score, numKilled,"
+				+ " numSolved, weight, maxWeight, currentRoom, peekNorth, peekEast, peekSouth, peekWest) "
+				+ "Values(1, 'Name', 'Male', 100, 4, 8, 0, 0, 0, 0, 100, 1, 0, 0, 0, 0)";
+		sdb.updateDB(sql);
+		
+		sdb.close();
 	}
 
 }
