@@ -8,6 +8,7 @@ import controller.Combat;
 import controller.GameController;
 import controller.Movement;
 import controller.Player;
+import controller.Puzzle;
 import controller.Room;
 import model.SQLiteDB;
 
@@ -34,6 +35,7 @@ public class ConsoleUI
 		Movement move = new Movement();
 		Player player = new Player();
 		Room room = new Room();
+		Puzzle puzzle = new Puzzle();
 		ArrayList<Room> rooms = room.getAllRooms();
 		boolean game = false;
 		int currentFloor = 1;
@@ -55,13 +57,18 @@ public class ConsoleUI
 						System.out.println(room.getRoomDescription());
 						System.out.println("-----------------------------------");
 						room = gc.getRoomData(move.choosePath(room));
-					}
-					if(room.getIsMonsterRoom() == 1) {
+					} 
+					if(room.getIsMonsterRoom() == 1 && room.getRoomClear() == 0) {
 						System.out.println("-----------------------------------");
 						System.out.println(room.getRoomDescription());
 						System.out.println("-----------------------------------");
 						combat.battle(player, 1, 9);
-						room.setRoomClear(1);
+						SQLiteDB sdb = GameController.getDB();
+						// added a simple update to see error
+						String sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
+						System.out.println(sql);
+						sdb.updateDB(sql);
+						sdb.close();
 						room = gc.getRoomData(move.choosePath(room));
 					}
 					if(room.getIsBossRoom() == 1) {
@@ -69,7 +76,11 @@ public class ConsoleUI
 						System.out.println(room.getRoomDescription());
 						System.out.println("-----------------------------------");
 						combat.battle(player, 10, 16);
-						room.setRoomClear(1);
+						SQLiteDB sdb = GameController.getDB();
+						String sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
+						System.out.println(sql);
+						sdb.updateDB(sql);
+						sdb.close();
 						room = gc.getRoomData(move.choosePath(room));
 					}
 					if(room.getIsPuzzleRoom() == 1) {
@@ -90,10 +101,11 @@ public class ConsoleUI
 
 						room = gc.getRoomData(++currentRoom);
 					}
-				} else if(room.getRoomClear()== 1) {
+
+				} else {
 					System.out.println("-----------------------------------");
+					System.out.println("Room is clear");
 					System.out.println(room.getRoomDescription());
-					System.out.println("This room has been cleared!");
 					System.out.println("-----------------------------------");
 					room = gc.getRoomData(move.choosePath(room));
 				}
@@ -107,10 +119,10 @@ public class ConsoleUI
 
 	}
 
-	
 
 
-	
+
+
 
 
 	/** Method: printStrs

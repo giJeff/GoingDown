@@ -43,13 +43,13 @@ public class Puzzle
 	 * @return Puzzle
 	 * @throws SQLException
 	 */
-	public Puzzle getPuzzles(int id) throws SQLException
+	public Puzzle getPuzzle(int id) throws SQLException
 	{
 		PuzzleDB pdb = new PuzzleDB();
 		return pdb.getPuzzle(id);
 	}
 	
-	public ArrayList<Puzzle> getPuzzless(int numPuzzles,int minIndex, int maxIndex)
+	public ArrayList<Puzzle> getPuzzles(int numPuzzles,int minIndex, int maxIndex)
 	{
 		ArrayList<Puzzle> puzzleList = new ArrayList<>();
 		Puzzle p1 = new Puzzle();
@@ -59,7 +59,7 @@ public class Puzzle
 			{
 				int randomNum = ThreadLocalRandom.current().nextInt(minIndex, maxIndex + 1);
 				System.out.println("get the puzzle ID " + randomNum);
-				puzzleList.add(p1.getPuzzles(randomNum));
+				puzzleList.add(p1.getPuzzle(randomNum));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -72,10 +72,9 @@ public class Puzzle
 	
 	public boolean solvePuzzle(boolean playerDead, boolean puzzleSolved, Player player, Puzzle puzzle) 
 	{
-		int randomPuzzle= ThreadLocalRandom.current().nextInt(puzzle.getIncorrectAnsDamage() + 1);
 		if(!playerDead && !puzzleSolved) {
-			player.setHitPoints(player.getHitPoints() - randomPuzzle);
-			System.out.println("Player took " + randomPuzzle + " damage this turn!");
+			player.setHitPoints(player.getHitPoints() - puzzle.getIncorrectAnsDamage());
+			System.out.println("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
 			if(player.getHitPoints() < 1) {
 				playerDead = true;
 			}

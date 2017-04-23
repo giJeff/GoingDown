@@ -44,6 +44,7 @@ public class MonsterRoomDB
 			mr.setRoomName(rs.getString("roomName"));
 			mr.setRoomDescription(rs.getString("roomDescription"));
 		}
+		sdb.close();
 		return mr;
 	}
 	
@@ -75,7 +76,7 @@ public class MonsterRoomDB
 			mr.setRoomDescription(rs.getString("roomDescription"));
 			monsterRooms.add(mr);
 		}
-		
+		sdb.close();
 		return monsterRooms;
 	}
 }
