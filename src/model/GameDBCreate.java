@@ -31,7 +31,7 @@ public class GameDBCreate
 		buildArmor();
 		buildPotion();
 		buildPlayer();
-		//buildPuzzle();
+		buildPuzzle();
 		//buildMonsterRoom();
 	}
 	
@@ -779,175 +779,173 @@ public class GameDBCreate
 	public void buildPuzzle() throws SQLException
 	{
 		sdb = GameController.getDB();
-		String sql = "CREATE TABLE Puzzles(puzzleID int Primary Key not null, puzzleQuestion text not null, puzzleAnswer text not null, "
-				+ "optA text not null, optB text not null, optC text not null, optD text, "
-				+ "incorrectDamage int not null, correctReward int not null)";	
-				
+		String sql = "CREATE TABLE Puzzle(puzzleNumber int Primary Key not null, puzzleQuestion text not null,"
+				+ " puzzleAnswer text not null, optA text not null, optB text not null, optC text not null, optD text,"
+				+ " incorrectDamage int not null, correctReward int not null)";	
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
-				+ "incorrectDamage, correctReward) "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, incorrectDamage, correctReward) "
 				+ "Values(1, 'A man went into a party and drank some of the grey punch. He then left early. "
 				+ "Everyone at the party who drunk the gray punch subsequently died of poisoning. "
 				+ "What color punch did the man drink?', 'd',"
 				+ "'a. Pink', 'b. Blue', 'c. Gray', 'd. Grey', 5, 10)";
 		sdb.updateDB(sql);
 
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(2, 'Are the Nobel prizes awarded every year, every 5 years or every 10 years?, 'a',"
+				+ "Values(2, 'Are the Nobel prizes awarded every year, every 5 years or every 10 years?', 'a',"
 				+ "'a. Every year', 'b. 5 years', 'c. 10 years', 'd. Once in a while', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(3, 'What belongs to you but others use it more than you do?, 'c', "
+				+ "Values(3, 'What belongs to you but others use it more than you do?', 'c', "
 				+ "'a. Your phone', 'b. Your toilet', 'c. Your name', 'd. Your time', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(4, 'What can you keep but cannot share and once you share it you can't keep it anymore?, 'a', "
-				+ "'a. A secret', 'b. Food', 'c. Homework answers', 'd. Your bestie's number', 5, 10)";
+				+ "Values(4, 'What can you keep but cannot share and once you share it you cant keep it anymore?', 'a', "
+				+ "'a. A secret', 'b. Food', 'c. Homework answers', 'd. Your besties number', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(5, 'What has six eyes, but can not see?, 'a', "
+				+ "Values(5, 'What has six eyes, but can not see?', 'a', "
 				+ "'a. Three blind mice', 'b. A spider', 'c. A fly', 'd. A praying mantis', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(6, 'Whats 3/7 chicken, 2/3 cat, and 2/4 goat?, 'b', "
+				+ "Values(6, 'Whats 3/7 chicken, 2/3 cat, and 2/4 goat?', 'b', "
 				+ "'a. A weird meal', 'b. Chicago', 'c. A science project gone wrong', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(7, 'How can FIVE minus TWO equal 4?, 'a', "
-				+ "'a. Roman Numerals', 'b. By magic', 'c. Not possible', 'd. I don't know', 5, 10)";
+				+ "Values(7, 'How can FIVE minus TWO equal 4?', 'a', "
+				+ "'a. Roman Numerals', 'b. By magic', 'c. Not possible', 'd. I dont know', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(8, 'You will always find me in the past. I can be created in the present, "
-				+ "But the future can never taint me. What am I?, 'a', "
+				+ "But the future can never taint me. What am I?', 'a', "
 				+ "'a. History', 'b. A newspaper', 'c. Last weeks lunch', 'd. A memory', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(9, 'He who builds me doesn't want me. He who buys me doesn't use me. "
-				+ "He that uses me doesn't know he's in me, 'b', "
+				+ "Values(9, 'He who builds me doesnt want me. He who buys me doesnt use me. "
+				+ "He that uses me doesnt know hes in me', 'b', "
 				+ "'a. A tree', 'b. A mountain', 'c. A valley', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(10, 'What does this say: A bird in the the bush.', 'c', "
 				+ "'a.	A space bird in the space the bush', 'b. A bird in the bush', 'c. A bird in the the bush.', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(11, 'What goes up and down without moving?', 'd',"
 				+ "'a. A staircase', 'b. The temperature', 'c. A thermometer.', 'd. All of the above', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(12, 'What is harder to catch the faster you run?', 'b',"
 				+ "'a. A ball', 'b. Your breath', 'c. A cheetah.', 'd. A break', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(13, '16.	What mathematical symbol can be placed between 5 and 9"
-				+ "to get a number greater than 5 and smaller than 9?', 'c',"
+				+ "Values(13, 'What mathematical symbol can be placed between 5 and 9"
+				+ " to get a number greater than 5 and smaller than 9?', 'c',"
 				+ "'a. A plus sign', 'b. A dash', 'c. A decimal point', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(14, 'What is greater than God. More evil than the devil. The poor have it. The rich need it."
-				+ "and if you eat it, you'll die?', 'c','a.	McDonalds', 'b. Fruit cake', 'c. Nothing', null, 5, 10)";
+				+ "Values(14, 'What is greater than God. More evil than the devil. The poor have it. The rich need it. "
+				+ "and if you eat it, you will die?', 'c','a.	McDonalds', 'b. Fruit cake', 'c. Nothing', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(15, 'What can travel around the world while staying in a corner?',"
 				+ "'b', 'a.	You on your computer', 'b. A stamp', 'c. A troll.', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(16, 'He has married many women, but has never been married. Who is he?', 'c',"
 				+ "'a. The Pope', 'b. A Shaman', 'c. A priest.', 'd. A Rabi', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(17, 'Which creature walks on four legs in the morning, two legs in the afternoon, and three legs in the evening?', 'c',"
 				+ "'a. A fish ', 'b. A dog', 'c. A man', 'd. A cat', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(18, 'What invention lets you look right through a wall?', 'a',"
 				+ "'a. A window ', 'b. A door', 'c. Sunglasses', 'd. Nothing', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(19, 'Which weighs more, a pound of feathers or a pound of bricks?', 'd',"
 				+ "'a. Feathers ', 'b. Bricks', 'c. They weigh the same amounts.', 'd. They weigh the same.', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(20, 'What occurs once in every minute, twice in every moment, yet never in a thousand years?', 'd',"
 				+ "'a. A shooting star ', 'b. A blue moon', 'c. A raise in your paycheck.', 'd. M', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(21, 'It takes 10 minutes to fry one steak – 5 minutes from each side. Two steaks can fit on a pan. "
 				+ "What is the shortest possible time to fry 3 steaks?', 'c',"
 				+ "'a. 20 minutes', 'b. 30 minutes', 'c. 15 minutes', 'd. 10 minutes', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(22, 'If you look at the number on my face you won't find thirteen anyplace. What am I?', 'c',"
+				+ "Values(22, 'If you look at the number on my face you will not find thirteen anyplace. What am I?', 'c',"
 				+ "'a. Your face ', 'b. A book', 'c. A clock', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
-				+ "Values(23, 'What is it that's always coming but never arrives?', 'd',"
+				+ "Values(23, 'What is it that is always coming but never arrives?', 'd',"
 				+ "'a. The pakage from Amazon', 'b. A raise in your paycheck', 'c. That A in chemistry', 'd. Tommorrow', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(24, 'Which plural form is incorrect: monkeys, cats, deers, giraffes?', 'c',"
 				+ "'a. Cats ', 'b. Monkeys', 'c. Deers', 'd. Giraffes', 5, 10)";
 		sdb.updateDB(sql);		
 
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(25, 'What comes up when the rain comes down?', 'c',"
 				+ "'a. The sun ', 'b. Sunscreen', 'c. An umbrella', null, 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(26, 'What gets wetter the more it drys?', 'd',"
 				+ "'a. A pool ', 'b. The sun', 'c. An umbrella', 'd. A towel', 5, 10)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Puzzles(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
+		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward) "
 				+ "Values(27, 'What number can you take half of and leave nothing?', 'a',"
 				+ "'a. 8', 'b. 4', 'c. 2', 'd. 9', 5, 10)";

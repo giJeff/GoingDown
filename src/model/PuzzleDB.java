@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controller.GameController;
-import controller.Puzzles;
+import controller.Puzzle;
 
 /** Class : PuzzlesDB.java
  * @author: Jeffrey Graves, edited by Charneaka Lewis
@@ -43,11 +43,11 @@ public class PuzzleDB
 	 * @return Room
 	 * @throws SQLException
 	 */
-	public Puzzles getPuzzle(int id) throws SQLException
+	public Puzzle getPuzzle(int id) throws SQLException
 	{
 		SQLiteDB sdb = GameController.getDB();
-		Puzzles plz = new Puzzles();
-		String sql = "Select * from Puzzles WHERE puzzleNumber = " + id;
+		Puzzle plz = new Puzzle();
+		String sql = "Select * from Puzzle WHERE puzzleNumber = " + id;
 		ResultSet rs = sdb.queryDB(sql);
 
 		if (rs.next())
@@ -72,17 +72,17 @@ public class PuzzleDB
 	 * @return ArrayList<Puzzles>
 	 * @throws SQLException
 	 */
-	public ArrayList<Puzzles> getAllPuzzles() throws SQLException
+	public ArrayList<Puzzle> getAllPuzzles() throws SQLException
 	{
-		ArrayList<Puzzles> puzzles = new ArrayList<Puzzles>();
+		ArrayList<Puzzle> puzzles = new ArrayList<Puzzle>();
 		SQLiteDB sdb = GameController.getDB();
-		String sql = "Select * from Puzzles";
+		String sql = "Select * from Puzzle";
 
 		ResultSet rs = sdb.queryDB(sql);
 
 		while(rs.next())
 		{
-			Puzzles plz = new Puzzles();
+			Puzzle plz = new Puzzle();
 			plz.setPuzzleID(rs.getInt("puzzleID"));
 			plz.setPuzzleQuestion(rs.getString("puzzleQuestion"));
 			plz.setPuzzleAnswer(rs.getString("puzzleAnswer"));
