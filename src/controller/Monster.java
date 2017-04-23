@@ -51,7 +51,7 @@ public class Monster
 		MonsterDB  mdb = new MonsterDB();
 		return mdb.getMonster(id);
 	}
-	public ArrayList<Monster> getNormalMonsters(int numMonster)
+	public ArrayList<Monster> getBattleMonsters(int numMonster, int minIndex, int maxIndex)
 	{
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster mon = new Monster();
@@ -59,7 +59,7 @@ public class Monster
 		{
 			try 
 			{
-				int randomNum = ThreadLocalRandom.current().nextInt(1, 9 + 1);
+				int randomNum = ThreadLocalRandom.current().nextInt(minIndex, maxIndex + 1);
 				System.out.println("get the moster ID " + randomNum);
 				monsterList.add(mon.getMonster(randomNum));
 			} catch (SQLException e) {
@@ -71,6 +71,19 @@ public class Monster
 		
 		return monsterList;
 	}
+	
+	public boolean monsterAttack(boolean playerDead, boolean monsterDead, Player player, Monster monster) {
+		int randomMonsterAttack = ThreadLocalRandom.current().nextInt(monster.getMinDamage(), monster.getMaxDamage() + 1);
+		if(!playerDead && !monsterDead) {
+			player.setHitPoints(player.getHitPoints()-randomMonsterAttack);
+			System.out.println("Player took " + randomMonsterAttack + " damage this turn!");
+			if(player.getHitPoints() < 1) {
+				playerDead = true;
+			}
+		}
+		return playerDead;
+	}
+	
 	/** Method: getAllMonsters
 	 * Purpose: gets all monsters from the Monster table
 	 * @return ArrayList<Monster>

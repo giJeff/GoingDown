@@ -222,11 +222,11 @@ public class GameController
 	 * void
 	 * @throws SQLException 
 	 */
-	public String getPlayerData(int playerNumber) throws SQLException
+	public Player getPlayerData(int playerNumber) throws SQLException
 	{
 		Player player = new Player();
 		player = player.getPlayer(playerNumber);
-		return player.toString();
+		return player;
 	}
 
 

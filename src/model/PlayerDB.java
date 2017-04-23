@@ -31,7 +31,7 @@ public class PlayerDB
 		{
 			e.printStackTrace();
 		}
-		return sdb.getMaxValue("PlayerNumber", "Player") + 1;
+		return sdb.getMaxValue("playerNumber", "Player") + 1;
 	}
 	
 	/** Method: getPlayer

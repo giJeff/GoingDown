@@ -3,10 +3,10 @@ package view;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
+import controller.Combat;
 import controller.GameController;
-import controller.Monster;
+import controller.Movement;
 import controller.Player;
 import controller.Room;
 import model.SQLiteDB;
@@ -30,15 +30,19 @@ public class ConsoleUI
 	public void startGame() throws ClassNotFoundException, SQLException
 	{
 		GameController gc = new GameController();
+		Combat combat = new Combat();
+		Movement move = new Movement();
 		Player player = new Player();
 		Room room = new Room();
+		ArrayList<Room> rooms = room.getAllRooms();
 		boolean game = false;
 		int currentFloor = 1;
 		int currentRoom = 1;
+		int currentPlayer = 1; // will need to get these from a load
 
 		try {
 			room = gc.getRoomData(currentRoom);
-			player.getPlayer(1);
+			player = gc.getPlayerData(currentPlayer);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -47,25 +51,37 @@ public class ConsoleUI
 			try {
 				if(room.getRoomClear()== 0) {
 					if(room.getIsSafeRoom() == 1) {
+						System.out.println("-----------------------------------");
 						System.out.println(room.getRoomDescription());
-						room = gc.getRoomData(choosePath(room));
+						System.out.println("-----------------------------------");
+						room = gc.getRoomData(move.choosePath(room));
 					}
 					if(room.getIsMonsterRoom() == 1) {
+						System.out.println("-----------------------------------");
 						System.out.println(room.getRoomDescription());
-						System.out.println("Player has " + player.getHitPoints() + "  health left");
-						startCombat(player);
-						room = gc.getRoomData(choosePath(room));
+						System.out.println("-----------------------------------");
+						combat.battle(player, 1, 9);
+						room.setRoomClear(1);
+						room = gc.getRoomData(move.choosePath(room));
 					}
 					if(room.getIsBossRoom() == 1) {
+						System.out.println("-----------------------------------");
 						System.out.println(room.getRoomDescription());
-						room = gc.getRoomData(choosePath(room));
+						System.out.println("-----------------------------------");
+						combat.battle(player, 10, 16);
+						room.setRoomClear(1);
+						room = gc.getRoomData(move.choosePath(room));
 					}
 					if(room.getIsPuzzleRoom() == 1) {
+						System.out.println("-----------------------------------");
 						System.out.println(room.getRoomDescription());
-						room = gc.getRoomData(choosePath(room));
+						System.out.println("-----------------------------------");
+						room = gc.getRoomData(move.choosePath(room));
 					}
-					if(room.getIsFloorExit() == 1) {
+					if(room.getIsFloorExit() == 1 && room.getRoomClear()== 1) {
+						System.out.println("-----------------------------------");
 						System.out.println(room.getRoomDescription());
+						System.out.println("-----------------------------------");
 						//if quests complete do this next
 						SQLiteDB sdb = GameController.getDB();
 						currentRoom = sdb.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
@@ -74,7 +90,13 @@ public class ConsoleUI
 
 						room = gc.getRoomData(++currentRoom);
 					}
-				} // what if room is clear? need more stuffs here
+				} else if(room.getRoomClear()== 1) {
+					System.out.println("-----------------------------------");
+					System.out.println(room.getRoomDescription());
+					System.out.println("This room has been cleared!");
+					System.out.println("-----------------------------------");
+					room = gc.getRoomData(move.choosePath(room));
+				}
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -84,6 +106,7 @@ public class ConsoleUI
 		}
 
 	}
+
 
 	public int choosePath(Room room) 
 	{
@@ -161,60 +184,9 @@ public class ConsoleUI
 		boolean monsterDead = false;
 		int userIn = 0;
 
-		
-		while(!playerDead && !monsterDead) {
 
-			int randomMonsterAttack = ThreadLocalRandom.current().nextInt(monster.getMinDamage(), monster.getMaxDamage() + 1);
-			int randomPlayerAttack = ThreadLocalRandom.current().nextInt(player.getMinDamage(), player.getMaxDamage() + 1);
+	
 
-			System.out.println("-----------------------------------");
-			System.out.println("A " + monster.getMonsterName() + " has " + monster.getHitPoints() + " health left");
-			System.out.println("\t1. Attack");
-			System.out.println("\t2. Run");
-			System.out.println("-----------------------------------");
-			System.out.println("Player has " + player.getHitPoints() + "  health left");
-			
-			if (!in.hasNextInt()) {
-				in.next();
-			} else {
-				userIn = in.nextInt();
-			}
-			
-			if(userIn == 1) {
-				if(monster.getAttackFirst() == 1) {
-					player.setHitPoints(player.getHitPoints()-randomMonsterAttack);
-					System.out.println("Player took " + randomMonsterAttack + " damage this turn!");
-					if(player.getHitPoints() < 1) {
-						playerDead = true;
-					} else {
-						monster.setHitPoints(monster.getHitPoints()-randomPlayerAttack);
-						System.out.println("Monster took " + randomPlayerAttack + " damage this turn!");
-						if(monster.getHitPoints() < 1) {
-							monsterDead = true;
-						}
-					}
-
-				} else {
-					monster.setHitPoints(monster.getHitPoints()-randomPlayerAttack);
-					System.out.println("Monster took " + randomPlayerAttack + " damage this turn!");
-					if(monster.getHitPoints() < 1) {
-						monsterDead = true;
-					} else {
-						player.setHitPoints(player.getHitPoints()-randomMonsterAttack);
-						System.out.println("Player took " + randomMonsterAttack + " damage this turn!");
-						if(player.getHitPoints() < 1) {
-							playerDead = true;
-						}
-					}
-				}
-			} else {
-				System.out.println("no run logic yet!");
-			}
-			
-			System.out.println("playerDead = " + playerDead + " monsterDead = " + monsterDead);
-		}
-
-	}
 
 	/** Method: printStrs
 	 * Purpose: Print the ArrayList of Strings
