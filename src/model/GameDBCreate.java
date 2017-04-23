@@ -31,7 +31,7 @@ public class GameDBCreate
 		buildArmor();
 		buildPotion();
 		buildPlayer();
-		//buildPuzzle();
+		buildPuzzle();
 		//buildMonsterRoom();
 	}
 	
