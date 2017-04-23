@@ -16,7 +16,7 @@ import model.PuzzleDB;
  * This class is the Puzzle class handling business logic for the Puzzles class
  */
 
-public class Puzzles
+public class Puzzle
 {
 	private int puzzleID;
 	private String puzzleQuestion;
@@ -31,7 +31,7 @@ public class Puzzles
 
 	/** Constructor: Puzzles
 	 */
-	public Puzzles()
+	public Puzzle()
 	{
 		PuzzleDB pdb = new PuzzleDB();
 		puzzleID = pdb.getNextPuzzleID();
@@ -43,16 +43,16 @@ public class Puzzles
 	 * @return Puzzle
 	 * @throws SQLException
 	 */
-	public Puzzles getPuzzles(int id) throws SQLException
+	public Puzzle getPuzzles(int id) throws SQLException
 	{
 		PuzzleDB pdb = new PuzzleDB();
 		return pdb.getPuzzle(id);
 	}
 	
-	public ArrayList<Puzzles> getPuzzless(int numPuzzles,int minIndex, int maxIndex)
+	public ArrayList<Puzzle> getPuzzless(int numPuzzles,int minIndex, int maxIndex)
 	{
-		ArrayList<Puzzles> puzzleList = new ArrayList<>();
-		Puzzles p1 = new Puzzles();
+		ArrayList<Puzzle> puzzleList = new ArrayList<>();
+		Puzzle p1 = new Puzzle();
 		for (int i = 0; i < numPuzzles; i++) 
 		{
 			try 
@@ -70,7 +70,7 @@ public class Puzzles
 	return puzzleList;
 }
 	
-	public boolean solvePuzzle(boolean playerDead, boolean puzzleSolved, Player player, Puzzles puzzle) 
+	public boolean solvePuzzle(boolean playerDead, boolean puzzleSolved, Player player, Puzzle puzzle) 
 	{
 		int randomPuzzle= ThreadLocalRandom.current().nextInt(puzzle.getIncorrectAnsDamage() + 1);
 		if(!playerDead && !puzzleSolved) {
@@ -89,7 +89,7 @@ public class Puzzles
 	 * @throws SQLException
 	 */
 
-	public ArrayList<Puzzles> getAllPuzzless() throws SQLException
+	public ArrayList<Puzzle> getAllPuzzless() throws SQLException
 	{
 		PuzzleDB  pdb = new PuzzleDB();
 		return pdb.getAllPuzzles();
