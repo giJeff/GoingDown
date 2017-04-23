@@ -107,15 +107,7 @@ public class ConsoleUI
 
 	}
 
-	public void checkInventory()
-	{
-		
-	}
 	
-	public void battle(Monster monster, Player player) {
-		boolean playerDead = false;
-		boolean monsterDead = false;
-		int userIn = 0;
 
 
 	
