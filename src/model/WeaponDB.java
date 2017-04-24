@@ -20,18 +20,14 @@ public class WeaponDB
 	/** Method: getNextWeaponID
 	 * Purpose: Gets the id for the next weapon. 
 	 * @return int
+	 * @throws SQLException 
 	 */
-	public int getNextWeaponID()
+	public int getNextWeaponID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("weaponNumber", "Weapon") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("weaponNumber", "Weapon") + 1;
+		sdb.close();
+		return max;
 	}
 	
 	/** Method: getWeapon

@@ -20,18 +20,14 @@ public class ArmorDB
 	/** Method: getNextArmorID
 	 * Purpose: Gets the id for the next armor. 
 	 * @return int
+	 * @throws SQLException 
 	 */
-	public int getNextArmorID()
+	public int getNextArmorID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("armorNumber", "Armor") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("armorNumber", "Armor") + 1;
+		sdb.close();
+		return max;
 	}
 	
 	/** Method: getArmor

@@ -20,18 +20,14 @@ public class PlayerDB
 	/** Method: getNextPlayerID
 	 * Purpose: Gets the id for the next player. 
 	 * @return int
+	 * @throws SQLException 
 	 */
-	public int getNextPlayerID()
+	public int getNextPlayerID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("playerNumber", "Player") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("playerNumber", "Player") + 1;
+		sdb.close();
+		return max;
 	}
 	
 	/** Method: getPlayer

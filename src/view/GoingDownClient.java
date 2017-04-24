@@ -1,13 +1,25 @@
 package view;
 import controller.Player;
 
-
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
 public class GoingDownClient
 {
-	private Player p1 = new Player();
+	private Player p1;
+	
+	public GoingDownClient()
+	{
+		try
+		{
+			p1 = new Player();
+		} 
+		catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub		

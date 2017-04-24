@@ -20,19 +20,14 @@ public class RoomDB
 	/** Method: getNextRoomID
 	 * Purpose: gets the next ID for a room 
 	 * @return int
+	 * @throws SQLException 
 	 */
-	public int getNextRoomID()
+	public int getNextRoomID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} 
-		catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("roomNumber", "room") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("roomNumber", "room") + 1;
+		sdb.close();
+		return max;
 	}
 	
 	/** Method: getRoom

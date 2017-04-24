@@ -37,8 +37,9 @@ public class Player
 	
 	
 	/** Constructor: Monster
+	 * @throws SQLException 
 	 */
-	public Player()
+	public Player() throws SQLException
 	{
 		PlayerDB  pdb = new PlayerDB();
 		playerID = pdb.getNextPlayerID();

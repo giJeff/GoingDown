@@ -20,18 +20,14 @@ public class MonsterDB
 	/** Method: getNextMonsterID
 	 * Purpose: Gets the id for the next monster. 
 	 * @return int
+	 * @throws SQLException 
 	 */
-	public int getNextMonsterID()
+	public int getNextMonsterID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("monsterNumber", "Monster") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("monsterNumber", "Monster") + 1;
+		sdb.close();
+		return max;
 	}
 	
 	/** Method: getMonster
