@@ -33,8 +33,9 @@ public class Monster
 	private int spawnChance;
 	
 	/** Constructor: Monster
+	 * @throws SQLException 
 	 */
-	public Monster()
+	public Monster() throws SQLException
 	{
 		MonsterDB  mdb = new MonsterDB();
 		monsterID = mdb.getNextMonsterID();
@@ -51,7 +52,7 @@ public class Monster
 		MonsterDB  mdb = new MonsterDB();
 		return mdb.getMonster(id);
 	}
-	public ArrayList<Monster> getBattleMonsters(int numMonster, int minIndex, int maxIndex)
+	public ArrayList<Monster> getBattleMonsters(int numMonster, int minIndex, int maxIndex) throws SQLException
 	{
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster mon = new Monster();

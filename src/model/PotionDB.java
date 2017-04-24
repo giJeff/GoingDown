@@ -20,18 +20,14 @@ public class PotionDB
 	/** Method: getNextPotionID
 	 * Purpose: Gets the id for the next potion. 
 	 * @return int
+	 * @throws SQLException 
 	 */
-	public int getNextPotionID()
+	public int getNextPotionID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("potionNumber", "Potion") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("potionNumber", "Potion") + 1;
+		sdb.close();
+		return max;
 	}
 	
 	/** Method: getPotion

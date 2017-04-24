@@ -25,8 +25,9 @@ public class Potion
 	
 	
 	/** Constructor: Potion
+	 * @throws SQLException 
 	 */
-	public Potion()
+	public Potion() throws SQLException
 	{
 		PotionDB pdb = new PotionDB();
 		potionID = pdb.getNextPotionID();

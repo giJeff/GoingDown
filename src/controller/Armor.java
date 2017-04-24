@@ -25,8 +25,9 @@ public class Armor
 	private float weight;
 	
 	/** Constructor: Armor
+	 * @throws SQLException 
 	 */
-	public Armor()
+	public Armor() throws SQLException
 	{
 		ArmorDB  adb = new ArmorDB();
 		armorID = adb.getNextArmorID();

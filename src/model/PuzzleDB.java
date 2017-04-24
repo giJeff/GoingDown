@@ -21,20 +21,15 @@ public class PuzzleDB
 	/** Method: getNextPuzzleID
 	 * Purpose: Gets the id for the next puzzle. 
 	 * @return int
+	 * @throws SQLException 
 	 */
 
-	public int getNextPuzzleID()
+	public int getNextPuzzleID() throws SQLException
 	{
-		SQLiteDB sdb  = null;
-		try
-		{
-			sdb = new SQLiteDB();
-		} 
-		catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return sdb.getMaxValue("puzzleNumber", "Puzzle") + 1;
+		SQLiteDB sdb  = GameController.getDB();
+		int max = sdb.getMaxValue("puzzleNumber", "Puzzle") + 1;
+		sdb.close();
+		return max;
 	}
 
 	/** Method: getPuzzle

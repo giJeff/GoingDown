@@ -30,8 +30,9 @@ public class Puzzle
 
 
 	/** Constructor: Puzzles
+	 * @throws SQLException 
 	 */
-	public Puzzle()
+	public Puzzle() throws SQLException
 	{
 		PuzzleDB pdb = new PuzzleDB();
 		puzzleID = pdb.getNextPuzzleID();
@@ -49,7 +50,7 @@ public class Puzzle
 		return pdb.getPuzzle(id);
 	}
 	
-	public ArrayList<Puzzle> getPuzzles(int numPuzzles,int minIndex, int maxIndex)
+	public ArrayList<Puzzle> getPuzzles(int numPuzzles,int minIndex, int maxIndex) throws SQLException
 	{
 		ArrayList<Puzzle> puzzleList = new ArrayList<>();
 		Puzzle p1 = new Puzzle();

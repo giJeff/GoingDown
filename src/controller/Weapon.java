@@ -29,8 +29,9 @@ public class Weapon
 	private float weight;
 	
 	/** Constructor: Weapon
+	 * @throws SQLException 
 	 */
-	public Weapon()
+	public Weapon() throws SQLException
 	{
 		WeaponDB  wdb = new WeaponDB();
 		weaponID = wdb.getNextWeaponID();

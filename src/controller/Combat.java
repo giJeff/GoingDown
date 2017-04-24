@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,7 +9,7 @@ public class Combat {
 
 	Scanner in = new Scanner(System.in);
 	
-	public void battle(Player player, int minIndex, int maxIndex) {
+	public void battle(Player player, int minIndex, int maxIndex) throws SQLException {
 		
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster monster = new Monster();

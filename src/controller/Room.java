@@ -32,8 +32,9 @@ public class Room
 	private int isSafeRoom;
 
 	/** Constructor: Room
+	 * @throws SQLException 
 	 */
-	public Room()
+	public Room() throws SQLException
 	{
 		RoomDB  rdb = new RoomDB();
 		roomID = rdb.getNextRoomID();
