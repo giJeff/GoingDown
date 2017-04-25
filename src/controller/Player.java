@@ -57,6 +57,19 @@ public class Player
 		return pdb.getPlayer(id);
 	}
 	
+	public void savePlayer() throws SQLException 
+	{
+		SQLiteDB sdb  = GameController.getDB();
+		sdb.savePlayerInt("Player", "hitPoints", hitPoints, "playerNumber", this.getPlayerID());
+		sdb.savePlayerInt("Player", "score", score, "playerNumber", this.getPlayerID());
+		sdb.savePlayerInt("Player", "numKilled", numKilled, "playerNumber", this.getPlayerID());
+		sdb.savePlayerInt("Player", "numSolved", numSolved, "playerNumber", this.getPlayerID());
+		sdb.savePlayerFloat("Player", "weight", weight, "playerNumber", this.getPlayerID());
+		sdb.savePlayerInt("Player", "currentRoom", currentRoom, "playerNumber", this.getPlayerID());
+		sdb.close();
+	}
+	
+	
 	
 	public boolean playerAttack(boolean playerDead, boolean monsterDead, Player player, Monster monster) {
 		int randomPlayerAttack = ThreadLocalRandom.current().nextInt(player.getMinDamage(), player.getMaxDamage() + 1);

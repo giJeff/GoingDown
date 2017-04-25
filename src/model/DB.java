@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import controller.GameController;
+import controller.Room;
+
 /** Class : DB.java
  * @author: Jeff Graves
  * @version: 1.0
@@ -112,6 +115,51 @@ abstract public class DB
 			System.out.println(sqe.getMessage());
 		}
 		return max;
+	}
+	
+	public void savePlayerString(String table, String columnName, String newValue, String where, int index)
+	{
+
+		try
+		{
+			SQLiteDB sdb = GameController.getDB();
+			String sql = "UPDATE " + table + " Set " + columnName + " = " + newValue + " WHERE " + where + " = " + index;
+			sdb.updateDB(sql);
+			}
+		catch(SQLException sqe)
+		{
+			System.out.println(sqe.getMessage());
+		}
+	}
+	
+	public void savePlayerInt(String table, String columnName, int newValue, String where, int index)
+	{
+
+		try
+		{
+			SQLiteDB sdb = GameController.getDB();
+			String sql = "UPDATE " + table + " Set " + columnName + " = " + newValue + " WHERE " + where + " = " + index;
+			sdb.updateDB(sql);
+		}
+		catch(SQLException sqe)
+		{
+			System.out.println(sqe.getMessage());
+		}
+	}
+	
+	public void savePlayerFloat(String table, String columnName, float newValue, String where, int index)
+	{
+
+		try
+		{
+			SQLiteDB sdb = GameController.getDB();
+			String sql = "UPDATE " + table + " Set " + columnName + " = " + newValue + " WHERE " + where + " = " + index;
+			sdb.updateDB(sql);
+		}
+		catch(SQLException sqe)
+		{
+			System.out.println(sqe.getMessage());
+		}
 	}
 	
 	
