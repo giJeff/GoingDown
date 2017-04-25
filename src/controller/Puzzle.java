@@ -2,9 +2,11 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import model.PuzzleDB;
+import model.SQLiteDB;
 
 
 /** Class : Puzzles.java
@@ -18,6 +20,9 @@ import model.PuzzleDB;
 
 public class Puzzle
 {
+
+	Scanner in = new Scanner(System.in);
+
 	private int puzzleID;
 	private String puzzleQuestion;
 	private String puzzleAnswer;
@@ -25,8 +30,9 @@ public class Puzzle
 	private String optB;
 	private String optC;
 	private String optD;
-	private int incorrectAnsDamage;
-	private int correctAnsReward;
+	private int incorrectDamage;
+	private int correctReward;
+	private int solved;
 
 
 	/** Constructor: Puzzles
@@ -49,40 +55,69 @@ public class Puzzle
 		PuzzleDB pdb = new PuzzleDB();
 		return pdb.getPuzzle(id);
 	}
-	
-	public ArrayList<Puzzle> getPuzzles(int numPuzzles,int minIndex, int maxIndex) throws SQLException
+
+	public Puzzle randomPuzzle(Puzzle puzzle) throws SQLException 
 	{
-		ArrayList<Puzzle> puzzleList = new ArrayList<>();
-		Puzzle p1 = new Puzzle();
-		for (int i = 0; i < numPuzzles; i++) 
+		int randomNum = ThreadLocalRandom.current().nextInt(1, 27 + 1);
+
+		if(puzzle.getSolved() == 0)
 		{
-			try 
-			{
-				int randomNum = ThreadLocalRandom.current().nextInt(minIndex, maxIndex + 1);
-				System.out.println("get the puzzle ID " + randomNum);
-				puzzleList.add(p1.getPuzzle(randomNum));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			puzzle = puzzle.getPuzzle(randomNum);
+		} 
+		else 
+		{
+			randomPuzzle(puzzle);
+		}
+		return puzzle;
+	}
+
+	public void solvePuzzle(Room room, Player player, Puzzle puzzle) throws SQLException 
+	{
+		boolean playerDead = false;
+		boolean puzzleSolved = false;
+		puzzle = randomPuzzle(puzzle);
+		String userIn = "";
+
+		do {
+			System.out.println(puzzle.puzzleQuestion + "\t\n" + puzzle.optA 
+					+ "\t\n" + puzzle.optB + "\t\n" + puzzle.optC + "\t\n" + puzzle.optD);
+
+			if (!in.hasNext()) {
+				in.next();
+			} else {
+				userIn = in.next();
 			}
 
-		}
-	
-	return puzzleList;
-}
-	
-	public boolean solvePuzzle(boolean playerDead, boolean puzzleSolved, Player player, Puzzle puzzle) 
-	{
-		if(!playerDead && !puzzleSolved) {
-			player.setHitPoints(player.getHitPoints() - puzzle.getIncorrectAnsDamage());
-			System.out.println("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
-			if(player.getHitPoints() < 1) {
-				playerDead = true;
+			if(userIn.equalsIgnoreCase(puzzle.getPuzzleAnswer())) {
+				puzzleSolved = true;
+				if(puzzleSolved) {
+					player.setNumSolved(player.getNumSolved()+1);
+					SQLiteDB sdb = GameController.getDB();
+					String sql = "UPDATE Puzzle Set solved = 1 WHERE puzzleNumber = " + puzzle.getPuzzleID();
+					sdb.updateDB(sql);
+					sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
+					sdb.updateDB(sql);
+					sdb.close();
+				}
+			} else {
+
+				if(!playerDead && !puzzleSolved) {
+					player.setHitPoints(player.getHitPoints() - puzzle.getIncorrectAnsDamage());
+					System.out.println("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
+					if(player.getHitPoints() < 1) {
+						playerDead = true;
+					}
+				}
 			}
+		}while(!puzzleSolved);
+
+		if(playerDead) {
+			//gameOver();
 		}
-		return playerDead;
+
+
 	}
-	
+
 	/** Method: getAllPuzzles
 	 * Purpose: gets all of the Puzzles from the Puzzle table
 	 * @return ArrayList<Puzzle>
@@ -96,13 +131,13 @@ public class Puzzle
 	}
 
 	/** Method: getPuzzleID
-	  * @return puzzleID
-	  */ 
+	 * @return puzzleID
+	 */ 
 	public int getPuzzleID() 
 	{
 		return puzzleID;
 	}
-	
+
 	/** Method: setPuzzleID
 	 * @param puzzleID
 	 */ 
@@ -129,8 +164,8 @@ public class Puzzle
 	}
 
 	/** Method: getPuzzleID
-	  * @return puzzleID
-	  */ 
+	 * @return puzzleID
+	 */ 
 	public String getPuzzleAnswer() 
 	{
 		return puzzleAnswer;
@@ -152,7 +187,7 @@ public class Puzzle
 	{
 		return optA;
 	}
-	
+
 	/** Method: setOptionA
 	 * Sets the first answer choice for the puzzle
 	 * @param optionA
@@ -161,7 +196,7 @@ public class Puzzle
 	{
 		this.optA = optA;
 	}
-	
+
 	/** Method: getOptionB
 	 * @return optionB
 	 */ 
@@ -178,10 +213,10 @@ public class Puzzle
 	{
 		this.optB = optB;
 	}
-	
+
 	/** Method: getOptionC
-	  * @return optionC
-	  */ 
+	 * @return optionC
+	 */ 
 	public String getOptC() 
 	{
 		return optC;
@@ -218,7 +253,7 @@ public class Puzzle
 	 */ 
 	public int getIncorrectAnsDamage() 
 	{
-		return incorrectAnsDamage;
+		return incorrectDamage;
 	}
 
 	/** Method: setIncorrectAnsDamage
@@ -227,15 +262,15 @@ public class Puzzle
 	 */ 
 	public void setIncorrectAnsDamage(int incorrectAnsDamage) 
 	{
-		this.incorrectAnsDamage = incorrectAnsDamage;
+		this.incorrectDamage = incorrectAnsDamage;
 	}
-	
+
 	/** Method: getCorrectAnsReward
 	 * @return correctAnsReward
 	 */ 
 	public int getCorrectAnsReward() 
 	{
-		return correctAnsReward;
+		return correctReward;
 	}
 
 	/** Method: setCorrectAnsDamage
@@ -244,7 +279,15 @@ public class Puzzle
 	 */ 
 	public void setCorrectAnsReward(int correctAnsReward) 
 	{
-		this.correctAnsReward = correctAnsReward;
+		this.correctReward = correctAnsReward;
+	}
+
+	public int getSolved() {
+		return solved;
+	}
+
+	public void setSolved(int solved) {
+		this.solved = solved;
 	}
 
 	@Override
@@ -252,6 +295,6 @@ public class Puzzle
 	{
 		return "Puzzles [\npuzzleID=" + puzzleID + "\npuzzleQuestion=" + puzzleQuestion + " \npuzzleAnswer=" + puzzleAnswer
 				+ "\noptA=" + optA + "\noptB=" + optB + "\noptC=" + optC + "\noptD=" + optD + "\nincorrectAnsDamage="
-				+ incorrectAnsDamage + "\ncorrectAnsReward=" + correctAnsReward + "]";
+				+ incorrectDamage + "\ncorrectAnsReward=" + correctReward + "]";
 	}	
 }

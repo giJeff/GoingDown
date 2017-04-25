@@ -48,6 +48,9 @@ public class Combat {
 							playerDead = monster.monsterAttack(playerDead, monsterDead, player, monster);
 							monsterDead = player.playerAttack(playerDead, monsterDead, player, monster);
 						}
+						if(monsterDead) {
+							player.setNumKilled(player.getNumKilled()+1);
+						}
 					} else {
 						System.out.println("No flee logic yet");
 					}
@@ -55,6 +58,7 @@ public class Combat {
 				System.out.println("-----------------------------------");
 				System.out.println("playerDead = " + playerDead + " monsterDead = " + monsterDead);
 			} while(!playerDead && !monsterDead);
+			
 			if(playerDead) {
 				//gameOver();
 			}

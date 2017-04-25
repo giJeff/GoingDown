@@ -47,15 +47,16 @@ public class PuzzleDB
 
 		if (rs.next())
 		{
-			plz.setPuzzleID(rs.getInt("puzzleID"));
+			plz.setPuzzleID(rs.getInt("puzzleNumber"));
 			plz.setPuzzleQuestion(rs.getString("puzzleQuestion"));
 			plz.setPuzzleAnswer(rs.getString("puzzleAnswer"));
-			plz.setOptA(rs.getString("optionA"));
-			plz.setOptB(rs.getString("optionB"));
-			plz.setOptC(rs.getString("optionC"));
-			plz.setOptD(rs.getString("optionD"));
-			plz.setIncorrectAnsDamage(rs.getInt("incorrectAnsDamage"));
-			plz.setCorrectAnsReward(rs.getInt("correctAnsReward")); 
+			plz.setOptA(rs.getString("optA"));
+			plz.setOptB(rs.getString("optB"));
+			plz.setOptC(rs.getString("optC"));
+			plz.setOptD(rs.getString("optD"));
+			plz.setIncorrectAnsDamage(rs.getInt("incorrectDamage"));
+			plz.setCorrectAnsReward(rs.getInt("correctReward")); 
+			plz.setSolved(rs.getInt("solved")); 
 		}
 
 		sdb.close();
@@ -78,15 +79,16 @@ public class PuzzleDB
 		while(rs.next())
 		{
 			Puzzle plz = new Puzzle();
-			plz.setPuzzleID(rs.getInt("puzzleID"));
+			plz.setPuzzleID(rs.getInt("puzzleNumber"));
 			plz.setPuzzleQuestion(rs.getString("puzzleQuestion"));
 			plz.setPuzzleAnswer(rs.getString("puzzleAnswer"));
-			plz.setOptA(rs.getString("optionA"));
-			plz.setOptB(rs.getString("optionB"));
-			plz.setOptC(rs.getString("optionC"));
-			plz.setOptD(rs.getString("optionD"));
-			plz.setIncorrectAnsDamage(rs.getInt("incorrectAnsDamage"));
-			plz.setCorrectAnsReward(rs.getInt("correctAnsReward")); 
+			plz.setOptA(rs.getString("optA"));
+			plz.setOptB(rs.getString("optB"));
+			plz.setOptC(rs.getString("optC"));
+			plz.setOptD(rs.getString("optD"));
+			plz.setIncorrectAnsDamage(rs.getInt("incorrectDamage"));
+			plz.setCorrectAnsReward(rs.getInt("correctReward")); 
+			plz.setSolved(rs.getInt("solved")); 
 			puzzles.add(plz);
 		}
 
