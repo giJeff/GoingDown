@@ -6,8 +6,10 @@ import java.util.IllegalFormatException;
 import java.util.Scanner;
 
 import controller.CreateFilesController;
+import controller.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.SQLiteDB;
 import view.ConsoleUI;
 import view.GameUI;;
 
@@ -24,14 +26,30 @@ public class GameStart extends Application
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
+		Scanner input = new Scanner(System.in);
 		File dbFile = new File("Game.db");
+		
+		if(dbFile.exists()) {
+			System.out.println("Would you like to start a new game or continue? \n\r\t1. New Game \n\t2. Continue");
+			int userIn = 0;
+			if (!input.hasNextInt()) {
+				input.nextInt();
+			} else {
+				userIn = input.nextInt();
+			}
+			if(userIn==1)
+			{
+				dbFile.delete();
+			}	
+		}
+		
 		if (!dbFile.exists())
 		{
 			CreateFilesController cfc = new CreateFilesController();
 			cfc.createFile();
 		}
+		
 
-		Scanner input = new Scanner(System.in);
 		int choice = 0;
 		do
 		{

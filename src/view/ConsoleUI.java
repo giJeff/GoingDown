@@ -37,7 +37,6 @@ public class ConsoleUI
 		Player player = new Player();
 		Room room = new Room();
 		Puzzle puzzle = new Puzzle();
-		ArrayList<Room> rooms = room.getAllRooms();
 		boolean game = false;
 		int currentFloor = 1;
 		int currentRoom = 1;
