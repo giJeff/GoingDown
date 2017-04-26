@@ -27,6 +27,7 @@ public class Inventory
 	{
 
 	}
+	
 
 	public Armor addArmor()
 	{
