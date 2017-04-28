@@ -7,11 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -49,16 +52,20 @@ public class GoingDownUI extends Application
 	private CheckBox cbCin;
 	private CheckBox cbCar;
 
-	private TextField textBlue = new TextField("0");
-	private TextField textChoc = new TextField("0");
-	private TextField textBNB = new TextField("0");
+	private TextField tField = new TextField();
+	private TextField textChoc = new TextField();
+	private TextField textBNB = new TextField();
+	
+	
+	private TextArea tBox = new TextArea();
+	
 
 	@Override // Override the start method in the Application class
 	public void start(Stage primaryStage)
 	{	
 		//Create BorderPane border and set properties
 		BorderPane border = new BorderPane();
-		Label title = new Label("Joe's Coffee House");
+		Label title = new Label("GOING DOWN");
 		title.setFont(Font.font ("Verdana", 30));
 		title.setTextFill(Color.CRIMSON);
 		border.setTop(title);
@@ -66,28 +73,28 @@ public class GoingDownUI extends Application
 		border.setStyle("-fx-font: 20px Tahoma; "
 				+ "-fx-border-color: crimson; "
 				+ "-fx-background-color:wheat; ");
-		
+
 		//Add methods to border
-		border.setLeft(getRbCoffee());
+		//border.setLeft(getRbCoffee());
 		border.setCenter(getCbOptions());
-		border.setRight(getMuffins());
-		border.setBottom(getButtonOptions(primaryStage));
+		border.setRight(getButtons(primaryStage));
+		border.setBottom(getButtonOptions());
 
 		// Create a scene and place it in the stage
 		Scene scene = new Scene(border);
-		primaryStage.setTitle("Joe's Coffee House!"); // Set the stage title
+		primaryStage.setTitle("GOING DOWN"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.show(); // Display the stage
 	}
-		
+
 	/** Method: @purchaseOrder
-	* All calculations for each order are completed here.
-	* New window is created in order to display purchase.
-	* Window consists of a BorderPane using the Top, Center, and Bottom positions.
-	* 		Top: Consists of the title.
-	* 		Center: Consists of the GridPane which contains the purchase information.
-	* 		Bottom: Consists of the FlowPane which contains the "Exit" button to close the window.
-	**/
+	 * All calculations for each order are completed here.
+	 * New window is created in order to display purchase.
+	 * Window consists of a BorderPane using the Top, Center, and Bottom positions.
+	 * 		Top: Consists of the title.
+	 * 		Center: Consists of the GridPane which contains the purchase information.
+	 * 		Bottom: Consists of the FlowPane which contains the "Exit" button to close the window.
+	 **/
 	private void purchaseOrder()
 	{
 		//Muffins variables
@@ -100,7 +107,7 @@ public class GoingDownUI extends Application
 		final double COFFEE_COST = 1.00;
 		final double ADD_IN_COST = 0.25;
 		final double TAX = .07;
-		
+
 		//Tax and Total variables
 		double subTotal = 0;
 		double totalTax = 0;
@@ -131,13 +138,13 @@ public class GoingDownUI extends Application
 		{
 			subTotal += ADD_IN_COST;
 		}
-		
+
 		//If statements for any number of muffins written in with a try-catch to catch NumberFormatExceptions.
-		if(this.textBlue.getText() != null)
+		if(this.tField.getText() != null)
 		{
 			try
 			{
-				blue = Integer.parseInt(this.textBlue.getText());
+				blue = Integer.parseInt(this.tField.getText());
 				subTotal += (blue * MUFFIN_COST);
 			} catch (NumberFormatException nfe){}
 		}
@@ -157,13 +164,13 @@ public class GoingDownUI extends Application
 				subTotal += (bNB * MUFFIN_COST);
 			} catch (NumberFormatException nfe){}
 		}
-		
+
 		//Taxes for each order are calculated then rounded. 
 		totalTax = Math.round(subTotal * TAX * 100.0) / 100.0;
-		
+
 		//total is calculated to include subtotal plus tax.
 		total = subTotal + totalTax;
-		
+
 		//Create new Stage purchaseWindow
 		Stage purchaseWindow = new Stage();
 
@@ -177,7 +184,7 @@ public class GoingDownUI extends Application
 		purchaseBorder.setStyle("-fx-font: 20px Tahoma; "
 				+ "-fx-border-color: crimson; "
 				+ "-fx-background-color:wheat; ");
-		
+
 		//Create GridPane purchaseGrid, design layout and set properties
 		GridPane purchaseGrid = new GridPane();
 		purchaseGrid.setAlignment(Pos.CENTER);
@@ -195,24 +202,24 @@ public class GoingDownUI extends Application
 		purchaseGrid.add(new Label("$" + totalTax), 1, 2);
 		purchaseGrid.add(new Label("Total:"), 0, 3);
 		purchaseGrid.add(new Label("$" + total), 1, 3);
-		
+
 		//Create Exit button
 		Button btExit = new Button ("Exit");
-		
+
 		//Create FlowPane purchaseFlow, design layout and set properties
 		FlowPane purchaseFlow = new FlowPane(500,10);
 		purchaseFlow.setPadding(new Insets(10, 10, 10, 10));
 		purchaseFlow.setAlignment(Pos.CENTER);
 		purchaseFlow.setStyle("-fx-background-color: crimson");
 		purchaseFlow.setHgap(20);
-		
+
 		//Add btExit button to purchaseFLow
 		purchaseFlow.getChildren().add(btExit);
 
 		//Add purchaseGrid and purchaseFlow to purchaseBorder
 		purchaseBorder.setCenter(purchaseGrid);
 		purchaseBorder.setBottom(purchaseFlow);
-		
+
 		//Create a Scene scene2 and place it in the stage
 		Scene scene2 = new Scene(purchaseBorder);
 		purchaseWindow.setTitle("Purchase Order Display"); // Set the stage title
@@ -226,9 +233,9 @@ public class GoingDownUI extends Application
 	}
 
 	/** Method: @getRbCoffee
-	* Consists of a VBox containing the RadioButtons for decaff and regular coffee.
-	* @return - returns a VBox.
-	**/
+	 * Consists of a VBox containing the RadioButtons for decaff and regular coffee.
+	 * @return - returns a VBox.
+	 **/
 	private VBox getRbCoffee() {
 		//Create VBox and set properties
 		VBox vBox = new VBox(15);
@@ -250,103 +257,86 @@ public class GoingDownUI extends Application
 	}
 
 	/** Method: @getCbOptions
-	* Consists of a VBox containing the CheckBoxes for all Coffee Add-ins.
-	* @return - returns a VBox.
-	**/
+	 * Consists of a VBox containing the CheckBoxes for all Coffee Add-ins.
+	 * @return - returns a VBox.
+	 **/
 	private VBox getCbOptions() {
 		//Create VBox and set properties
 		VBox vBox = new VBox(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10)); 
 		vBox.setStyle("-fx-border-color: crimson");
-		vBox.getChildren().add(new Label("Add-Ins"));
-
-		//Initialize CheckBoxes and add to VBox
-		cbCream = new CheckBox("Cream");
-		cbSugar = new CheckBox("Sugar");
-		cbArt = new CheckBox("Artifical Sweetener");
-		cbCin = new CheckBox("Cinnamon");
-		cbCar = new CheckBox("Caramel");
-		vBox.getChildren().addAll(cbCream, cbSugar, cbArt, cbCin, cbCar);
-
+		vBox.getChildren().addAll(new Label("Room Description"), tBox);
+		
 		return vBox;
 	}
 
 	/** Method: @getMuffins
-	* Consists of a GridPane containing the TextFields for all Muffins.
-	* @return - returns a VBox.
-	**/
-	public GridPane getMuffins()
+	 * Consists of a GridPane containing the TextFields for all Muffins.
+	 * @return - returns a VBox.
+	 **/
+	public GridPane getButtons(Stage primaryStage)
 	{
-		// Create a GridPane pane and set properties
-		GridPane Pane = new GridPane();
-		Pane.setAlignment(Pos.CENTER);
-		Pane.setPadding(new Insets(10, 10, 50, 10));
-		Pane.setStyle("-fx-border-color: crimson");
-		Pane.setHgap(15);
-		Pane.setVgap(7.5);			
-
-		// Place nodes in the pane
-		Pane.add(new Label("Muffins"), 0, 0);
-		Pane.add(new Label("Quantity"), 1, 0);
-		Pane.add(new Label("Blueberry:"), 0, 1); 
-		Pane.add(textBlue, 1, 1);
-		Pane.add(new Label("Chocolate Chip:"), 0, 2);
-		Pane.add(textChoc, 1, 2);
-		Pane.add(new Label("Banana Nut & Bran:"), 0, 3);
-		Pane.add(textBNB, 1, 3);
-
-		return Pane;
-	}
-
-	/** Method: @getButtonOptions
-	* Consists of a FlowPane containing the Buttons for calculating cost, clearing input, and exiting window.
-	* @param Stage primaryStage
-	* 			– passes a Stage argument
-	* @return - returns a FlowPane
-	**/
-	public FlowPane getButtonOptions(Stage primaryStage)
-	{		
 		//Create and initialize Buttons
 		Button btCalc = new Button("Calculate");
 		Button btClear = new Button("Clear");
+		Button btSave = new Button("Save");
 		Button btExit = new Button("Exit");
 
-		// Create a FlowPane flow and set properties
-		FlowPane flow = new FlowPane(500,10);
-		flow.setPadding(new Insets(10, 10, 10, 10));
-		flow.setAlignment(Pos.CENTER);
-		flow.setStyle("-fx-background-color: crimson");
-		flow.setHgap(20);
-		
-		//Add Buttons btCalc, btClear, and btExit to flow.
-		flow.getChildren().addAll(btCalc, btClear, btExit);
+		// Create a GridPane pane and set properties
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setPadding(new Insets(10, 10, 50, 10));
+		grid.setStyle("-fx-border-color: crimson");
+		grid.setHgap(15);
+		grid.setVgap(7.5);
+
+		// Place nodes in the pane
+		grid.add(new Label("COMMANDS"), 0, 0);
+		//grid.add(new Label("Quantity"), 1, 0);
+		grid.add(btCalc, 0, 1); 
+		//grid.add(textBlue, 1, 1);
+		grid.add(btClear, 0, 2);
+		//grid.add(textChoc, 1, 2);
+		grid.add(btSave, 0, 3);
+		grid.add(btExit, 0, 4);
+		//grid.add(textBNB, 1, 3);
 
 		//Opens method purchaseOrder
 		btCalc.setOnAction(e->purchaseOrder());
-		
+
 		btClear.setOnAction(e-> {
-			//Clears all RadioBoxes
-			this.group.selectToggle(null);
-
-			//Clears all CheckBoxes
-			this.cbCream.setSelected(false);
-			this.cbSugar.setSelected(false);
-			this.cbArt.setSelected(false);
-			this.cbCin.setSelected(false);
-			this.cbCar.setSelected(false);
-
 			//Resets all TextFields to "0"
-			this.textBlue.setText("0");
-			this.textChoc.setText("0");
-			this.textBNB.setText("0");
+			this.tField.setText("");
+			this.tBox.setText("");
 		});
-		
+
 		//Closes Stage
 		btExit.setOnAction(e->{
 			primaryStage.close();
 		});
 
-		return flow;
+		return grid;
+	}
+
+	/** Method: @getButtonOptions
+	 * Consists of a FlowPane containing the Buttons for calculating cost, clearing input, and exiting window.
+	 * @param Stage primaryStage
+	 * 			– passes a Stage argument
+	 * @return - returns a FlowPane
+	 **/
+	public HBox getButtonOptions()
+	{		
+		// Create a FlowPane flow and set properties
+		HBox hb = new HBox();
+		hb.setPadding(new Insets(10, 10, 10, 10));
+		hb.setAlignment(Pos.CENTER);
+		hb.setStyle("-fx-background-color: crimson");
+		HBox.setHgrow(tField, Priority.ALWAYS);
+
+		//Add Buttons btCalc, btClear, and btExit to flow.
+		hb.getChildren().add(tField);
+
+		return hb;
 	}
 
 	public static void main(String[] args)
