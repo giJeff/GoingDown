@@ -1,7 +1,6 @@
 package view;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -21,20 +19,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 /**Class: @GoingDownUI.java
  * @author Brendon Serrano
  * @version 1.0
- * Course : ITEC 3860
- * Written: April 28, 2017
- *
+ * Course : ITEC 3150 Fall 2016
+ * Written: @Apr 29, 2017
  *
  * This class is the view component for the GUI
- * 			
+ * 
  */ 
 public class GoingDownUI extends Application
 {
 	//Contains class objects
-	private ToggleGroup group;
 	private RadioButton rbRegular;
 	private RadioButton rbDecaff;
 
@@ -69,7 +66,7 @@ public class GoingDownUI extends Application
 		//Add methods to border
 		border.setLeft(getRbCoffee());
 		border.setCenter(getCbOptions());
-		border.setRight(getButtons(primaryStage));
+		border.setRight(getCommandButtons(primaryStage));
 		border.setBottom(getTextField());
 
 		// Create a scene and place it in the stage
@@ -293,103 +290,20 @@ public class GoingDownUI extends Application
 	 * Consists of a GridPane containing the TextFields for all Muffins.
 	 * @return - returns a VBox.
 	 **/
-	public VBox getButtons(Stage primaryStage)
+	public VBox getCommandButtons(Stage primaryStage)
 	{
 		//Create and initialize Buttons
 		Button btCalc = new Button("Calculate");
 
-		Button btAttack = new Button("Attack!");
-		Button btRun = new Button("Run!");
-		Button btInventory = new Button("Inventory");
-
-		Button btA = new Button("Option A");
-		Button btB = new Button("Option B");
-		Button btC = new Button("Option C");
-		Button btD = new Button("Option D");
-
-		Button btStart = new Button("Start");
-		Button btClear = new Button("Clear");
-		Button btSave = new Button("Save");
-		Button btExit = new Button("Exit");
-
-		btCalc.setMinWidth(150);
-
-		btAttack.setMinWidth(150);
-		btRun.setMinWidth(150);
-		btInventory.setMinWidth(150);
-
-
-		btStart.setMinWidth(150);
-		btClear.setMinWidth(150);
-		btSave.setMinWidth(150);
-		btExit.setMinWidth(150);
-
-		// Create a GridPane pane and set properties
-		GridPane grid1 = new GridPane();
-		grid1.setAlignment(Pos.CENTER);
-		grid1.setPadding(new Insets(5, 10, 10, 10));
-		grid1.setStyle("-fx-border-color: crimson");
-		grid1.setHgap(15);
-		grid1.setVgap(28);
-
-		// Place nodes in the pane
-		grid1.add(btAttack,0, 0);
-		grid1.add(btRun, 1, 0);
-		//grid1.add(btInventory, 2, 0); 
-
-		HBox hb2 = new HBox(10);
-		hb2.setPadding(new Insets(10, 10, 10, 10));
-		hb2.setAlignment(Pos.CENTER);
-		hb2.setStyle("-fx-background-color: crimson");
-
-		hb2.getChildren().add(btInventory);
-
-		
-		// Create a FlowPane flow and set properties
-		HBox hb3 = new HBox(10);
-		hb3.setPadding(new Insets(10, 10, 10, 10));
-		hb3.setAlignment(Pos.CENTER);
-		hb3.setStyle("-fx-background-color: crimson");
-
-		//Add Buttons btCalc, btClear, and btExit to flow.
-		hb3.getChildren().addAll(btA,btB, btC, btD);
-
-		HBox hb4 = new HBox(10);
-		hb4.setPadding(new Insets(10, 10, 10, 10));
-		hb4.setAlignment(Pos.CENTER);
-		hb4.setStyle("-fx-background-color: crimson");
-
-		hb4.getChildren().addAll(btClear, btSave, btExit);
-
-		
 		//Create VBox and set properties
-		VBox vBox = new VBox(25);
-		vBox.setPadding(new Insets(10, 10, 60, 10)); 
+		VBox vBox = new VBox(10);
+		vBox.setPadding(new Insets(20, 10, 20, 10)); 
 		vBox.setStyle("-fx-border-color: crimson");
 		vBox.setAlignment(Pos.CENTER);
-		vBox.getChildren().addAll(new Label("Command"), grid1, hb2, hb3, hb4);
+		vBox.getChildren().addAll(new Label("Command"), getCombatButtons(), getInventoryButton(), getAnswerButtons(), getMenuButtons(primaryStage));
 
 		//Opens method purchaseOrder
 		btCalc.setOnAction(e-> purchaseOrder());
-
-		btAttack.setOnAction(e -> {
-
-		});
-
-		btRun.setOnAction(e -> {
-
-		});
-
-		btClear.setOnAction(e-> {
-			//Resets all TextFields 
-			this.tField.setText("");
-			this.tBox.setText("");
-		});
-
-		//Closes Stage
-		btExit.setOnAction(e->{
-			primaryStage.close();
-		});
 
 		return vBox;
 	}
@@ -413,9 +327,146 @@ public class GoingDownUI extends Application
 
 		//Add Buttons btCalc, btClear, and btExit to flow.
 		hb.getChildren().addAll(tField, btSubmit);
+		
+		btSubmit.setOnAction(e -> {
+			
+		});
 
 		return hb;
 	}
+
+	/** Method: @getButtonOptions
+	 * Consists of a FlowPane containing the Buttons for calculating cost, clearing input, and exiting window.
+	 * @param Stage primaryStage
+	 * 			– passes a Stage argument
+	 * @return - returns a FlowPane
+	 **/
+	public HBox getCombatButtons()
+	{		
+		HBox hb = new HBox(10);
+		hb.setPadding(new Insets(10, 10, 10, 10));
+		hb.setAlignment(Pos.CENTER);
+		hb.setStyle("-fx-background-color: crimson");
+
+		Button btAttack = new Button("Attack!");
+		Button btRun = new Button("Run!");
+
+		btAttack.setMinWidth(150);
+		btRun.setMinWidth(150);
+
+		hb.getChildren().addAll(btAttack, btRun);
+		
+		btAttack.setOnAction(e -> {
+
+		});
+
+		btRun.setOnAction(e -> {
+
+		});
+
+		return hb;
+	}
+
+
+	public HBox getInventoryButton()
+	{		
+		HBox hb = new HBox(10);
+		hb.setPadding(new Insets(10, 10, 10, 10));
+		hb.setAlignment(Pos.CENTER);
+		hb.setStyle("-fx-background-color: crimson");
+
+		Button btInventory = new Button("Inventory");
+
+		btInventory.setMinWidth(150);
+
+		hb.getChildren().add(btInventory);
+		
+		btInventory.setOnAction(e -> {
+
+		});
+
+		return hb;
+	}
+
+	/** Method: @getButtonOptions
+	 * Consists of a FlowPane containing the Buttons for calculating cost, clearing input, and exiting window.
+	 * @param Stage primaryStage
+	 * 			– passes a Stage argument
+	 * @return - returns a FlowPane
+	 **/
+	public HBox getAnswerButtons()
+	{		
+		HBox hb = new HBox(10);
+		hb.setPadding(new Insets(10, 10, 10, 10));
+		hb.setAlignment(Pos.CENTER);
+		hb.setStyle("-fx-background-color: crimson");
+
+		Button btA = new Button("Option A");
+		Button btB = new Button("Option B");
+		Button btC = new Button("Option C");
+		Button btD = new Button("Option D");
+
+		//Add Buttons btCalc, btClear, and btExit to HBox.
+		hb.getChildren().addAll(btA,btB, btC, btD);
+		
+		btA.setOnAction(e -> {
+
+		});
+
+		btB.setOnAction(e -> {
+
+		});
+
+		btC.setOnAction(e -> {
+
+		});
+
+		btD.setOnAction(e -> {
+
+		});
+
+		return hb;
+	}
+
+	/** Method: @getButtonOptions
+	 * Consists of a FlowPane containing the Buttons for calculating cost, clearing input, and exiting window.
+	 * @param Stage primaryStage
+	 * 			– passes a Stage argument
+	 * @return - returns a FlowPane
+	 **/
+	public HBox getMenuButtons(Stage primaryStage)
+	{		
+		HBox hb = new HBox(10);
+		hb.setPadding(new Insets(10, 10, 10, 10));
+		hb.setAlignment(Pos.CENTER);
+		hb.setStyle("-fx-background-color: crimson");
+
+		Button btClear = new Button("Clear");
+		Button btSave = new Button("Save");
+		Button btExit = new Button("Exit");
+
+		btClear.setMinWidth(150);
+		btSave.setMinWidth(150);
+		btExit.setMinWidth(150);
+		
+		//Add Buttons btCalc, btClear, and btExit to HBox.
+		hb.getChildren().addAll(btClear, btSave, btExit);
+		
+		btClear.setOnAction(e-> {
+			//Resets all TextFields 
+			this.tField.setText("");
+			this.tBox.setText("");
+		});
+
+		//Closes Stage
+		btExit.setOnAction(e->{
+			primaryStage.close();
+		});
+
+		return hb;
+	}
+
+
 
 	public static void main(String[] args)
 	{
