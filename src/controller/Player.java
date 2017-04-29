@@ -26,7 +26,7 @@ public class Player
 	private int score;
 	private int numKilled;
 	private int numSolved;
-	//Inventory inv = new Inventory();
+	Inventory inv = new Inventory();
 	private float weight;
 	private float maxWeight;
 	private int currentRoom;
@@ -274,6 +274,20 @@ public class Player
 	 */
 	public void setPeekWest(int peekWest) {
 		this.peekWest = peekWest;
+	}
+	
+	public void slowText(String msg) {
+		for(int i = 0; i < msg.length(); i++) {
+			System.out.print(msg.charAt(i));
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println();
 	}
 	
 	

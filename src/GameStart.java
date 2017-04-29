@@ -29,8 +29,10 @@ public class GameStart extends Application
 		Scanner input = new Scanner(System.in);
 		File dbFile = new File("Game.db");
 		
+		logo();
+		
 		if(dbFile.exists()) {
-			System.out.println("Would you like to start a new game or continue? \n\r\t1. New Game \n\t2. Continue");
+			slowText("Would you like to start a new game or continue? \n\r\t1. New Game \n\t2. Continue");
 			int userIn = 0;
 			if (!input.hasNextInt()) {
 				input.nextInt();
@@ -55,7 +57,7 @@ public class GameStart extends Application
 		{
 			try
 			{
-				System.out.println("Please enter 1 to play from the console, 2 to play from the UI.");
+				slowText("Please enter 1 to play from the console, 2 to play from the UI.");
 				choice = input.nextInt();
 			}
 			catch (IllegalFormatException ife)
@@ -77,6 +79,37 @@ public class GameStart extends Application
 			GameUI.launch(GameUI.class);
 		}
 		System.exit(0);
+	}
+	
+	public static void slowText(String msg) {
+		for(int i = 0; i < msg.length(); i++) {
+			System.out.print(msg.charAt(i));
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println();
+	}
+	
+	public static void logo() 
+	{
+		slowText("_______________________________________________________________");
+		slowText("$                                  (                          $");
+		slowText("$   (                              )\\ )                JG     $");
+		slowText("$   )\\ )        (          (  (   (()/(        (  (           $");
+		slowText("$  (()/(     (  )\\   (     )\\))(   /(_))   (   )\\))(    (     $");
+		slowText("$   /(_))_   )\\((_)  )\\ ) ((_))\\  (_))_    )\\ ((_)()\\   )\\ )  $");
+		slowText("$  (_)) __| ((_)(_) _(_/(  (()(_)  |   \\  ((_)_(()((_) _(_/(  $");
+		slowText("$    | (_ |/ _ \\| || ' \\))/ _` |   | |) |/ _ \\\\ V  V /| ' \\)) $");
+		slowText("$     \\___|\\___/|_||_||_| \\__, |   |___/ \\___/ \\_/\\_/ |_||_|  $");
+		slowText("$                         |___/                               $");
+		slowText("***************************************************************");
+		System.out.println("$\t\t\t       By: Jeff G, Charneaka, Brendon $");
+		System.out.println("***************************************************************\n\n");
 	}
 
 	@Override

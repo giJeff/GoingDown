@@ -97,36 +97,7 @@ public class GameController
 		return monstersStr;
 	}	
 	
-	/** Method: getMonsterRoomData
-	 * Purpose: Gets the monster and room for the specified room and displays list of monsters in specified rooms
-	 * void
-	 * @throws SQLException 
-	 */
-	public String getMonsterRoomData(int monsterRoomNumber) throws SQLException
-	{
-		MonsterRoom mr = new MonsterRoom();
-		mr = mr.getMonster(monsterRoomNumber);
-		return mr.toString();
-	}
-	
-	/** Method: getAllMonsterRoomData
-	 * Purpose: Get all of the monster and room data.  Joins these two tables. 
-	 * @throws SQLException
-	 * @return ArrayList<String>
-	 */
-	public ArrayList<String> getAllMonsterRoomData() throws SQLException
-	{
-		MonsterRoom mr = new MonsterRoom();
-		ArrayList<MonsterRoom> monsterRooms = null;
-		monsterRooms = mr.getAllMonsters();
-		ArrayList<String> mrStrs = new ArrayList<String>();	
-		for(MonsterRoom monsterRoom : monsterRooms)
-		{
-			mrStrs.add(monsterRoom.toString());
-		}		
-		return mrStrs;
-	}
-	
+
 	/** Method: getWeaponData
 	 * Purpose: Gets the weapon and displays list of attributes
 	 * void

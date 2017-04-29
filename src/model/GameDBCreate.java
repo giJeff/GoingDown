@@ -32,7 +32,8 @@ public class GameDBCreate
 		buildPotion();
 		buildPlayer();
 		buildPuzzle();
-		//buildMonsterRoom();
+		buildInventory();
+		buildQuest();
 	}
 	
 	/** Method: buildRoom
@@ -542,7 +543,7 @@ public class GameDBCreate
 		
 		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
 				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
-				+ " Values(11, 'Elite Gaurd', 'Melee', 'none', 125, 25, 50, 0, 0, 0, 40, 30, 30, 15)";
+				+ " Values(11, 'Elite Gaurd', 'Melee', 'none', 125, 25, 30, 0, 0, 0, 40, 30, 30, 15)";
 		sdb.updateDB(sql);
 		
 		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
@@ -557,39 +558,23 @@ public class GameDBCreate
 		
 		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
 				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
-				+ " Values(14, 'Elite Golem', 'Melee', 'Fire', 250, 40, 65, 0, 3, 0, 40, 30, 30, 15)";
+				+ " Values(14, 'Elite Golem', 'Melee', 'Fire', 250, 15, 20, 0, 3, 0, 40, 30, 30, 15)";
 		sdb.updateDB(sql);
 		
 		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
 				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
-				+ " Values(15, 'Elite Dragon', 'Ranged', 'Fire', 200, 50, 75, 0, 0, 0, 40, 30, 30, 15)";
+				+ " Values(15, 'Elite Dragon', 'Ranged', 'Fire', 200, 20, 25, 0, 0, 0, 40, 30, 30, 15)";
 		sdb.updateDB(sql);
 
 		sql = "INSERT INTO Monster(monsterNumber, monsterName, monsterDescription, immune, hitPoints, minDamage, maxDamage,"
 				+ "attackFirst, turnToHitPlayer, commonDrop, uncommonDrop, rareDrop, legendaryDrop, spawnChance) " 
-				+ " Values(16, 'Elite Spearman', 'Ranged', 'none', 125, 15, 40, 1, 0, 0, 40, 30, 30, 15)";
+				+ " Values(16, 'Elite Spearman', 'Ranged', 'none', 125, 15, 24, 1, 0, 0, 40, 30, 30, 15)";
 		sdb.updateDB(sql);
 		
 
 		sdb.close();
 	}
 	
-	/** Method: buildMonsterRoom
-	 * Purpose: Build the Monster table and load data
-	 * @throws SQLException
-	 * @return void
-	 */
-	public void buildMonsterRoom() throws SQLException
-	{
-		sdb = GameController.getDB();
-		String sql = "CREATE TABLE MonsterRoom(monsterNumber int not Null, roomNumber int not Null)";
-		sdb.updateDB(sql);
-		sql = "INSERT INTO MonsterRoom(monsterNumber, roomNumber) Values(1, 2)";
-		sdb.updateDB(sql);
-		sql = "INSERT INTO MonsterRoom(monsterNumber, roomNumber) Values(2, 3)";
-		sdb.updateDB(sql);
-		sdb.close();
-	}
 	
 	/** Method: buildWeapon
 	 * Purpose: Build the Weapon table and load data
@@ -691,27 +676,27 @@ public class GameDBCreate
 				+ " legendaryDamageReduction float not null, weight float not null)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot, commonDamageReduction, uncommonDamageReduction, "
 				+ "rareDamageReduction, legendaryDamageReduction, weight) "
 				+ "Values(1, 'Helmet', 3, 0.99, 0.98, 0.95, 0.90, 2)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot, commonDamageReduction, uncommonDamageReduction, "
 				+ "rareDamageReduction, legendaryDamageReduction, weight) "
 				+ "Values(2, 'Chestpiece', 4, 0.99, 0.98, 0.95, 0.90, 4)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot, commonDamageReduction, uncommonDamageReduction, "
 				+ "rareDamageReduction, legendaryDamageReduction, weight) "
 				+ "Values(3, 'Legs', 5, 0.99, 0.98, 0.95, 0.90, 3)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot, commonDamageReduction, uncommonDamageReduction, "
 				+ "rareDamageReduction, legendaryDamageReduction, weight) "
 				+ "Values(4, 'Gloves', 6, 0.99, 0.98, 0.95, 0.90, 0.5)";
 		sdb.updateDB(sql);
 		
-		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot,commonDamageReduction, uncommonDamageReduction, "
+		sql = "INSERT INTO Armor(armorNumber, armorType, equipSlot, commonDamageReduction, uncommonDamageReduction, "
 				+ "rareDamageReduction, legendaryDamageReduction, weight) "
 				+ "Values(5, 'Boots', 7, 0.99, 0.98, 0.95, 0.90, 0.5)";
 		sdb.updateDB(sql);
@@ -758,6 +743,52 @@ public class GameDBCreate
 		
 		sdb.close();
 	}
+	
+	public void buildInventory() throws SQLException
+	{
+		sdb = GameController.getDB();
+		String sql = "CREATE TABLE Inventory(itemNumber INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "playerNumber int not null, weaponNumber int not null, armorNumber int not null, potionNumber Int not null,"
+				+ "isEquiped int not null, equipSlot int not null)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Inventory(playerNumber, weaponNumber, armorNumber, potionNumber, isEquiped, equipSlot) "
+				+ "Values(1, 2, 0, 0, 1, 1)";
+		sdb.updateDB(sql);
+		
+		sdb.close();
+	}
+	
+	public void buildQuest() throws SQLException
+	{
+		sdb = GameController.getDB();
+		String sql = "CREATE TABLE Quest(questNumber int Primary Key not Null, questDescription text not null, monsterKilled int not null, "
+				+ "bossKilled int not null, puzzleSolved int not null, roomClear int not null)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Quest(questNumber, questDescription, monsterKilled, bossKilled, puzzleSolved, roomClear) "
+				+ "Values(1, 'Clear all of the rooms', 0, 0, 0, 0)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Quest(questNumber, questDescription, monsterKilled, bossKilled, puzzleSolved, roomClear) "
+				+ "Values(2, 'Slay 8 monsters and kill 2 bosses', 0, 0, 0, 0)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Quest(questNumber, questDescription, monsterKilled, bossKilled, puzzleSolved, roomClear) "
+				+ "Values(3, 'Solve 3 puzzles and kill 5 monsters', 0, 0, 0, 0)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Quest(questNumber, questDescription, monsterKilled, bossKilled, puzzleSolved, roomClear) "
+				+ "Values(4, 'Slay 5 monsters, solve 2 puzzles, and kill 2 bosses', 0, 0, 0, 0)";
+		sdb.updateDB(sql);
+		
+		sql = "INSERT INTO Quest(questNumber, questDescription, monsterKilled, bossKilled, puzzleSolved, roomClear) "
+				+ "Values(5, 'Kill 5 bosses', 0, 0, 0, 0)";
+		sdb.updateDB(sql);
+		
+		sdb.close();
+	}
+
 	
 	public void buildPlayer() throws SQLException
 	{
@@ -844,7 +875,7 @@ public class GameDBCreate
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward, solved) "
 				+ "Values(10, 'What does this say: A bird in the the bush.', 'c', "
-				+ "'a.	A space bird in the space the bush', 'b. A bird in the bush', 'c. A bird in the the bush.', null, 5, 10, 0)";
+				+ "'a. A space bird in the space the bush', 'b. A bird in the bush', 'c. A bird in the the bush.', null, 5, 10, 0)";
 		sdb.updateDB(sql);
 		
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
@@ -869,7 +900,7 @@ public class GameDBCreate
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward, solved) "
 				+ "Values(14, 'What is greater than God. More evil than the devil. The poor have it. The rich need it. "
-				+ "and if you eat it, you will die?', 'c','a.	McDonalds', 'b. Fruit cake', 'c. Nothing', null, 5, 10, 0)";
+				+ "and if you eat it, you will die?', 'c','a. McDonalds', 'b. Fruit cake', 'c. Nothing', null, 5, 10, 0)";
 		sdb.updateDB(sql);
 		
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
@@ -899,7 +930,7 @@ public class GameDBCreate
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward, solved) "
 				+ "Values(19, 'Which weighs more, a pound of feathers or a pound of bricks?', 'd',"
-				+ "'a. Feathers ', 'b. Bricks', 'c. They weigh the same amounts.', 'd. They weigh the same.', 5, 10, 0)";
+				+ "'a. Feathers ', 'b. Bricks', 'c. They weigh different amounts.', 'd. They weigh the same.', 5, 10, 0)";
 		sdb.updateDB(sql);
 		
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "

@@ -2,106 +2,133 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import model.InventoryDB;
+
+/** Class : Inventory.java
+ * @author: Jeff Graves
+ * @version: 1.0
+ * Course: ITEC 3860
+ * Written: April 16, 2017
+ *
+ * This class is the Inventory class handling business logic for the Inventory class
+ */
 public class Inventory
 {
-	private int itemID;
-	private String itemName;
-
-	//Defining constant-IDs.
-	public static final int ARMORID = 0;
-	public static final int POTIONID = 1;
-	public static final int WEAPONID = 2;
-
-	// HashMap with arrayLists of items by ID.
-	public static HashMap<Integer, ArrayList<String>> items = new HashMap<Integer, ArrayList<String>>();
-	// Backpack with a slightly different structure.
-	public static HashMap<Integer, String> inventory = new HashMap<Integer, String>();
-
-	Armor arm = new Armor();
-	Potion pot = new Potion();
-	Weapon weap = new Weapon();
-
+	private int itemNumber;
+	private int playerNumber;
+	private int weaponNumber;
+	private int armorNumber;
+	private int potionNumber;
+	private int isEquiped;
+	private int equipSlot;
+	
+	/** Constructor: Inventory
+	 * @throws SQLException 
+	 */
 	public Inventory() throws SQLException
 	{
+		InventoryDB  idb = new InventoryDB();
+		itemNumber = idb.getNextInventoryID();
+	}
+	
+	/** Method: getItem
+	 * Purpose: Gets a specified item from the Inventory table 
+	 * @param id
+	 * @return Inventory
+	 * @throws SQLException
+	 */
+	public Inventory getItem(int id) throws SQLException
+	{
+		InventoryDB  idb = new InventoryDB();
+		return idb.getItem(id);
+	}
+	
+	/** Method: getAllItems
+	 * Purpose: gets all items from the Inventory table
+	 * @return ArrayList<Inventory>
+	 * @throws SQLException
+	 */
+	public ArrayList<Inventory> getAllItems() throws SQLException
+	{
+		InventoryDB  idb = new InventoryDB();
+		return idb.getAllItems();
+	}
+	
+	/**
+	 * @return the itemNumber
+	 */
+	public int getItemNumber() {
+		return itemNumber;
+	}
 
+	/**
+	 * @param itemNumber the itemNumber to set
+	 */
+	public void setItemNumber(int itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+
+	public int getPlayerNumber() {
+		return playerNumber;
+	}
+
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
+	}
+
+	public int getWeaponNumber() {
+		return weaponNumber;
+	}
+
+	public void setWeaponNumber(int weaponNumber) {
+		this.weaponNumber = weaponNumber;
+	}
+
+	public int getArmorNumber() {
+		return armorNumber;
+	}
+
+	public void setArmorNumber(int armorNumber) {
+		this.armorNumber = armorNumber;
+	}
+
+	public int getPotionNumber() {
+		return potionNumber;
+	}
+
+	public void setPotionNumber(int potionNumber) {
+		this.potionNumber = potionNumber;
+	}
+
+	public int getIsEquiped() {
+		return isEquiped;
+	}
+
+	public void setIsEquiped(int isEquiped) {
+		this.isEquiped = isEquiped;
+	}
+
+	public int getEquipSlot() {
+		return equipSlot;
+	}
+
+	public void setEquipSlot(int equipSlot) {
+		this.equipSlot = equipSlot;
 	}
 	
 
-	public Armor addArmor()
+	/** Method: toString
+	 * Purpose: Returns a String of the Weapon class
+	 * @return
+	 */
+	@Override
+	public String toString()
 	{
-		arm.getArmorID();
-		return arm;
-	}
-
-	public Armor dropArmor()
-	{
-		return arm;
-	}
-
-	public Potion addPotion()
-	{
-		return pot;
-	}
-
-	public Potion dropPotion()
-	{
-		return pot;
-	}
-
-	public Weapon addWeapon()
-	{
-		return weap;
-	}
-
-	public Weapon dropWeapon()
-	{
-		return weap;
-	}
-
-
-
-
-	public void temp()
-	{
-
-		// Creating the arrayLists.
-		ArrayList<String> armor = new ArrayList<String>();
-		ArrayList<String> weapon = new ArrayList<String>();
-		ArrayList<String> potion = new ArrayList<String>();
-
-		// Adding content to them...
-		for (Integer i = 0; i < 10; i++) {
-			armor.add("Armor" + i.toString());
-			weapon.add("Weapon" + i.toString());
-			potion.add("Potion" + i.toString());
-
-		}
-
-		// Putting the arrayLists to the HashMap of items by their IDs.
-		items.put(ARMORID, armor); 
-		items.put(POTIONID, potion);
-		items.put(WEAPONID, weapon); 
-
-		// Printing all the content in all arrayLists in all IDs.
-		for (ArrayList<String> e : items.values()) {
-			for (int i = 0; i < e.size(); i++) {
-				if (e.get(i)!=null) {
-					System.out.println(e.get(i));
-				}
-			}
-		}
-
-		// Here you could add any item to the backpack.
-		inventory.put(ARMORID, armor.get(0));
-		inventory.put(POTIONID, potion.get(0));
-		inventory.put(WEAPONID, weapon.get(0));
+		return "Inventory {\nitemNumber = " + itemNumber + "\nplayerNumber = " + playerNumber + "\nweaponNumber = " + weaponNumber 
+				+ "\narmorNumber = " + armorNumber + "\npotionNumber = " + potionNumber 
+				+ "\nisEquiped = " + isEquiped + "\nequipSlot = " + equipSlot + "\n}"; 
 	}
 
 
 }
-
-
-
-
