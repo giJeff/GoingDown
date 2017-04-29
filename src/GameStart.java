@@ -11,7 +11,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.SQLiteDB;
 import view.ConsoleUI;
-import view.GameUI;;
+import view.GameUI;
+import view.GoingDownUI;;
 
 /** Class : GameStart.java
  * @author: Rick Price
@@ -76,7 +77,7 @@ public class GameStart extends Application
 		}
 		else
 		{
-			GameUI.launch(GameUI.class);
+			GoingDownUI.launch(GoingDownUI.class);
 		}
 		System.exit(0);
 	}
