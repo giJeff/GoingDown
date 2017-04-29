@@ -78,7 +78,7 @@ public class GoingDownUI extends Application
 		//border.setLeft(getRbCoffee());
 		border.setCenter(getCbOptions());
 		border.setRight(getButtons(primaryStage));
-		border.setBottom(getButtonOptions());
+		border.setBottom(getTextField());
 
 		// Create a scene and place it in the stage
 		Scene scene = new Scene(border);
@@ -265,6 +265,7 @@ public class GoingDownUI extends Application
 		VBox vBox = new VBox(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10)); 
 		vBox.setStyle("-fx-border-color: crimson");
+		vBox.setAlignment(Pos.CENTER);
 		vBox.getChildren().addAll(new Label("Room Description"), tBox);
 		
 		return vBox;
@@ -278,32 +279,55 @@ public class GoingDownUI extends Application
 	{
 		//Create and initialize Buttons
 		Button btCalc = new Button("Calculate");
+		
+		Button btAttack = new Button("Attack");
+		Button btFlee = new Button("Flee");
+		
+		Button btStart = new Button("Start");
 		Button btClear = new Button("Clear");
 		Button btSave = new Button("Save");
 		Button btExit = new Button("Exit");
 
+		btCalc.setMaxWidth(200);
+		
+		btAttack.setMaxWidth(200);
+		btFlee.setMaxWidth(200);
+		
+		btStart.setMaxWidth(200);
+		btClear.setMaxWidth(200);
+		btSave.setMaxWidth(200);
+		btExit.setMaxWidth(200);
+		
 		// Create a GridPane pane and set properties
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
-		grid.setPadding(new Insets(10, 10, 50, 10));
+		grid.setPadding(new Insets(5, 50, 15, 50));
 		grid.setStyle("-fx-border-color: crimson");
 		grid.setHgap(15);
-		grid.setVgap(7.5);
+		grid.setVgap(28);
 
 		// Place nodes in the pane
-		grid.add(new Label("COMMANDS"), 0, 0);
+		grid.add(new Label("Combat Command:"), 0, 0);
 		//grid.add(new Label("Quantity"), 1, 0);
-		grid.add(btCalc, 0, 1); 
-		//grid.add(textBlue, 1, 1);
-		grid.add(btClear, 0, 2);
-		//grid.add(textChoc, 1, 2);
-		grid.add(btSave, 0, 3);
-		grid.add(btExit, 0, 4);
-		//grid.add(textBNB, 1, 3);
+		
+		grid.add(btAttack,0, 1);
+		grid.add(btFlee, 1, 1);
+		grid.add(btCalc, 2, 1); 
+		
+		grid.add(new Label("Basic Command:"), 0, 2);
+		
+		grid.add(btClear, 0, 3);
+		grid.add(btSave, 1, 3);
+		grid.add(btExit, 2, 3);
 
+		
 		//Opens method purchaseOrder
 		btCalc.setOnAction(e->purchaseOrder());
 
+		btAttack.setOnAction(e -> {
+			
+		});
+		
 		btClear.setOnAction(e-> {
 			//Resets all TextFields to "0"
 			this.tField.setText("");
@@ -324,7 +348,7 @@ public class GoingDownUI extends Application
 	 * 			– passes a Stage argument
 	 * @return - returns a FlowPane
 	 **/
-	public HBox getButtonOptions()
+	public HBox getTextField()
 	{		
 		// Create a FlowPane flow and set properties
 		HBox hb = new HBox();
