@@ -1,6 +1,7 @@
 package view;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,24 +21,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-/**Class: @CoffeeHouse.java
+/**Class: @GoingDownUI.java
  * @author Brendon Serrano
  * @version 1.0
- * Course : ITEC 3150 Fall 2016
- * Written: @Oct 25, 2016
+ * Course : ITEC 3860
+ * Written: April 28, 2017
  *
  *
- * This class – This class is meant to allow users to place an Order to Joe's Coffee House for Coffee, Coffee Add-ins, and Muffins. 
- *
- * Purpose: – CoffeeHouse class is designed to make an user friendly window for customers looking to purchase coffee and muffins.
- * 			Class contains the following methods:
- * 			@start
- * 			@purchaseOrder 
- * 			@getRbCoffee
- * 			@getCbOptions
- * 			@getMuffins
- * 			@getButtonOptions
- * 			@main
+ * This class is the view component for the GUI
+ * 			
  */ 
 public class GoingDownUI extends Application
 {
@@ -55,10 +47,10 @@ public class GoingDownUI extends Application
 	private TextField tField = new TextField();
 	private TextField textChoc = new TextField();
 	private TextField textBNB = new TextField();
-	
-	
+
+
 	private TextArea tBox = new TextArea();
-	
+
 
 	@Override // Override the start method in the Application class
 	public void start(Stage primaryStage)
@@ -75,7 +67,7 @@ public class GoingDownUI extends Application
 				+ "-fx-background-color:wheat; ");
 
 		//Add methods to border
-		//border.setLeft(getRbCoffee());
+		border.setLeft(getRbCoffee());
 		border.setCenter(getCbOptions());
 		border.setRight(getButtons(primaryStage));
 		border.setBottom(getTextField());
@@ -237,23 +229,57 @@ public class GoingDownUI extends Application
 	 * @return - returns a VBox.
 	 **/
 	private VBox getRbCoffee() {
-		//Create VBox and set properties
-		VBox vBox = new VBox(15);
-		vBox.setPadding(new Insets(15, 5, 5, 5));
-		vBox.setStyle("-fx-border-color: crimson");
-		vBox.getChildren().add(new Label("Coffee"));
+		//Create and initialize Buttons
+				Button btCalc = new Button("Calculate");
 
-		//Initialize RadioButtons and add to VBox
-		rbDecaff = new RadioButton("Decaff Coffee");
-		rbRegular = new RadioButton("Regular Coffee");
-		vBox.getChildren().addAll(rbDecaff, rbRegular);
+				Button btAttack = new Button("Attack");
+				Button btFlee = new Button("Flee");
+				
+				Button btNorth = new Button("North");
+				Button btEast = new Button("East");
+				Button btSouth = new Button("South");
+				Button btWest = new Button("West");
+				
+				Button btStart = new Button("Start");
+				Button btClear = new Button("Clear");
+				Button btSave = new Button("Save");
+				Button btExit = new Button("Exit");
 
-		//Initialize ToggleGroup and add RadioButtons
-		group = new ToggleGroup();
-		rbDecaff.setToggleGroup(group);
-		rbRegular.setToggleGroup(group);
+				btCalc.setMinWidth(150);
 
-		return vBox;
+				btAttack.setMinWidth(150);
+				btFlee.setMaxWidth(150);
+
+				btStart.setMinWidth(150);
+				btClear.setMinWidth(150);
+				btSave.setMinWidth(150);
+				btExit.setMinWidth(150);
+
+				// Create a GridPane pane and set properties
+				GridPane grid = new GridPane();
+				grid.setAlignment(Pos.CENTER);
+				grid.setPadding(new Insets(5, 20, 20, 20));
+				grid.setStyle("-fx-border-color: crimson");
+				grid.setHgap(15);
+				grid.setVgap(28);
+
+				// Place nodes in the pane
+				//grid.add(new Label("Command:"), 0, 0);		
+				grid.add(btWest,0, 1);
+				
+				grid.add(btEast, 1, 1);
+
+				//Create VBox and set properties
+				VBox vBox = new VBox(10);
+				vBox.setPadding(new Insets(10, 10, 50, 10)); 
+				vBox.setStyle("-fx-border-color: crimson");
+				vBox.setAlignment(Pos.CENTER);
+				vBox.getChildren().addAll(new Label("Navigation:"), btNorth, grid, btSouth);
+
+				//Opens method purchaseOrder
+				btCalc.setOnAction(e-> purchaseOrder());
+
+				return vBox;
 	}
 
 	/** Method: @getCbOptions
@@ -267,7 +293,7 @@ public class GoingDownUI extends Application
 		vBox.setStyle("-fx-border-color: crimson");
 		vBox.setAlignment(Pos.CENTER);
 		vBox.getChildren().addAll(new Label("Room Description"), tBox);
-		
+
 		return vBox;
 	}
 
@@ -275,59 +301,71 @@ public class GoingDownUI extends Application
 	 * Consists of a GridPane containing the TextFields for all Muffins.
 	 * @return - returns a VBox.
 	 **/
-	public GridPane getButtons(Stage primaryStage)
+	public VBox getButtons(Stage primaryStage)
 	{
 		//Create and initialize Buttons
 		Button btCalc = new Button("Calculate");
-		
+
 		Button btAttack = new Button("Attack");
 		Button btFlee = new Button("Flee");
+		
+		Button btNorth = new Button("North");
+		Button btEast = new Button("East");
+		Button btSouth = new Button("South");
+		Button btWest = new Button("West");
 		
 		Button btStart = new Button("Start");
 		Button btClear = new Button("Clear");
 		Button btSave = new Button("Save");
 		Button btExit = new Button("Exit");
 
-		btCalc.setMaxWidth(200);
-		
-		btAttack.setMaxWidth(200);
-		btFlee.setMaxWidth(200);
-		
-		btStart.setMaxWidth(200);
-		btClear.setMaxWidth(200);
-		btSave.setMaxWidth(200);
-		btExit.setMaxWidth(200);
-		
+		btCalc.setMinWidth(150);
+
+		btAttack.setMinWidth(150);
+		btFlee.setMaxWidth(150);
+
+		btStart.setMinWidth(150);
+		btClear.setMinWidth(150);
+		btSave.setMinWidth(150);
+		btExit.setMinWidth(150);
+
 		// Create a GridPane pane and set properties
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
-		grid.setPadding(new Insets(5, 50, 15, 50));
+		grid.setPadding(new Insets(5, 20, 20, 20));
 		grid.setStyle("-fx-border-color: crimson");
 		grid.setHgap(15);
 		grid.setVgap(28);
 
 		// Place nodes in the pane
-		grid.add(new Label("Combat Command:"), 0, 0);
-		//grid.add(new Label("Quantity"), 1, 0);
-		
+		//grid.add(new Label("Command:"), 0, 0);		
 		grid.add(btAttack,0, 1);
-		grid.add(btFlee, 1, 1);
-		grid.add(btCalc, 2, 1); 
-		
-		grid.add(new Label("Basic Command:"), 0, 2);
-		
-		grid.add(btClear, 0, 3);
-		grid.add(btSave, 1, 3);
-		grid.add(btExit, 2, 3);
+		grid.add(btFlee, 0, 2);
+		grid.add(btCalc, 0, 3); 
 
-		
+		//grid.add(new Label("Basic Command:"), 1, 0);
+		grid.add(btClear, 1, 1);
+		grid.add(btSave, 1, 2);
+		grid.add(btExit, 1, 3);
+
+		//Create VBox and set properties
+		VBox vBox = new VBox(10);
+		vBox.setPadding(new Insets(10, 10, 50, 10)); 
+		vBox.setStyle("-fx-border-color: crimson");
+		vBox.setAlignment(Pos.CENTER);
+		vBox.getChildren().addAll(new Label("Command:"), grid);
+
 		//Opens method purchaseOrder
-		btCalc.setOnAction(e->purchaseOrder());
+		btCalc.setOnAction(e-> purchaseOrder());
 
 		btAttack.setOnAction(e -> {
-			
+
 		});
-		
+
+		btFlee.setOnAction(e -> {
+
+		});
+
 		btClear.setOnAction(e-> {
 			//Resets all TextFields to "0"
 			this.tField.setText("");
@@ -339,7 +377,7 @@ public class GoingDownUI extends Application
 			primaryStage.close();
 		});
 
-		return grid;
+		return vBox;
 	}
 
 	/** Method: @getButtonOptions
@@ -357,8 +395,10 @@ public class GoingDownUI extends Application
 		hb.setStyle("-fx-background-color: crimson");
 		HBox.setHgrow(tField, Priority.ALWAYS);
 
+		Button btSubmit = new Button("Submit");
+
 		//Add Buttons btCalc, btClear, and btExit to flow.
-		hb.getChildren().add(tField);
+		hb.getChildren().addAll(tField, btSubmit);
 
 		return hb;
 	}
