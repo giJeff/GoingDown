@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import model.InventoryDB;
 
@@ -22,6 +23,15 @@ public class Inventory
 	private int potionNumber;
 	private int isEquiped;
 	private int equipSlot;
+	
+	Weapon weapon = new Weapon();
+	Armor armor = new Armor();
+	Potion potion = new Potion();
+	
+	
+	public void dropItem(Monster monster, Player player , int min, int max) {
+		int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+	}
 	
 	/** Constructor: Inventory
 	 * @throws SQLException 

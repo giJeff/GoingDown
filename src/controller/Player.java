@@ -67,6 +67,8 @@ public class Player
 		sdb.savePlayerFloat("Player", "weight", weight, "playerNumber", this.getPlayerID());
 		sdb.savePlayerInt("Player", "currentRoom", currentRoom, "playerNumber", this.getPlayerID());
 		sdb.close();
+		slowText("+------------------------------------------------------------------+");
+		slowText("Game has been saved!");
 	}
 	
 	

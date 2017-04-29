@@ -7,7 +7,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import model.PuzzleDB;
 import model.SQLiteDB;
-import view.ConsoleUI;
 
 
 /** Class : Puzzles.java
@@ -82,8 +81,10 @@ public class Puzzle
 		Quest quest = new Quest();
 
 		do {
+			player.slowText("+------------------------------------------------------------------+");
 			player.slowText(puzzle.puzzleQuestion + "\t\n" + puzzle.optA 
 					+ "\t\n" + puzzle.optB + "\t\n" + puzzle.optC + "\t\n" + puzzle.optD);
+			player.slowText("+------------------------------------------------------------------+");
 
 			if (!in.hasNext()) {
 				in.next();
@@ -109,7 +110,9 @@ public class Puzzle
 
 				if(!playerDead && !puzzleSolved) {
 					player.setHitPoints(player.getHitPoints() - puzzle.getIncorrectAnsDamage());
+					player.slowText("+------------------------------------------------------------------+");
 					player.slowText("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
+					player.slowText("+------------------------------------------------------------------+");
 					if(player.getHitPoints() < 1) {
 						playerDead = true;
 					}
@@ -118,9 +121,9 @@ public class Puzzle
 		}while(!puzzleSolved);
 		if(playerDead) {
 			//gameOver();
-			player.slowText("-----------------------------------");
+			player.slowText("+------------------------------------------------------------------+");
 			player.slowText("Oh no you ran out of health.  Game over please try again!");
-			player.slowText("-----------------------------------");
+			player.slowText("+------------------------------------------------------------------+");
 			
 				System.exit(0);
 			

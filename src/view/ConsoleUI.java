@@ -1,9 +1,13 @@
 package view;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import controller.Combat;
 import controller.GameController;
 import controller.Movement;
@@ -11,7 +15,6 @@ import controller.Player;
 import controller.Puzzle;
 import controller.Quest;
 import controller.Room;
-import model.DB;
 import model.SQLiteDB;
 
 /** Class : ConsoleUI.java
@@ -24,7 +27,13 @@ import model.SQLiteDB;
  */
 public class ConsoleUI
 {
-
+GameController gc = new GameController();
+		
+		boolean game = false;
+		int currentFloor = 1;
+		int oldRoom = 1;
+		int currentRoom = 1;
+		int currentPlayer = 1; 
 	/** Method: startGame
 	 * Purpose: handles the demo 
 	 * void
@@ -32,19 +41,16 @@ public class ConsoleUI
 	Scanner in = new Scanner(System.in);
 	public void startGame() throws ClassNotFoundException, SQLException
 	{
-		GameController gc = new GameController();
+		playMP3("src/music.mp3");
 		Combat combat = new Combat();
 		Quest quest = new Quest();
 		Movement move = new Movement();
 		Player player = new Player();
 		Room room = new Room();
 		Puzzle puzzle = new Puzzle();
-		boolean game = false;
-		int currentFloor = 1;
-		int oldRoom = 1;
-		int currentRoom = 1;
-		int currentPlayer = 1; // will need to get these from a load
-
+		
+		
+		
 		try {
 			room = gc.getRoomData(currentRoom);
 			player = gc.getPlayerData(currentPlayer);
@@ -53,11 +59,12 @@ public class ConsoleUI
 			e1.printStackTrace();
 		}
 		while(!game) {
+			
 			try {
 				if(room.getRoomClear()== 0) {
 					if(room.getIsSafeRoom() == 1) {
-						player.slowText("-----------------------------------");
-						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText("+------------------------------------------------------------------+");
+						//player.slowText("Player HP = " + player.getHitPoints());
 						player.slowText(room.getRoomDescription());
 						if(room.getRoomID() != 1) {
 							player.slowText("Would you like to save \n\r\t1: yes\n\t2: no");
@@ -66,51 +73,54 @@ public class ConsoleUI
 								player.savePlayer();
 							}
 						}
-						player.slowText("-----------------------------------");
+						player.slowText("+------------------------------------------------------------------+");
+						oldRoom = room.getRoomID();
 						room = gc.getRoomData(move.choosePath(room, player));
 					} 
 					if(room.getIsMonsterRoom() == 1 && room.getRoomClear() == 0) {
-						player.slowText("-----------------------------------");
-						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText("+------------------------------------------------------------------+");
+						//player.slowText("Player HP = " + player.getHitPoints());
 						player.slowText(room.getRoomDescription());
-						player.slowText("-----------------------------------");
+						player.slowText("+------------------------------------------------------------------+");
 						combat.battle(player, 1, 9, oldRoom, room);
 						quest.addRoomClear(quest, room);
 						oldRoom = room.getRoomID();
 						room = gc.getRoomData(move.choosePath(room, player));
 					}
 					if(room.getIsBossRoom() == 1) {
-						player.slowText("-----------------------------------");
-						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText("+------------------------------------------------------------------+");
+						//player.slowText("Player HP = " + player.getHitPoints());
 						player.slowText(room.getRoomDescription());
-						player.slowText("-----------------------------------");
+						player.slowText("+------------------------------------------------------------------+");
 						combat.battleBoss(player, 10, 16, oldRoom, room);
 						oldRoom = room.getRoomID();
 						quest.addRoomClear(quest, room);
 						room = gc.getRoomData(move.choosePath(room, player));
 					}
 					if(room.getIsPuzzleRoom() == 1) {
-						player.slowText("-----------------------------------");
-						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText("+------------------------------------------------------------------+");
+						//player.slowText("Player HP = " + player.getHitPoints());
 						player.slowText(room.getRoomDescription());
-						player.slowText("-----------------------------------");
+						player.slowText("+------------------------------------------------------------------+");
 						puzzle.solvePuzzle(room, player, puzzle);
 						quest.addRoomClear(quest, room);
+						oldRoom = room.getRoomID();
 						room = gc.getRoomData(move.choosePath(room, player));
 					}
 					if(room.getIsFloorExit() == 1) {
-						player.slowText("-----------------------------------");
-						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText("+------------------------------------------------------------------+");
+						//player.slowText("Player HP = " + player.getHitPoints());
 						player.slowText(room.getRoomDescription());
-						player.slowText("-----------------------------------");
-						
+						player.slowText("+------------------------------------------------------------------+");
+						oldRoom = room.getRoomID();
 						//if quests complete do this next
 						if(quest.questComplete(quest, room)) {
 						SQLiteDB sdb = GameController.getDB();
 						currentRoom = sdb.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
 						sdb.close();
 						currentFloor++;
-						double newHP = 150 * 1.25 * room.getFloorNumber();
+						player.slowText("You are now on floor " + currentFloor);
+						double newHP = 200 * 1.25 * room.getFloorNumber();
 						player.setHitPoints((int)newHP);
 						room = gc.getRoomData(++currentRoom);
 						}
@@ -119,11 +129,12 @@ public class ConsoleUI
 					}
 
 				} else {
-					player.slowText("-----------------------------------");
-					player.slowText("Room is clear");
-					player.slowText("Player HP = " + player.getHitPoints());
+					player.slowText("+------------------------------------------------------------------+");
+					//player.slowText("Player HP = " + player.getHitPoints());
 					player.slowText(room.getRoomDescription());
-					player.slowText("-----------------------------------");
+					player.slowText("Room is clear");
+					player.slowText("+------------------------------------------------------------------+");
+					oldRoom = room.getRoomID();
 					room = gc.getRoomData(move.choosePath(room, player));
 					
 				}
@@ -138,8 +149,23 @@ public class ConsoleUI
 	}
 
 
-
-
+	void playMP3(String fileName) {
+		//javafx.embed.swing.JFXPanel a = new javafx.embed.swing.JFXPanel();
+	    String uriString = new File(fileName).toURI().toString();
+	    MediaPlayer audio =new MediaPlayer(new Media(uriString.toString()));
+	    audio.setOnEndOfMedia(new Runnable() {
+	          public void run() {
+	            audio.seek(Duration.ONE);
+	            audio.play();
+	          }
+	      });
+	    audio.setCycleCount(MediaPlayer.INDEFINITE);
+	    audio.play();
+	     
+	    
+	    
+	}
+	
 
 	/** Method: printStrs
 	 * Purpose: Print the ArrayList of Strings

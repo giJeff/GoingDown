@@ -26,13 +26,13 @@ public class Movement {
 			temp = room.getRoom(room.getExitWest());
 			String peekWest = (room.getExitWest() != 0) ? temp.getRoomDescription() : "There is nothing in this direction." ;
 			
-			player.slowText("-----------------------------------");
+			player.slowText("+------------------------------------------------------------------+");
 			player.slowText("Choose your direction. Enter a number: ");
 			player.slowText("\t1. North \t->\t" + peekNorth);
 			player.slowText("\t2. East \t->\t" + peekEast);
 			player.slowText("\t3. South \t->\t" + peekSouth);
 			player.slowText("\t4. West \t->\t" + peekWest);
-			player.slowText("-----------------------------------");
+			player.slowText("+------------------------------------------------------------------+");
 
 			if (!in.hasNextInt()) {
 				in.next();

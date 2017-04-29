@@ -6,12 +6,12 @@ import java.util.IllegalFormatException;
 import java.util.Scanner;
 
 import controller.CreateFilesController;
-import controller.GameController;
 import javafx.application.Application;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import model.SQLiteDB;
+import javafx.util.Duration;
 import view.ConsoleUI;
-import view.GameUI;
 import view.GoingDownUI;;
 
 /** Class : GameStart.java
@@ -27,10 +27,15 @@ public class GameStart extends Application
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
+		
 		Scanner input = new Scanner(System.in);
 		File dbFile = new File("Game.db");
 		
+		playMP3("src/sound1.mp3");
+		
+		
 		logo();
+		
 		
 		if(dbFile.exists()) {
 			slowText("Would you like to start a new game or continue? \n\r\t1. New Game \n\t2. Continue");
@@ -82,12 +87,14 @@ public class GameStart extends Application
 		System.exit(0);
 	}
 	
+	
+	
 	public static void slowText(String msg) {
 		for(int i = 0; i < msg.length(); i++) {
 			System.out.print(msg.charAt(i));
 			
 			try {
-				Thread.sleep(10);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,6 +102,24 @@ public class GameStart extends Application
 		}
 		System.out.println();
 	}
+	
+	static void playMP3(String fileName) {
+		//javafx.embed.swing.JFXPanel a = new javafx.embed.swing.JFXPanel();
+	    String uriString = new File(fileName).toURI().toString();
+	    MediaPlayer audio =new MediaPlayer(new Media(uriString.toString()));
+	    audio.setOnEndOfMedia(new Runnable() {
+	          public void run() {
+	            audio.seek(Duration.ONE);
+	            audio.play();
+	          }
+	      });
+	    audio.setCycleCount(MediaPlayer.INDEFINITE);
+	    audio.play();
+	     
+	    
+	    
+	}
+	
 	
 	public static void logo() 
 	{
@@ -109,8 +134,8 @@ public class GameStart extends Application
 		slowText("$     \\___|\\___/|_||_||_| \\__, |   |___/ \\___/ \\_/\\_/ |_||_|  $");
 		slowText("$                         |___/                               $");
 		slowText("***************************************************************");
-		System.out.println("$\t\t\t       By: Jeff G, Charneaka, Brendon $");
-		System.out.println("***************************************************************\n\n");
+		slowText("$\t\t\t       By: Jeff G, Charneaka, Brendon $");
+		slowText("***************************************************************\n\n");
 	}
 
 	@Override
