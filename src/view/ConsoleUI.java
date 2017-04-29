@@ -9,6 +9,7 @@ import controller.GameController;
 import controller.Movement;
 import controller.Player;
 import controller.Puzzle;
+import controller.Quest;
 import controller.Room;
 import model.DB;
 import model.SQLiteDB;
@@ -33,12 +34,14 @@ public class ConsoleUI
 	{
 		GameController gc = new GameController();
 		Combat combat = new Combat();
+		Quest quest = new Quest();
 		Movement move = new Movement();
 		Player player = new Player();
 		Room room = new Room();
 		Puzzle puzzle = new Puzzle();
 		boolean game = false;
 		int currentFloor = 1;
+		int oldRoom = 1;
 		int currentRoom = 1;
 		int currentPlayer = 1; // will need to get these from a load
 
@@ -53,67 +56,76 @@ public class ConsoleUI
 			try {
 				if(room.getRoomClear()== 0) {
 					if(room.getIsSafeRoom() == 1) {
-						System.out.println("-----------------------------------");
-						System.out.println(room.getRoomDescription());
+						player.slowText("-----------------------------------");
+						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText(room.getRoomDescription());
 						if(room.getRoomID() != 1) {
-							System.out.println("Would you like to save \n\t1: yes\n\t2: no\n");
+							player.slowText("Would you like to save \n\r\t1: yes\n\t2: no");
 							if(in.nextInt() == 1) 
 							{
 								player.savePlayer();
 							}
 						}
-						System.out.println("-----------------------------------");
-						room = gc.getRoomData(move.choosePath(room));
+						player.slowText("-----------------------------------");
+						room = gc.getRoomData(move.choosePath(room, player));
 					} 
 					if(room.getIsMonsterRoom() == 1 && room.getRoomClear() == 0) {
-						System.out.println("-----------------------------------");
-						System.out.println(room.getRoomDescription());
-						System.out.println("-----------------------------------");
-						combat.battle(player, 1, 9);
-						SQLiteDB sdb = GameController.getDB();
-						String sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
-						sdb.updateDB(sql);
-						sdb.close();
-						room = gc.getRoomData(move.choosePath(room));
+						player.slowText("-----------------------------------");
+						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText(room.getRoomDescription());
+						player.slowText("-----------------------------------");
+						combat.battle(player, 1, 9, oldRoom, room);
+						quest.addRoomClear(quest, room);
+						oldRoom = room.getRoomID();
+						room = gc.getRoomData(move.choosePath(room, player));
 					}
 					if(room.getIsBossRoom() == 1) {
-						System.out.println("-----------------------------------");
-						System.out.println(room.getRoomDescription());
-						System.out.println("-----------------------------------");
-						combat.battle(player, 10, 16);
-						SQLiteDB sdb = GameController.getDB();
-						String sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
-						sdb.updateDB(sql);
-						sdb.close();
-						room = gc.getRoomData(move.choosePath(room));
+						player.slowText("-----------------------------------");
+						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText(room.getRoomDescription());
+						player.slowText("-----------------------------------");
+						combat.battleBoss(player, 10, 16, oldRoom, room);
+						oldRoom = room.getRoomID();
+						quest.addRoomClear(quest, room);
+						room = gc.getRoomData(move.choosePath(room, player));
 					}
 					if(room.getIsPuzzleRoom() == 1) {
-						System.out.println("-----------------------------------");
-						System.out.println(room.getRoomDescription());
-						System.out.println("-----------------------------------");
+						player.slowText("-----------------------------------");
+						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText(room.getRoomDescription());
+						player.slowText("-----------------------------------");
 						puzzle.solvePuzzle(room, player, puzzle);
-
-						room = gc.getRoomData(move.choosePath(room));
+						quest.addRoomClear(quest, room);
+						room = gc.getRoomData(move.choosePath(room, player));
 					}
-					if(room.getIsFloorExit() == 1 && room.getRoomClear()== 1) {
-						System.out.println("-----------------------------------");
-						System.out.println(room.getRoomDescription());
-						System.out.println("-----------------------------------");
+					if(room.getIsFloorExit() == 1) {
+						player.slowText("-----------------------------------");
+						player.slowText("Player HP = " + player.getHitPoints());
+						player.slowText(room.getRoomDescription());
+						player.slowText("-----------------------------------");
+						
 						//if quests complete do this next
+						if(quest.questComplete(quest, room)) {
 						SQLiteDB sdb = GameController.getDB();
 						currentRoom = sdb.getMaxOfSomething("roomNumber", "Room", "floorNumber", currentFloor);
 						sdb.close();
 						currentFloor++;
-
+						double newHP = 150 * 1.25 * room.getFloorNumber();
+						player.setHitPoints((int)newHP);
 						room = gc.getRoomData(++currentRoom);
+						}
+						
+						room = gc.getRoomData(move.choosePath(room, player));
 					}
 
 				} else {
-					System.out.println("-----------------------------------");
-					System.out.println("Room is clear");
-					System.out.println(room.getRoomDescription());
-					System.out.println("-----------------------------------");
-					room = gc.getRoomData(move.choosePath(room));
+					player.slowText("-----------------------------------");
+					player.slowText("Room is clear");
+					player.slowText("Player HP = " + player.getHitPoints());
+					player.slowText(room.getRoomDescription());
+					player.slowText("-----------------------------------");
+					room = gc.getRoomData(move.choosePath(room, player));
+					
 				}
 
 			} catch (SQLException e) {
@@ -124,8 +136,6 @@ public class ConsoleUI
 		}
 
 	}
-
-
 
 
 

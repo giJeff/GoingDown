@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import model.PuzzleDB;
 import model.SQLiteDB;
+import view.ConsoleUI;
 
 
 /** Class : Puzzles.java
@@ -71,15 +72,17 @@ public class Puzzle
 		return puzzle;
 	}
 
-	public void solvePuzzle(Room room, Player player, Puzzle puzzle) throws SQLException 
+	public void solvePuzzle(Room room, Player player, Puzzle puzzle) throws SQLException, ClassNotFoundException 
 	{
 		boolean playerDead = false;
 		boolean puzzleSolved = false;
 		puzzle = randomPuzzle(puzzle);
 		String userIn = "";
+		int input = 0;
+		Quest quest = new Quest();
 
 		do {
-			System.out.println(puzzle.puzzleQuestion + "\t\n" + puzzle.optA 
+			player.slowText(puzzle.puzzleQuestion + "\t\n" + puzzle.optA 
 					+ "\t\n" + puzzle.optB + "\t\n" + puzzle.optC + "\t\n" + puzzle.optD);
 
 			if (!in.hasNext()) {
@@ -98,21 +101,29 @@ public class Puzzle
 					sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
 					sdb.updateDB(sql);
 					sdb.close();
+					player.setScore(player.getScore()+20);
+					quest.addPuzzle(quest, room);
+					quest.addRoomClear(quest, room);
 				}
 			} else {
 
 				if(!playerDead && !puzzleSolved) {
 					player.setHitPoints(player.getHitPoints() - puzzle.getIncorrectAnsDamage());
-					System.out.println("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
+					player.slowText("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
 					if(player.getHitPoints() < 1) {
 						playerDead = true;
 					}
 				}
 			}
 		}while(!puzzleSolved);
-
 		if(playerDead) {
 			//gameOver();
+			player.slowText("-----------------------------------");
+			player.slowText("Oh no you ran out of health.  Game over please try again!");
+			player.slowText("-----------------------------------");
+			
+				System.exit(0);
+			
 		}
 
 
