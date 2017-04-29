@@ -906,7 +906,7 @@ public class GameDBCreate
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "
 				+ "incorrectDamage, correctReward, solved) "
 				+ "Values(15, 'What can travel around the world while staying in a corner?',"
-				+ "'b', 'a.	You on your computer', 'b. A stamp', 'c. A troll.', null, 5, 10, 0)";
+				+ "'b', 'a. You on your computer', 'b. A stamp', 'c. A troll.', null, 5, 10, 0)";
 		sdb.updateDB(sql);
 		
 		sql = "INSERT INTO Puzzle(puzzleNumber, puzzleQuestion, puzzleAnswer, optA, optB, optC, optD, "

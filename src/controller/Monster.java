@@ -61,7 +61,7 @@ public class Monster
 			try 
 			{
 				int randomNum = ThreadLocalRandom.current().nextInt(minIndex, maxIndex + 1);
-				//System.out.println("get the moster ID " + randomNum);
+				//System.out.println("get the monster ID " + randomNum);
 				monsterList.add(mon.getMonster(randomNum));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

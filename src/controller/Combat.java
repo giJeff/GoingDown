@@ -31,12 +31,12 @@ public class Combat {
 
 				while(!playerDead && !monsterDead) {
 					
-					player.slowText("-----------------------------------");
+					player.slowText("+------------------------------------------------------------------+");
 					player.slowText("A " + monster.getMonsterName() + " has " + monster.getHitPoints() + " health left");
 					player.slowText("Player has " + player.getHitPoints() + "  health left");
 					player.slowText("\t1. Attack");
 					player.slowText("\t2. Run");
-					player.slowText("-----------------------------------");
+					player.slowText("+------------------------------------------------------------------+");
 
 					if (!in.hasNextInt()) {
 						in.next();
@@ -62,20 +62,20 @@ public class Combat {
 							quest.addMonster(quest, room);
 						}
 					} else {
-						System.out.println("No flee logic yet");
-						room.setRoomID(oldRoom);
+						System.out.println("You ran away from the fight");
+						room.getRoom(oldRoom);
 						return;
 					}
 				}
-				player.slowText("-----------------------------------");
+				player.slowText("+------------------------------------------------------------------+");
 				player.slowText("playerDead = " + playerDead + " monsterDead = " + monsterDead);
 			} while(!playerDead && !monsterDead);
 			
 			if(playerDead) {
 				//gameOver();
-				player.slowText("-----------------------------------");
+				player.slowText("+------------------------------------------------------------------+");
 				player.slowText("Oh no you ran out of health.  Game over please try again!");
-				player.slowText("-----------------------------------");
+				player.slowText("+------------------------------------------------------------------+");
 				
 					System.exit(0);
 				
@@ -134,7 +134,7 @@ public void battleBoss(Player player, int minIndex, int maxIndex, int oldRoom, R
 							quest.addBoss(quest, room);
 						}
 					} else {
-						System.out.println("No flee logic yet");
+						System.out.println("You ran away from the fight");
 						room.setRoomID(oldRoom);
 						return;
 					}
