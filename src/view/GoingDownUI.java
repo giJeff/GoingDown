@@ -230,56 +230,48 @@ public class GoingDownUI extends Application
 	 **/
 	private VBox getRbCoffee() {
 		//Create and initialize Buttons
-				Button btCalc = new Button("Calculate");
 
-				Button btAttack = new Button("Attack");
-				Button btFlee = new Button("Flee");
-				
-				Button btNorth = new Button("North");
-				Button btEast = new Button("East");
-				Button btSouth = new Button("South");
-				Button btWest = new Button("West");
-				
-				Button btStart = new Button("Start");
-				Button btClear = new Button("Clear");
-				Button btSave = new Button("Save");
-				Button btExit = new Button("Exit");
+		Button btNorth = new Button("North");
+		Button btEast = new Button("East");
+		Button btSouth = new Button("South");
+		Button btWest = new Button("West");
 
-				btCalc.setMinWidth(150);
 
-				btAttack.setMinWidth(150);
-				btFlee.setMaxWidth(150);
+		// Create a GridPane pane and set properties
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(85);
+		grid.setVgap(15);
 
-				btStart.setMinWidth(150);
-				btClear.setMinWidth(150);
-				btSave.setMinWidth(150);
-				btExit.setMinWidth(150);
+		// Place nodes in the pane
+		grid.add(btWest,0, 0);				
+		grid.add(btEast, 1, 0);
 
-				// Create a GridPane pane and set properties
-				GridPane grid = new GridPane();
-				grid.setAlignment(Pos.CENTER);
-				grid.setPadding(new Insets(5, 20, 20, 20));
-				grid.setStyle("-fx-border-color: crimson");
-				grid.setHgap(15);
-				grid.setVgap(28);
+		//Create VBox and set properties
+		VBox vBox = new VBox(35);
+		vBox.setPadding(new Insets(10, 10, 60, 10)); 
+		vBox.setAlignment(Pos.CENTER);
+		vBox.setStyle("-fx-border-color: crimson");
+		vBox.getChildren().addAll(new Label("Navigation"), btNorth, grid, btSouth);
 
-				// Place nodes in the pane
-				//grid.add(new Label("Command:"), 0, 0);		
-				grid.add(btWest,0, 1);
-				
-				grid.add(btEast, 1, 1);
+		//Opens method purchaseOrder
+		btNorth.setOnAction(e-> {
 
-				//Create VBox and set properties
-				VBox vBox = new VBox(10);
-				vBox.setPadding(new Insets(10, 10, 50, 10)); 
-				vBox.setStyle("-fx-border-color: crimson");
-				vBox.setAlignment(Pos.CENTER);
-				vBox.getChildren().addAll(new Label("Navigation:"), btNorth, grid, btSouth);
+		});
 
-				//Opens method purchaseOrder
-				btCalc.setOnAction(e-> purchaseOrder());
+		btEast.setOnAction(e-> {
 
-				return vBox;
+		});
+
+		btSouth.setOnAction(e-> {
+
+		});
+
+		btWest.setOnAction(e-> {
+
+		});
+
+		return vBox;
 	}
 
 	/** Method: @getCbOptions
@@ -306,14 +298,15 @@ public class GoingDownUI extends Application
 		//Create and initialize Buttons
 		Button btCalc = new Button("Calculate");
 
-		Button btAttack = new Button("Attack");
-		Button btFlee = new Button("Flee");
-		
-		Button btNorth = new Button("North");
-		Button btEast = new Button("East");
-		Button btSouth = new Button("South");
-		Button btWest = new Button("West");
-		
+		Button btAttack = new Button("Attack!");
+		Button btRun = new Button("Run!");
+		Button btInventory = new Button("Inventory");
+
+		Button btA = new Button("Option A");
+		Button btB = new Button("Option B");
+		Button btC = new Button("Option C");
+		Button btD = new Button("Option D");
+
 		Button btStart = new Button("Start");
 		Button btClear = new Button("Clear");
 		Button btSave = new Button("Save");
@@ -322,7 +315,9 @@ public class GoingDownUI extends Application
 		btCalc.setMinWidth(150);
 
 		btAttack.setMinWidth(150);
-		btFlee.setMaxWidth(150);
+		btRun.setMinWidth(150);
+		btInventory.setMinWidth(150);
+
 
 		btStart.setMinWidth(150);
 		btClear.setMinWidth(150);
@@ -330,30 +325,49 @@ public class GoingDownUI extends Application
 		btExit.setMinWidth(150);
 
 		// Create a GridPane pane and set properties
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setPadding(new Insets(5, 20, 20, 20));
-		grid.setStyle("-fx-border-color: crimson");
-		grid.setHgap(15);
-		grid.setVgap(28);
+		GridPane grid1 = new GridPane();
+		grid1.setAlignment(Pos.CENTER);
+		grid1.setPadding(new Insets(5, 10, 10, 10));
+		grid1.setStyle("-fx-border-color: crimson");
+		grid1.setHgap(15);
+		grid1.setVgap(28);
 
 		// Place nodes in the pane
-		//grid.add(new Label("Command:"), 0, 0);		
-		grid.add(btAttack,0, 1);
-		grid.add(btFlee, 0, 2);
-		grid.add(btCalc, 0, 3); 
+		grid1.add(btAttack,0, 0);
+		grid1.add(btRun, 1, 0);
+		//grid1.add(btInventory, 2, 0); 
 
-		//grid.add(new Label("Basic Command:"), 1, 0);
-		grid.add(btClear, 1, 1);
-		grid.add(btSave, 1, 2);
-		grid.add(btExit, 1, 3);
+		HBox hb2 = new HBox(10);
+		hb2.setPadding(new Insets(10, 10, 10, 10));
+		hb2.setAlignment(Pos.CENTER);
+		hb2.setStyle("-fx-background-color: crimson");
 
+		hb2.getChildren().add(btInventory);
+
+		
+		// Create a FlowPane flow and set properties
+		HBox hb3 = new HBox(10);
+		hb3.setPadding(new Insets(10, 10, 10, 10));
+		hb3.setAlignment(Pos.CENTER);
+		hb3.setStyle("-fx-background-color: crimson");
+
+		//Add Buttons btCalc, btClear, and btExit to flow.
+		hb3.getChildren().addAll(btA,btB, btC, btD);
+
+		HBox hb4 = new HBox(10);
+		hb4.setPadding(new Insets(10, 10, 10, 10));
+		hb4.setAlignment(Pos.CENTER);
+		hb4.setStyle("-fx-background-color: crimson");
+
+		hb4.getChildren().addAll(btClear, btSave, btExit);
+
+		
 		//Create VBox and set properties
-		VBox vBox = new VBox(10);
-		vBox.setPadding(new Insets(10, 10, 50, 10)); 
+		VBox vBox = new VBox(25);
+		vBox.setPadding(new Insets(10, 10, 60, 10)); 
 		vBox.setStyle("-fx-border-color: crimson");
 		vBox.setAlignment(Pos.CENTER);
-		vBox.getChildren().addAll(new Label("Command:"), grid);
+		vBox.getChildren().addAll(new Label("Command"), grid1, hb2, hb3, hb4);
 
 		//Opens method purchaseOrder
 		btCalc.setOnAction(e-> purchaseOrder());
@@ -362,12 +376,12 @@ public class GoingDownUI extends Application
 
 		});
 
-		btFlee.setOnAction(e -> {
+		btRun.setOnAction(e -> {
 
 		});
 
 		btClear.setOnAction(e-> {
-			//Resets all TextFields to "0"
+			//Resets all TextFields 
 			this.tField.setText("");
 			this.tBox.setText("");
 		});
