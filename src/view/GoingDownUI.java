@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -35,12 +37,11 @@ public class GoingDownUI extends Application
 	private TextField tField = new TextField();
 	private TextArea tBox = new TextArea();
 
-	private Rectangle rec9;
+	private Rectangle rec;
 
 	@Override // Override the start method in the Application class
 	public void start(Stage primaryStage)
 	{	
-		
 		// Create a scene and place it in the stage
 		Scene scene = new Scene(getStartWindow(primaryStage));
 		primaryStage.setTitle("GOING DOWN"); // Set the stage title
@@ -51,7 +52,6 @@ public class GoingDownUI extends Application
 
 	public BorderPane getStartWindow(Stage startStage)
 	{
-		//Create BorderPane purchaseBorder, design layout and set properties 
 		BorderPane border = new BorderPane();
 		//Label title = new Label("START GOING DOWN");
 	//	title.setTextFill(Color.CRIMSON);
@@ -60,22 +60,26 @@ public class GoingDownUI extends Application
 	//	BorderPane.setAlignment(title, Pos.CENTER);
 		border.setStyle("-fx-font: 20px Tahoma; "
 				+ "-fx-border-color: black; "
-				+ "-fx-background-color:wheat; ");
+				+ "-fx-background-color: black; ");
 
-		Image image9 = new Image("GoingDownPic.png");
-		rec9 = new Rectangle(640, 400);
-		ImagePattern imagePattern9 = new ImagePattern(image9);
-		rec9.setFill(imagePattern9);
+		Image image = new Image("GoingDownPic.png");
+		rec = new Rectangle(640, 400);
+		ImagePattern imagePattern = new ImagePattern(image);
+		rec.setFill(imagePattern);
 
 
 		//Create Exit button
 		Button btContinue = new Button ("CONTINUE");
-		Button btExit = new Button ("Exit Game");
+		Button btExit = new Button ("EXIT GAME");
 
+		btContinue.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btContinue.setMinWidth(300);
+		
 		btExit.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btExit.setMinWidth(300);
 
 		// Create a FlowPane flow and set properties
-		HBox hb = new HBox(200);
+		HBox hb = new HBox(20);
 		hb.setPadding(new Insets(10, 10, 10, 10));
 		hb.setAlignment(Pos.CENTER);
 		hb.setStyle("-fx-background-color: black");
@@ -86,11 +90,8 @@ public class GoingDownUI extends Application
 		//Add Buttons btCalc, btClear, and btExit to flow.
 		hb.getChildren().addAll(btContinue, btExit);
 
-		
-
-
 		//Add purchaseGrid and purchaseFlow to purchaseBorder
-		border.setCenter(rec9);
+		border.setCenter(rec);
 		border.setBottom(hb);
 
 		btContinue.setOnAction(e -> {
@@ -110,16 +111,29 @@ public class GoingDownUI extends Application
 		
 		//Create BorderPane border and set properties
 		BorderPane border = new BorderPane();
-		border.setStyle("-fx-font: 20px Tahoma; "
-				+ "-fx-border-color: crimson; "
-				+ "-fx-background-color:wheat; ");
+		//border.setStyle("-fx-font: 20px Tahoma; "
+		//		+ "-fx-border-color: black; "
+		//		+ "-fx-background-color: navy; ");
+		
 
 		Label title = new Label("GOING DOWN");
 		title.setFont(Font.font ("Verdana", 30));
-		title.setTextFill(Color.CRIMSON);
+		title.setStyle( "-fx-text-fill: lightgray;");
 
 		BorderPane.setAlignment(title, Pos.CENTER);
+		
+		
+		Image image = new Image("Dungeon.jpg");
+		rec = new Rectangle(1024, 768);
+		ImagePattern imagePattern = new ImagePattern(image);
+		rec.setFill(imagePattern);
 
+		border.setBackground(null);
+		
+		BackgroundImage bgi = new BackgroundImage(image, null, null, null, null);
+		Background bg = new Background(bgi);
+		border.setBackground(bg);
+		
 		//Add methods to border
 		border.setTop(title);
 		border.setLeft(getNavigationButtons());
@@ -147,6 +161,11 @@ public class GoingDownUI extends Application
 		Button btEast = new Button("East");
 		Button btSouth = new Button("South");
 		Button btWest = new Button("West");
+
+		btNorth.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btEast.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btSouth.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btWest.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
 
 
 		// Create a GridPane pane and set properties
@@ -229,10 +248,13 @@ public class GoingDownUI extends Application
 		HBox hb = new HBox();
 		hb.setPadding(new Insets(10, 10, 10, 10));
 		hb.setAlignment(Pos.CENTER);
-		hb.setStyle("-fx-background-color: crimson");
+		hb.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
 		HBox.setHgrow(tField, Priority.ALWAYS);
 
 		Button btSubmit = new Button("Submit");
+		
+		btSubmit.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btSubmit.setMinWidth(300);
 
 		//Add Buttons btCalc, btClear, and btExit to flow.
 		hb.getChildren().addAll(tField, btSubmit);
@@ -259,6 +281,9 @@ public class GoingDownUI extends Application
 
 		Button btAttack = new Button("Attack!");
 		Button btRun = new Button("Run!");
+		
+		btAttack.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btRun.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
 
 		btAttack.setMinWidth(150);
 		btRun.setMinWidth(150);
@@ -285,7 +310,8 @@ public class GoingDownUI extends Application
 		hb.setStyle("-fx-background-color: crimson");
 
 		Button btInventory = new Button("Inventory");
-
+		
+		btInventory.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
 		btInventory.setMinWidth(150);
 
 		hb.getChildren().add(btInventory);
@@ -314,6 +340,11 @@ public class GoingDownUI extends Application
 		Button btB = new Button("Option B");
 		Button btC = new Button("Option C");
 		Button btD = new Button("Option D");
+		
+		btA.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btB.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btC.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btD.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
 
 		//Add Buttons btCalc, btClear, and btExit to HBox.
 		hb.getChildren().addAll(btA,btB, btC, btD);
@@ -353,6 +384,10 @@ public class GoingDownUI extends Application
 		Button btClear = new Button("Clear");
 		Button btSave = new Button("Save");
 		Button btExit = new Button("Exit");
+		
+		btClear.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btSave.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
+		btExit.setStyle("-fx-background-color: darkslategray;" + "-fx-text-fill: lightgray;");
 
 		btClear.setMinWidth(143);
 		btSave.setMinWidth(143);
