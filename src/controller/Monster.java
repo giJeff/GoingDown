@@ -7,13 +7,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import model.MonsterDB;
 
-/** Class : Monster.java
+/**
+ * Class : Monster.java
+ * 
  * @author: Jeff Graves
- * @version: 1.0
- * Course: ITEC 3860
- * Written: Feb 28, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: Feb 28, 2017
  *
- * This class is the Monster class handling business logic for the Monster class
+ *           This class is the Monster class handling business logic for the
+ *           Monster class
  */
 public class Monster
 {
@@ -31,72 +32,85 @@ public class Monster
 	private int rareDrop;
 	private int legendaryDrop;
 	private int spawnChance;
-	
-	/** Constructor: Monster
-	 * @throws SQLException 
+
+	/**
+	 * Constructor: Monster
+	 * 
+	 * @throws SQLException
 	 */
 	public Monster() throws SQLException
 	{
-		MonsterDB  mdb = new MonsterDB();
+		MonsterDB mdb = new MonsterDB();
 		monsterID = mdb.getNextMonsterID();
 	}
-	
-	/** Method: getMonster
-	 * Purpose: Gets a specified monster from the Monster table 
+
+	/**
+	 * Method: getMonster Purpose: Gets a specified monster from the Monster table
+	 * 
 	 * @param id
 	 * @return Monster
 	 * @throws SQLException
 	 */
 	public Monster getMonster(int id) throws SQLException
 	{
-		MonsterDB  mdb = new MonsterDB();
+		MonsterDB mdb = new MonsterDB();
 		return mdb.getMonster(id);
 	}
+
 	public ArrayList<Monster> getBattleMonsters(int numMonster, int minIndex, int maxIndex) throws SQLException
 	{
 		ArrayList<Monster> monsterList = new ArrayList<>();
 		Monster mon = new Monster();
-		for (int i = 0; i < numMonster; i++) 
+		for (int i = 0; i < numMonster; i++)
 		{
-			try 
+			try
 			{
 				int randomNum = ThreadLocalRandom.current().nextInt(minIndex, maxIndex + 1);
-				//System.out.println("get the monster ID " + randomNum);
+				// System.out.println("get the monster ID " + randomNum);
 				monsterList.add(mon.getMonster(randomNum));
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 		return monsterList;
 	}
-	
-	public boolean monsterAttack(boolean playerDead, boolean monsterDead, Player player, Monster monster) {
-		int randomMonsterAttack = ThreadLocalRandom.current().nextInt(monster.getMinDamage(), monster.getMaxDamage() + 1);
-		if(!playerDead && !monsterDead) {
-			player.setHitPoints(player.getHitPoints()-randomMonsterAttack);
+
+	public boolean monsterAttack(boolean playerDead, boolean monsterDead, Player player, Monster monster)
+	{
+		int randomMonsterAttack = ThreadLocalRandom.current().nextInt(monster.getMinDamage(),
+				monster.getMaxDamage() + 1);
+		if (!playerDead && !monsterDead)
+		{
+			player.setHitPoints(player.getHitPoints() - randomMonsterAttack);
 			player.slowText("Player took " + randomMonsterAttack + " damage this turn!");
-			if(player.getHitPoints() < 1) {
+			if (player.getHitPoints() < 1)
+			{
 				playerDead = true;
 			}
 		}
 		return playerDead;
 	}
-	
-	/** Method: getAllMonsters
-	 * Purpose: gets all monsters from the Monster table
+
+	/**
+	 * Method: getAllMonsters Purpose: gets all monsters from the Monster table
+	 * 
 	 * @return ArrayList<Monster>
 	 * @throws SQLException
 	 */
 	public ArrayList<Monster> getAllMonsters() throws SQLException
 	{
-		MonsterDB  mdb = new MonsterDB();
+		MonsterDB mdb = new MonsterDB();
 		return mdb.getAllMonsters();
 	}
 
-	/** Method: getMonsterID
+	/**
+	 * Method: getMonsterID
+	 * 
 	 * @return the monsterID
 	 */
 	public int getMonsterID()
@@ -104,15 +118,20 @@ public class Monster
 		return monsterID;
 	}
 
-	/** Method: setMonsterID
-	 * @param monsterID the monsterID to set
+	/**
+	 * Method: setMonsterID
+	 * 
+	 * @param monsterID
+	 *            the monsterID to set
 	 */
 	public void setMonsterID(int monsterID)
 	{
 		this.monsterID = monsterID;
 	}
 
-	/** Method: getMonsterName
+	/**
+	 * Method: getMonsterName
+	 * 
 	 * @return the monsterName
 	 */
 	public String getMonsterName()
@@ -120,15 +139,20 @@ public class Monster
 		return monsterName;
 	}
 
-	/** Method: setMonsterName
-	 * @param monsterName the monsterName to set
+	/**
+	 * Method: setMonsterName
+	 * 
+	 * @param monsterName
+	 *            the monsterName to set
 	 */
 	public void setMonsterName(String monsterName)
 	{
 		this.monsterName = monsterName;
 	}
 
-	/** Method: getMonsterDescription
+	/**
+	 * Method: getMonsterDescription
+	 * 
 	 * @return the monsterDescription
 	 */
 	public String getMonsterDescription()
@@ -136,15 +160,20 @@ public class Monster
 		return monsterDescription;
 	}
 
-	/** Method: setMonsterDescription
-	 * @param monsterDescription the monsterDescription to set
+	/**
+	 * Method: setMonsterDescription
+	 * 
+	 * @param monsterDescription
+	 *            the monsterDescription to set
 	 */
 	public void setMonsterDescription(String monsterDescription)
 	{
 		this.monsterDescription = monsterDescription;
 	}
 
-	/** Method: getHitPoints
+	/**
+	 * Method: getHitPoints
+	 * 
 	 * @return the hitPoints
 	 */
 	public int getHitPoints()
@@ -152,15 +181,20 @@ public class Monster
 		return hitPoints;
 	}
 
-	/** Method: setHitPoints
-	 * @param hitPoints the hitPoints to set
+	/**
+	 * Method: setHitPoints
+	 * 
+	 * @param hitPoints
+	 *            the hitPoints to set
 	 */
 	public void setHitPoints(int hitPoints)
 	{
 		this.hitPoints = hitPoints;
 	}
 
-	/** Method: getMinDamage
+	/**
+	 * Method: getMinDamage
+	 * 
 	 * @return the minDamage
 	 */
 	public int getMinDamage()
@@ -168,15 +202,20 @@ public class Monster
 		return minDamage;
 	}
 
-	/** Method: setMinDamage
-	 * @param minDamage the minDamage to set
+	/**
+	 * Method: setMinDamage
+	 * 
+	 * @param minDamage
+	 *            the minDamage to set
 	 */
 	public void setMinDamage(int minDamage)
 	{
 		this.minDamage = minDamage;
 	}
 
-	/** Method: getMaxDamage
+	/**
+	 * Method: getMaxDamage
+	 * 
 	 * @return the maxDamage
 	 */
 	public int getMaxDamage()
@@ -184,8 +223,11 @@ public class Monster
 		return maxDamage;
 	}
 
-	/** Method: setMaxDamage
-	 * @param maxDamage the maxDamage to set
+	/**
+	 * Method: setMaxDamage
+	 * 
+	 * @param maxDamage
+	 *            the maxDamage to set
 	 */
 	public void setMaxDamage(int maxDamage)
 	{
@@ -195,128 +237,153 @@ public class Monster
 	/**
 	 * @return the immune
 	 */
-	public String getImmune() {
+	public String getImmune()
+	{
 		return immune;
 	}
 
 	/**
-	 * @param immune the immune to set
+	 * @param immune
+	 *            the immune to set
 	 */
-	public void setImmune(String immune) {
+	public void setImmune(String immune)
+	{
 		this.immune = immune;
 	}
 
 	/**
 	 * @return the attackFirst
 	 */
-	public int getAttackFirst() {
+	public int getAttackFirst()
+	{
 		return attackFirst;
 	}
 
 	/**
-	 * @param attackFirst the attackFirst to set
+	 * @param attackFirst
+	 *            the attackFirst to set
 	 */
-	public void setAttackFirst(int attackFirst) {
+	public void setAttackFirst(int attackFirst)
+	{
 		this.attackFirst = attackFirst;
 	}
 
 	/**
 	 * @return the turnToHitPlayer
 	 */
-	public int getTurnToHitPlayer() {
+	public int getTurnToHitPlayer()
+	{
 		return turnToHitPlayer;
 	}
 
 	/**
-	 * @param turnToHitPlayer the turnToHitPlayer to set
+	 * @param turnToHitPlayer
+	 *            the turnToHitPlayer to set
 	 */
-	public void setTurnToHitPlayer(int turnToHitPlayer) {
+	public void setTurnToHitPlayer(int turnToHitPlayer)
+	{
 		this.turnToHitPlayer = turnToHitPlayer;
 	}
 
 	/**
 	 * @return the commonDrop
 	 */
-	public int getCommonDrop() {
+	public int getCommonDrop()
+	{
 		return commonDrop;
 	}
 
 	/**
-	 * @param commonDrop the commonDrop to set
+	 * @param commonDrop
+	 *            the commonDrop to set
 	 */
-	public void setCommonDrop(int commonDrop) {
+	public void setCommonDrop(int commonDrop)
+	{
 		this.commonDrop = commonDrop;
 	}
 
 	/**
 	 * @return the uncommonDrop
 	 */
-	public int getUncommonDrop() {
+	public int getUncommonDrop()
+	{
 		return uncommonDrop;
 	}
 
 	/**
-	 * @param uncommonDrop the uncommonDrop to set
+	 * @param uncommonDrop
+	 *            the uncommonDrop to set
 	 */
-	public void setUncommonDrop(int uncommonDrop) {
+	public void setUncommonDrop(int uncommonDrop)
+	{
 		this.uncommonDrop = uncommonDrop;
 	}
 
 	/**
 	 * @return the rareDrop
 	 */
-	public int getRareDrop() {
+	public int getRareDrop()
+	{
 		return rareDrop;
 	}
 
 	/**
-	 * @param rareDrop the rareDrop to set
+	 * @param rareDrop
+	 *            the rareDrop to set
 	 */
-	public void setRareDrop(int rareDrop) {
+	public void setRareDrop(int rareDrop)
+	{
 		this.rareDrop = rareDrop;
 	}
 
 	/**
 	 * @return the legendaryDrop
 	 */
-	public int getLegendaryDrop() {
+	public int getLegendaryDrop()
+	{
 		return legendaryDrop;
 	}
 
 	/**
-	 * @param legendaryDrop the legendaryDrop to set
+	 * @param legendaryDrop
+	 *            the legendaryDrop to set
 	 */
-	public void setLegendaryDrop(int legendaryDrop) {
+	public void setLegendaryDrop(int legendaryDrop)
+	{
 		this.legendaryDrop = legendaryDrop;
 	}
 
 	/**
 	 * @return the spawnChance
 	 */
-	public int getSpawnChance() {
+	public int getSpawnChance()
+	{
 		return spawnChance;
 	}
 
 	/**
-	 * @param spawnChance the spawnChance to set
+	 * @param spawnChance
+	 *            the spawnChance to set
 	 */
-	public void setSpawnChance(int spawnChance) {
+	public void setSpawnChance(int spawnChance)
+	{
 		this.spawnChance = spawnChance;
 	}
 
-	/** Method: toString
-	 * Purpose: Returns a String of the Monster class
+	/**
+	 * Method: toString Purpose: Returns a String of the Monster class
+	 * 
 	 * @return
 	 */
 	@Override
 	public String toString()
 	{
 		return "Monster {\nmonsterID = " + monsterID + "\nmonsterName = " + monsterName + "\nmonsterDescription = "
-				+ monsterDescription + "\nimmune = " + immune + "\nhitPoints = " + hitPoints + "\nminDamage = " + minDamage 
-				+ "\nmaxDamage = " + maxDamage + "\nattackFirst = " + attackFirst + "\nturnToHitPlayer = " + turnToHitPlayer
-				+ "\ncommonDrop = " + commonDrop + "\nuncommonDrop = " + uncommonDrop + "\nrareDrop = " + rareDrop 
-				+ "\nlegendaryDrop = " + legendaryDrop + "\nspawnChance = " + spawnChance +"\n}"; 
+				+ monsterDescription + "\nimmune = " + immune + "\nhitPoints = " + hitPoints + "\nminDamage = "
+				+ minDamage + "\nmaxDamage = " + maxDamage + "\nattackFirst = " + attackFirst + "\nturnToHitPlayer = "
+				+ turnToHitPlayer + "\ncommonDrop = " + commonDrop + "\nuncommonDrop = " + uncommonDrop
+				+ "\nrareDrop = " + rareDrop + "\nlegendaryDrop = " + legendaryDrop + "\nspawnChance = " + spawnChance
+				+ "\n}";
 	}
-
 
 }

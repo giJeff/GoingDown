@@ -5,21 +5,22 @@ import java.util.ArrayList;
 
 import model.SQLiteDB;
 
-/** Class : GameController.java
+/**
+ * Class : GameController.java
+ * 
  * @author: Jeff Graves
- * @version: 1.0
- * Course: ITEC 3860
- * Written: April 01, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: April 01, 2017
  *
- * This class is the main controller for the GoingDown program.  
- * Will hold utility functions as well as central functionality 
+ *           This class is the main controller for the GoingDown program. Will
+ *           hold utility functions as well as central functionality
  */
 public class GameController
 {
 	private static SQLiteDB sdb;
 
-	
-	/** Method: getDB
+	/**
+	 * Method: getDB
+	 * 
 	 * @return the db
 	 */
 	public static SQLiteDB getDB()
@@ -27,7 +28,7 @@ public class GameController
 		try
 		{
 			sdb = new SQLiteDB();
-		} 
+		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			System.out.println("ERROR!\nThere was a problem opening the database \n" + e.getMessage());
@@ -35,11 +36,12 @@ public class GameController
 
 		return sdb;
 	}
-	
-	/** Method: getRoomData
-	 * Purpose: gets room data and returns a String containing it
-	 * String
-	 * @throws SQLException 
+
+	/**
+	 * Method: getRoomData Purpose: gets room data and returns a String containing
+	 * it String
+	 * 
+	 * @throws SQLException
 	 */
 	public Room getRoomData(int roomNumber) throws SQLException
 	{
@@ -47,9 +49,11 @@ public class GameController
 		rm = rm.getRoom(roomNumber);
 		return rm;
 	}
-	
-	/** Method: getAllRoomsData
-	 * Purpose: Gets all rooms and returns an ArrayList<String> of all of the rooms 
+
+	/**
+	 * Method: getAllRoomsData Purpose: Gets all rooms and returns an
+	 * ArrayList<String> of all of the rooms
+	 * 
 	 * @return ArrayList<String>
 	 * @throws SQLException
 	 */
@@ -59,17 +63,18 @@ public class GameController
 		Room rm = new Room();
 		rooms = rm.getAllRooms();
 		ArrayList<String> roomStrs = new ArrayList<String>();
-		for(Room room : rooms)
+		for (Room room : rooms)
 		{
 			roomStrs.add(room.toString());
 		}
 		return roomStrs;
 	}
-	
-	/** Method: getMonsterData
-	 * Purpose: gets Monster data and returns a String containing it
-	 * String
-	 * @throws SQLException 
+
+	/**
+	 * Method: getMonsterData Purpose: gets Monster data and returns a String
+	 * containing it String
+	 * 
+	 * @throws SQLException
 	 */
 	public String getMonsterData(int monsterNumber) throws SQLException
 	{
@@ -77,9 +82,9 @@ public class GameController
 		mon = mon.getMonster(monsterNumber);
 		return mon.toString();
 	}
-	
-	/** Method: getAllMonstersData
-	 * Purpose: Get all of the monster data from the DB 
+
+	/**
+	 * Method: getAllMonstersData Purpose: Get all of the monster data from the DB
 	 * 
 	 * @throws SQLException
 	 * @return ArrayList<String>
@@ -90,18 +95,18 @@ public class GameController
 		ArrayList<Monster> monsters = null;
 		monsters = mon.getAllMonsters();
 		ArrayList<String> monstersStr = new ArrayList<String>();
-		for(Monster monster : monsters)
+		for (Monster monster : monsters)
 		{
 			monstersStr.add(monster.toString());
-		}		
+		}
 		return monstersStr;
-	}	
-	
+	}
 
-	/** Method: getWeaponData
-	 * Purpose: Gets the weapon and displays list of attributes
-	 * void
-	 * @throws SQLException 
+	/**
+	 * Method: getWeaponData Purpose: Gets the weapon and displays list of
+	 * attributes void
+	 * 
+	 * @throws SQLException
 	 */
 	public String getWeaponData(int weaponNumber) throws SQLException
 	{
@@ -109,9 +114,10 @@ public class GameController
 		wep = wep.getWeapon(weaponNumber);
 		return wep.toString();
 	}
-	
-	/** Method: getAllWeaponData
-	 * Purpose: Get all of the weapon data.
+
+	/**
+	 * Method: getAllWeaponData Purpose: Get all of the weapon data.
+	 * 
 	 * @throws SQLException
 	 * @return ArrayList<String>
 	 */
@@ -120,18 +126,19 @@ public class GameController
 		Weapon wep = new Weapon();
 		ArrayList<Weapon> weapons = null;
 		weapons = wep.getAllWeapons();
-		ArrayList<String> wepStrs = new ArrayList<String>();	
-		for(Weapon weapon : weapons)
+		ArrayList<String> wepStrs = new ArrayList<String>();
+		for (Weapon weapon : weapons)
 		{
 			wepStrs.add(weapon.toString());
-		}		
+		}
 		return wepStrs;
 	}
-	
-	/** Method: getArmorData
-	 * Purpose: Gets the armor and displays list of attributes
+
+	/**
+	 * Method: getArmorData Purpose: Gets the armor and displays list of attributes
 	 * void
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	public String getArmorData(int armorNumber) throws SQLException
 	{
@@ -139,9 +146,10 @@ public class GameController
 		arm = arm.getArmor(armorNumber);
 		return arm.toString();
 	}
-	
-	/** Method: getAllArmorData
-	 * Purpose: Get all of the armor data.
+
+	/**
+	 * Method: getAllArmorData Purpose: Get all of the armor data.
+	 * 
 	 * @throws SQLException
 	 * @return ArrayList<String>
 	 */
@@ -150,18 +158,19 @@ public class GameController
 		Armor arm = new Armor();
 		ArrayList<Armor> armors = null;
 		armors = arm.getAllArmors();
-		ArrayList<String> armStrs = new ArrayList<String>();	
-		for(Armor armor : armors)
+		ArrayList<String> armStrs = new ArrayList<String>();
+		for (Armor armor : armors)
 		{
 			armStrs.add(armor.toString());
-		}		
+		}
 		return armStrs;
 	}
-	
-	/** Method: getPotionData
-	 * Purpose: Gets the potion and displays list of attributes
-	 * void
-	 * @throws SQLException 
+
+	/**
+	 * Method: getPotionData Purpose: Gets the potion and displays list of
+	 * attributes void
+	 * 
+	 * @throws SQLException
 	 */
 	public String getPotionData(int potionNumber) throws SQLException
 	{
@@ -169,9 +178,10 @@ public class GameController
 		pot = pot.getPotion(potionNumber);
 		return pot.toString();
 	}
-	
-	/** Method: getAllPotionData
-	 * Purpose: Get all of the potion data.
+
+	/**
+	 * Method: getAllPotionData Purpose: Get all of the potion data.
+	 * 
 	 * @throws SQLException
 	 * @return ArrayList<String>
 	 */
@@ -180,18 +190,19 @@ public class GameController
 		Potion pot = new Potion();
 		ArrayList<Potion> potions = null;
 		potions = pot.getAllPotions();
-		ArrayList<String> potStrs = new ArrayList<String>();	
-		for(Potion potion : potions)
+		ArrayList<String> potStrs = new ArrayList<String>();
+		for (Potion potion : potions)
 		{
 			potStrs.add(potion.toString());
-		}		
+		}
 		return potStrs;
 	}
-	
-	/** Method: getPlayerData
-	 * Purpose: Gets the player and displays list of attributes
-	 * void
-	 * @throws SQLException 
+
+	/**
+	 * Method: getPlayerData Purpose: Gets the player and displays list of
+	 * attributes void
+	 * 
+	 * @throws SQLException
 	 */
 	public Player getPlayerData(int playerNumber) throws SQLException
 	{
@@ -199,6 +210,5 @@ public class GameController
 		player = player.getPlayer(playerNumber);
 		return player;
 	}
-
 
 }

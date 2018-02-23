@@ -17,14 +17,16 @@ import java.sql.Statement;
 
 public class SQLiteDB extends DB
 {
-	
-	/** Constructor: SQLiteDB
+
+	/**
+	 * Constructor: SQLiteDB
+	 * 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
 	public SQLiteDB() throws SQLException, ClassNotFoundException
 	{
-		//Build the connection String
+		// Build the connection String
 		sJdbc = "jdbc:sqlite";
 		sDriverName = "org.sqlite.JDBC";
 		// register the driver
@@ -33,14 +35,16 @@ public class SQLiteDB extends DB
 		conn = DriverManager.getConnection(sDbUrl);
 	}
 
-	/** Constructor: SQLiteDB
+	/**
+	 * Constructor: SQLiteDB
+	 * 
 	 * @param dbName
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
 	public SQLiteDB(String dbName) throws SQLException, ClassNotFoundException
 	{
-		//Build the connection String
+		// Build the connection String
 		sJdbc = "jdbc:sqlite";
 		sDriverName = "org.sqlite.JDBC";
 		// register the driver
@@ -51,13 +55,14 @@ public class SQLiteDB extends DB
 		conn = DriverManager.getConnection(sDbUrl);
 	}
 
-	/** Method: close
-	 * Purpose: Close the database connection
+	/**
+	 * Method: close Purpose: Close the database connection
+	 * 
 	 * @throws SQLException
 	 * @return void
 	 */
 	public void close() throws SQLException
 	{
-			conn.close();
+		conn.close();
 	}
 }

@@ -7,31 +7,34 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Monster;
 
-/** Class : MonsterDB.java
+/**
+ * Class : MonsterDB.java
+ * 
  * @author: Jeff Graves
- * @version: 1.0
- * Course: ITEC 3860
- * Written: Mar 01, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: Mar 01, 2017
  *
- * This class handles all database acces for the Monster class
+ *           This class handles all database acces for the Monster class
  */
 public class MonsterDB
 {
-	/** Method: getNextMonsterID
-	 * Purpose: Gets the id for the next monster. 
+	/**
+	 * Method: getNextMonsterID Purpose: Gets the id for the next monster.
+	 * 
 	 * @return int
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public int getNextMonsterID() throws SQLException
 	{
-		SQLiteDB sdb  = GameController.getDB();
+		SQLiteDB sdb = GameController.getDB();
 		int max = sdb.getMaxValue("monsterNumber", "Monster") + 1;
 		sdb.close();
 		return max;
 	}
-	
-	/** Method: getMonster
-	 * Purpose: handles db interactions to retrieve a single Monster
+
+	/**
+	 * Method: getMonster Purpose: handles db interactions to retrieve a single
+	 * Monster
+	 * 
 	 * @param id
 	 * @return Monster
 	 * @throws SQLException
@@ -63,9 +66,11 @@ public class MonsterDB
 		sdb.close();
 		return mon;
 	}
-	
-	/** Method: getAllMonsters
-	 * Purpose: Handles the DB interactions to retrieve all monsters 
+
+	/**
+	 * Method: getAllMonsters Purpose: Handles the DB interactions to retrieve all
+	 * monsters
+	 * 
 	 * @return ArrayList<Monster>
 	 * @throws SQLException
 	 */
@@ -74,10 +79,10 @@ public class MonsterDB
 		ArrayList<Monster> monsters = new ArrayList<Monster>();
 		SQLiteDB sdb = GameController.getDB();
 		String sql = "Select * from Monster";
-		
+
 		ResultSet rs = sdb.queryDB(sql);
-		
-		while(rs.next())
+
+		while (rs.next())
 		{
 			Monster mon = new Monster();
 			mon.setMonsterID(rs.getInt("monsterNumber"));
@@ -96,7 +101,7 @@ public class MonsterDB
 			mon.setSpawnChance(rs.getInt("spawnChance"));
 			monsters.add(mon);
 		}
-		
+
 		sdb.close();
 		return monsters;
 	}
