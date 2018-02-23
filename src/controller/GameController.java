@@ -50,6 +50,13 @@ public class GameController
 		return rm;
 	}
 
+	public int getFloorData(int roomNumber) throws SQLException
+	{
+		Room rm = new Room();
+		rm = rm.getRoom(roomNumber);
+		return rm.getFloorNumber();
+	}
+
 	/**
 	 * Method: getAllRoomsData Purpose: Gets all rooms and returns an
 	 * ArrayList<String> of all of the rooms

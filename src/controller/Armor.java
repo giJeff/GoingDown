@@ -16,7 +16,6 @@ import model.ArmorDB;
  */
 public class Armor
 {
-
 	private int armorID;
 	private String armorType;
 	private int equipSlot;
