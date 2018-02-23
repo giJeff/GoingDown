@@ -7,31 +7,33 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Armor;
 
-/** Class : ArmorDB.java
+/**
+ * Class : ArmorDB.java
+ * 
  * @author: Jeff Graves
- * @version: 1.0
- * Course: ITEC 3860
- * Written: April 04, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: April 04, 2017
  *
- * This class handles all database access for the Armor class
+ *           This class handles all database access for the Armor class
  */
 public class ArmorDB
 {
-	/** Method: getNextArmorID
-	 * Purpose: Gets the id for the next armor. 
+	/**
+	 * Method: getNextArmorID Purpose: Gets the id for the next armor.
+	 * 
 	 * @return int
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public int getNextArmorID() throws SQLException
 	{
-		SQLiteDB sdb  = GameController.getDB();
+		SQLiteDB sdb = GameController.getDB();
 		int max = sdb.getMaxValue("armorNumber", "Armor") + 1;
 		sdb.close();
 		return max;
 	}
-	
-	/** Method: getArmor
-	 * Purpose: handles db interactions to retrieve a single Armor
+
+	/**
+	 * Method: getArmor Purpose: handles db interactions to retrieve a single Armor
+	 * 
 	 * @param id
 	 * @return Armor
 	 * @throws SQLException
@@ -57,9 +59,11 @@ public class ArmorDB
 		sdb.close();
 		return arm;
 	}
-	
-	/** Method: getAllArmor
-	 * Purpose: Handles the DB interactions to retrieve all armors 
+
+	/**
+	 * Method: getAllArmor Purpose: Handles the DB interactions to retrieve all
+	 * armors
+	 * 
 	 * @return ArrayList<Armor>
 	 * @throws SQLException
 	 */
@@ -68,10 +72,10 @@ public class ArmorDB
 		ArrayList<Armor> armors = new ArrayList<Armor>();
 		SQLiteDB sdb = GameController.getDB();
 		String sql = "Select * from Armor";
-		
+
 		ResultSet rs = sdb.queryDB(sql);
-		
-		while(rs.next())
+
+		while (rs.next())
 		{
 			Armor arm = new Armor();
 			arm.setArmorID(rs.getInt("armorNumber"));
@@ -84,7 +88,7 @@ public class ArmorDB
 			arm.setWeight(rs.getFloat("weight"));
 			armors.add(arm);
 		}
-		
+
 		sdb.close();
 		return armors;
 	}

@@ -7,31 +7,34 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Potion;
 
-/** Class : PotionDB.java
+/**
+ * Class : PotionDB.java
+ * 
  * @author: Jeff Graves
- * @version: 1.0
- * Course: ITEC 3860
- * Written: April 04, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: April 04, 2017
  *
- * This class handles all database access for the Potion class
+ *           This class handles all database access for the Potion class
  */
 public class PotionDB
 {
-	/** Method: getNextPotionID
-	 * Purpose: Gets the id for the next potion. 
+	/**
+	 * Method: getNextPotionID Purpose: Gets the id for the next potion.
+	 * 
 	 * @return int
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public int getNextPotionID() throws SQLException
 	{
-		SQLiteDB sdb  = GameController.getDB();
+		SQLiteDB sdb = GameController.getDB();
 		int max = sdb.getMaxValue("potionNumber", "Potion") + 1;
 		sdb.close();
 		return max;
 	}
-	
-	/** Method: getPotion
-	 * Purpose: handles db interactions to retrieve a single potion
+
+	/**
+	 * Method: getPotion Purpose: handles db interactions to retrieve a single
+	 * potion
+	 * 
 	 * @param id
 	 * @return Potion
 	 * @throws SQLException
@@ -55,9 +58,11 @@ public class PotionDB
 		sdb.close();
 		return pot;
 	}
-	
-	/** Method: getAllPotion
-	 * Purpose: Handles the DB interactions to retrieve all potions 
+
+	/**
+	 * Method: getAllPotion Purpose: Handles the DB interactions to retrieve all
+	 * potions
+	 * 
 	 * @return ArrayList<Potion>
 	 * @throws SQLException
 	 */
@@ -66,10 +71,10 @@ public class PotionDB
 		ArrayList<Potion> potions = new ArrayList<Potion>();
 		SQLiteDB sdb = GameController.getDB();
 		String sql = "Select * from Potion";
-		
+
 		ResultSet rs = sdb.queryDB(sql);
-		
-		while(rs.next())
+
+		while (rs.next())
 		{
 			Potion pot = new Potion();
 			pot.setPotionID(rs.getInt("potionNumber"));
@@ -81,7 +86,7 @@ public class PotionDB
 
 			potions.add(pot);
 		}
-		
+
 		sdb.close();
 		return potions;
 	}

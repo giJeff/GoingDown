@@ -7,33 +7,35 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Puzzle;
 
-/** Class : PuzzlesDB.java
+/**
+ * Class : PuzzlesDB.java
+ * 
  * @author: Jeffrey Graves, edited by Charneaka Lewis
- * @version: 1.0
- * Course: ITEC 3860
- * Written: April 22, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: April 22, 2017
  *
- * This class handles all of the DB's for the Puzzles
+ *           This class handles all of the DB's for the Puzzles
  */
 
-public class PuzzleDB 
+public class PuzzleDB
 {
-	/** Method: getNextPuzzleID
-	 * Purpose: Gets the id for the next puzzle. 
+	/**
+	 * Method: getNextPuzzleID Purpose: Gets the id for the next puzzle.
+	 * 
 	 * @return int
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 
 	public int getNextPuzzleID() throws SQLException
 	{
-		SQLiteDB sdb  = GameController.getDB();
+		SQLiteDB sdb = GameController.getDB();
 		int max = sdb.getMaxValue("puzzleNumber", "Puzzle") + 1;
 		sdb.close();
 		return max;
 	}
 
-	/** Method: getPuzzle
-	 * Purpose: Gets a puzzle based upon the supplied ID
+	/**
+	 * Method: getPuzzle Purpose: Gets a puzzle based upon the supplied ID
+	 * 
 	 * @param id
 	 * @return Room
 	 * @throws SQLException
@@ -55,16 +57,17 @@ public class PuzzleDB
 			plz.setOptC(rs.getString("optC"));
 			plz.setOptD(rs.getString("optD"));
 			plz.setIncorrectAnsDamage(rs.getInt("incorrectDamage"));
-			plz.setCorrectAnsReward(rs.getInt("correctReward")); 
-			plz.setSolved(rs.getInt("solved")); 
+			plz.setCorrectAnsReward(rs.getInt("correctReward"));
+			plz.setSolved(rs.getInt("solved"));
 		}
 
 		sdb.close();
 		return plz;
 	}
 
-	/** Method: getAllPuzzles
-	 * Purpose: gets all puzzles
+	/**
+	 * Method: getAllPuzzles Purpose: gets all puzzles
+	 * 
 	 * @return ArrayList<Puzzles>
 	 * @throws SQLException
 	 */
@@ -76,7 +79,7 @@ public class PuzzleDB
 
 		ResultSet rs = sdb.queryDB(sql);
 
-		while(rs.next())
+		while (rs.next())
 		{
 			Puzzle plz = new Puzzle();
 			plz.setPuzzleID(rs.getInt("puzzleNumber"));
@@ -87,8 +90,8 @@ public class PuzzleDB
 			plz.setOptC(rs.getString("optC"));
 			plz.setOptD(rs.getString("optD"));
 			plz.setIncorrectAnsDamage(rs.getInt("incorrectDamage"));
-			plz.setCorrectAnsReward(rs.getInt("correctReward")); 
-			plz.setSolved(rs.getInt("solved")); 
+			plz.setCorrectAnsReward(rs.getInt("correctReward"));
+			plz.setSolved(rs.getInt("solved"));
 			puzzles.add(plz);
 		}
 
@@ -97,4 +100,3 @@ public class PuzzleDB
 	}
 
 }
-

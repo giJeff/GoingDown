@@ -1,5 +1,4 @@
 
-
 import java.io.File;
 import java.sql.SQLException;
 import java.util.IllegalFormatException;
@@ -14,49 +13,50 @@ import javafx.util.Duration;
 import view.ConsoleUI;
 import view.GoingDownUI;;
 
-/** Class : GameStart.java
+/**
+ * Class : GameStart.java
+ * 
  * @author: Rick Price
- * @version: 1.0
- * Course: ITEC 3860
- * Written: Mar 01, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: Mar 01, 2017
  *
- * This class is the launch point for the DB demo
+ *           This class is the launch point for the DB demo
  */
 public class GameStart extends Application
 {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
-		
+
 		Scanner input = new Scanner(System.in);
 		File dbFile = new File("Game.db");
-		
+
 		playMP3("src/sound1.mp3");
-		
-		
+
 		logo();
-		
-		
-		if(dbFile.exists()) {
+
+		if (dbFile.exists())
+		{
 			slowText("Would you like to start a new game or continue? \n\r\t1. New Game \n\t2. Continue");
 			int userIn = 0;
-			if (!input.hasNextInt()) {
+			if (!input.hasNextInt())
+			{
 				input.nextInt();
-			} else {
+			}
+			else
+			{
 				userIn = input.nextInt();
 			}
-			if(userIn==1)
+			if (userIn == 1)
 			{
 				dbFile.delete();
-			}	
+			}
 		}
-		
+
 		if (!dbFile.exists())
 		{
 			CreateFilesController cfc = new CreateFilesController();
 			cfc.createFile();
 		}
-		
 
 		int choice = 0;
 		do
@@ -74,7 +74,8 @@ public class GameStart extends Application
 			{
 				System.out.println("You must enter 1 or 2");
 			}
-		} while (!(choice == 1 || choice == 2));
+		}
+		while (!(choice == 1 || choice == 2));
 		if (choice == 1)
 		{
 			ConsoleUI cui = new ConsoleUI();
@@ -86,42 +87,45 @@ public class GameStart extends Application
 		}
 		System.exit(0);
 	}
-	
-	
-	
-	public static void slowText(String msg) {
-		for(int i = 0; i < msg.length(); i++) {
+
+	public static void slowText(String msg)
+	{
+		for (int i = 0; i < msg.length(); i++)
+		{
 			System.out.print(msg.charAt(i));
-			
-			try {
+
+			try
+			{
 				Thread.sleep(30);
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		System.out.println();
 	}
-	
-	static void playMP3(String fileName) {
-		//javafx.embed.swing.JFXPanel a = new javafx.embed.swing.JFXPanel();
-	    String uriString = new File(fileName).toURI().toString();
-	    MediaPlayer audio =new MediaPlayer(new Media(uriString.toString()));
-	    audio.setOnEndOfMedia(new Runnable() {
-	          public void run() {
-	            audio.seek(Duration.ONE);
-	            audio.play();
-	          }
-	      });
-	    audio.setCycleCount(MediaPlayer.INDEFINITE);
-	    audio.play();
-	     
-	    
-	    
+
+	static void playMP3(String fileName)
+	{
+		// javafx.embed.swing.JFXPanel a = new javafx.embed.swing.JFXPanel();
+		String uriString = new File(fileName).toURI().toString();
+		MediaPlayer audio = new MediaPlayer(new Media(uriString.toString()));
+		audio.setOnEndOfMedia(new Runnable()
+		{
+			public void run()
+			{
+				audio.seek(Duration.ONE);
+				audio.play();
+			}
+		});
+		audio.setCycleCount(MediaPlayer.INDEFINITE);
+		audio.play();
+
 	}
-	
-	
-	public static void logo() 
+
+	public static void logo()
 	{
 		slowText("_______________________________________________________________");
 		slowText("$                                  (                          $");
@@ -142,32 +146,32 @@ public class GameStart extends Application
 	public void start(Stage primaryStage) throws Exception
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
-		
-//	/** Method: start
-//	 * Purpose: Builds the FX version of the view
-//	 * @param primaryStage
-//	 * @throws Exception
-//	 */
-//	@Override
-//	public void start(Stage primaryStage) throws Exception
-//	{
-//		try
-//		{
-//			FXMLLoader root = new FXMLLoader();
-//			root.setLocation(GameStart.class.getResource("view/GameUI.fxml"));
-//			GridPane rootLayout = (GridPane)root.load();
-//			Scene scene = new Scene(rootLayout, 500, 250);
-//			scene.getStylesheets().add(getClass().getResource("view/game.css").toExternalForm());
-//			primaryStage.setTitle("Game Demo");
-//			primaryStage.setScene(scene);
-//			primaryStage.show();
-//		} 
-//		catch (Exception e)
-//		{
-//			System.out.println("Error "  + e.getMessage());
-//		}
-//	}
-//
+
+	// /** Method: start
+	// * Purpose: Builds the FX version of the view
+	// * @param primaryStage
+	// * @throws Exception
+	// */
+	// @Override
+	// public void start(Stage primaryStage) throws Exception
+	// {
+	// try
+	// {
+	// FXMLLoader root = new FXMLLoader();
+	// root.setLocation(GameStart.class.getResource("view/GameUI.fxml"));
+	// GridPane rootLayout = (GridPane)root.load();
+	// Scene scene = new Scene(rootLayout, 500, 250);
+	// scene.getStylesheets().add(getClass().getResource("view/game.css").toExternalForm());
+	// primaryStage.setTitle("Game Demo");
+	// primaryStage.setScene(scene);
+	// primaryStage.show();
+	// }
+	// catch (Exception e)
+	// {
+	// System.out.println("Error " + e.getMessage());
+	// }
+	// }
+	//
 }

@@ -7,33 +7,34 @@ import java.util.ArrayList;
 import controller.GameController;
 import controller.Player;
 
-/** Class : PlayerDB.java
+/**
+ * Class : PlayerDB.java
+ * 
  * @author: Jeff Graves
- * @version: 1.0
- * Course: ITEC 3860
- * Written: April 04, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: April 04, 2017
  *
- * This class handles all database access for the Player class
+ *           This class handles all database access for the Player class
  */
 public class PlayerDB
 {
-	/** Method: getNextPlayerID
-	 * Purpose: Gets the id for the next player. 
+	/**
+	 * Method: getNextPlayerID Purpose: Gets the id for the next player.
+	 * 
 	 * @return int
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public int getNextPlayerID() throws SQLException
 	{
-		SQLiteDB sdb  = GameController.getDB();
+		SQLiteDB sdb = GameController.getDB();
 		int max = sdb.getMaxValue("playerNumber", "Player") + 1;
 		sdb.close();
 		return max;
 	}
-	
-	
-	
-	/** Method: getPlayer
-	 * Purpose: handles db interactions to retrieve a single Player
+
+	/**
+	 * Method: getPlayer Purpose: handles db interactions to retrieve a single
+	 * Player
+	 * 
 	 * @param id
 	 * @return Player
 	 * @throws SQLException
@@ -66,9 +67,11 @@ public class PlayerDB
 		sdb.close();
 		return player;
 	}
-	
-	/** Method: getAllPlayer
-	 * Purpose: Handles the DB interactions to retrieve all players 
+
+	/**
+	 * Method: getAllPlayer Purpose: Handles the DB interactions to retrieve all
+	 * players
+	 * 
 	 * @return ArrayList<Player>
 	 * @throws SQLException
 	 */
@@ -77,10 +80,10 @@ public class PlayerDB
 		ArrayList<Player> players = new ArrayList<Player>();
 		SQLiteDB sdb = GameController.getDB();
 		String sql = "Select * from Player";
-		
+
 		ResultSet rs = sdb.queryDB(sql);
-		
-		while(rs.next())
+
+		while (rs.next())
 		{
 			Player player = new Player();
 			player.setPlayerID(rs.getInt("playerNumber"));
@@ -100,7 +103,7 @@ public class PlayerDB
 			player.setPeekWest(rs.getInt("peekWest"));
 			players.add(player);
 		}
-		
+
 		sdb.close();
 		return players;
 	}

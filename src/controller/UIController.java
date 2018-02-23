@@ -8,58 +8,59 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/** Class : UIController.java
+/**
+ * Class : UIController.java
+ * 
  * @author: Rick Price
- * @version: 1.0
- * Course: ITEC 3860
- * Written: Mar 24, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: Mar 24, 2017
  *
- * This class is the UI version of the DB Tutorial 
+ *           This class is the UI version of the DB Tutorial
  *
  */
 public class UIController
 {
-	@FXML private TextArea descTA;
-	@FXML private TextField cmdTF;
-	
+	@FXML
+	private TextArea descTA;
+	@FXML
+	private TextField cmdTF;
+
 	private int number = 0;
-	
+
 	private GameController gc = new GameController();
-	
-	/** Method: next
-	 * Purpose: Perform the next operation in the demo
-	 * void
+
+	/**
+	 * Method: next Purpose: Perform the next operation in the demo void
 	 */
 	@FXML
 	public void next()
 	{
 		number++;
 		String desc = getString(number);
-		
+
 		descTA.setText(desc);
 	}
-	
-	/** Method: saveMsg
-	 * Purpose: Display a message on button click
-	 * void
+
+	/**
+	 * Method: saveMsg Purpose: Display a message on button click void
 	 */
 	@FXML
 	public void saveMsg()
 	{
 		cmdTF.setText("Save pressed");
 	}
-	
-	/** Method: cancel
-	 * Purpose: Closes the DOA application
+
+	/**
+	 * Method: cancel Purpose: Closes the DOA application
+	 * 
 	 * @return void
 	 */
 	@FXML
 	public void cancel()
 	{
 		Stage stage = (Stage) descTA.getScene().getWindow();
-	    stage.close();			
+		stage.close();
 	}
-	
+
 	private String getString(int number)
 	{
 		String retStr = "";
@@ -69,7 +70,7 @@ public class UIController
 			{
 				case 1:
 				{
-					//retStr = gc.getRoomData(1);
+					// retStr = gc.getRoomData(1);
 					break;
 				}
 				case 2:
@@ -131,7 +132,7 @@ public class UIController
 		}
 		return retStr;
 	}
-	
+
 	private String buildStrs(ArrayList<String> strs)
 	{
 		String retStr = "";
@@ -142,6 +143,5 @@ public class UIController
 		}
 		return retStr;
 	}
-
 
 }

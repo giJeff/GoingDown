@@ -6,8 +6,9 @@ import model.GameDBCreate;
 
 public class CreateFilesController
 {
-	/** Method: createFile
-	 * Purpose: Create the database for DOA
+	/**
+	 * Method: createFile Purpose: Create the database for DOA
+	 * 
 	 * @return void
 	 */
 	public void createFile()

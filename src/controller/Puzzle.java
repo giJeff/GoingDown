@@ -8,14 +8,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import model.PuzzleDB;
 import model.SQLiteDB;
 
-
-/** Class : Puzzles.java
+/**
+ * Class : Puzzles.java
+ * 
  * @author: Jeff Graves, edited by Charneaka Lewis
- * @version: 1.0
- * Course: ITEC 3860
- * Written: April 22, 2017
+ * @version: 1.0 Course: ITEC 3860 Written: April 22, 2017
  *
- * This class is the Puzzle class handling business logic for the Puzzles class
+ *           This class is the Puzzle class handling business logic for the
+ *           Puzzles class
  */
 
 public class Puzzle
@@ -34,9 +34,10 @@ public class Puzzle
 	private int correctReward;
 	private int solved;
 
-
-	/** Constructor: Puzzles
-	 * @throws SQLException 
+	/**
+	 * Constructor: Puzzles
+	 * 
+	 * @throws SQLException
 	 */
 	public Puzzle() throws SQLException
 	{
@@ -44,8 +45,9 @@ public class Puzzle
 		puzzleID = pdb.getNextPuzzleID();
 	}
 
-	/** Method: getPuzzles
-	 * Purpose: Gets a specified puzzle from the Puzzle table 
+	/**
+	 * Method: getPuzzles Purpose: Gets a specified puzzle from the Puzzle table
+	 * 
 	 * @param id
 	 * @return Puzzle
 	 * @throws SQLException
@@ -56,22 +58,22 @@ public class Puzzle
 		return pdb.getPuzzle(id);
 	}
 
-	public Puzzle randomPuzzle(Puzzle puzzle) throws SQLException 
+	public Puzzle randomPuzzle(Puzzle puzzle) throws SQLException
 	{
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 27 + 1);
 
-		if(puzzle.getSolved() == 0)
+		if (puzzle.getSolved() == 0)
 		{
 			puzzle = puzzle.getPuzzle(randomNum);
-		} 
-		else 
+		}
+		else
 		{
 			randomPuzzle(puzzle);
 		}
 		return puzzle;
 	}
 
-	public void solvePuzzle(Room room, Player player, Puzzle puzzle) throws SQLException, ClassNotFoundException 
+	public void solvePuzzle(Room room, Player player, Puzzle puzzle) throws SQLException, ClassNotFoundException
 	{
 		boolean playerDead = false;
 		boolean puzzleSolved = false;
@@ -80,235 +82,277 @@ public class Puzzle
 		int input = 0;
 		Quest quest = new Quest();
 
-		do {
+		do
+		{
 			player.slowText("+------------------------------------------------------------------+");
-			player.slowText(puzzle.puzzleQuestion + "\t\n" + puzzle.optA 
-					+ "\t\n" + puzzle.optB + "\t\n" + puzzle.optC + "\t\n" + puzzle.optD);
+			player.slowText(puzzle.puzzleQuestion + "\t\n" + puzzle.optA + "\t\n" + puzzle.optB + "\t\n" + puzzle.optC
+					+ "\t\n" + puzzle.optD);
 			player.slowText("+------------------------------------------------------------------+");
 
-			if (!in.hasNext()) {
+			if (!in.hasNext())
+			{
 				in.next();
-			} else {
+			}
+			else
+			{
 				userIn = in.next();
 			}
 
-			if(userIn.equalsIgnoreCase(puzzle.getPuzzleAnswer())) {
+			if (userIn.equalsIgnoreCase(puzzle.getPuzzleAnswer()))
+			{
 				puzzleSolved = true;
-				if(puzzleSolved) {
-					player.setNumSolved(player.getNumSolved()+1);
+				if (puzzleSolved)
+				{
+					player.setNumSolved(player.getNumSolved() + 1);
 					SQLiteDB sdb = GameController.getDB();
 					String sql = "UPDATE Puzzle Set solved = 1 WHERE puzzleNumber = " + puzzle.getPuzzleID();
 					sdb.updateDB(sql);
 					sql = "UPDATE Room Set roomClear = 1 WHERE roomNumber = " + room.getRoomID();
 					sdb.updateDB(sql);
 					sdb.close();
-					player.setScore(player.getScore()+20);
+					player.setScore(player.getScore() + 20);
 					quest.addPuzzle(quest, room);
 					quest.addRoomClear(quest, room);
 				}
-			} else {
+			}
+			else
+			{
 
-				if(!playerDead && !puzzleSolved) {
+				if (!playerDead && !puzzleSolved)
+				{
 					player.setHitPoints(player.getHitPoints() - puzzle.getIncorrectAnsDamage());
 					player.slowText("+------------------------------------------------------------------+");
 					player.slowText("Player took " + puzzle.getIncorrectAnsDamage() + " damage this turn!");
 					player.slowText("+------------------------------------------------------------------+");
-					if(player.getHitPoints() < 1) {
+					if (player.getHitPoints() < 1)
+					{
 						playerDead = true;
 					}
 				}
 			}
-		}while(!puzzleSolved);
-		if(playerDead) {
-			//gameOver();
+		}
+		while (!puzzleSolved);
+		if (playerDead)
+		{
+			// gameOver();
 			player.slowText("+------------------------------------------------------------------+");
 			player.slowText("Oh no you ran out of health.  Game over please try again!");
 			player.slowText("+------------------------------------------------------------------+");
-			
-				System.exit(0);
-			
-		}
 
+			System.exit(0);
+
+		}
 
 	}
 
-	/** Method: getAllPuzzles
-	 * Purpose: gets all of the Puzzles from the Puzzle table
+	/**
+	 * Method: getAllPuzzles Purpose: gets all of the Puzzles from the Puzzle table
+	 * 
 	 * @return ArrayList<Puzzle>
 	 * @throws SQLException
 	 */
 
 	public ArrayList<Puzzle> getAllPuzzless() throws SQLException
 	{
-		PuzzleDB  pdb = new PuzzleDB();
+		PuzzleDB pdb = new PuzzleDB();
 		return pdb.getAllPuzzles();
 	}
 
-	/** Method: getPuzzleID
+	/**
+	 * Method: getPuzzleID
+	 * 
 	 * @return puzzleID
-	 */ 
-	public int getPuzzleID() 
+	 */
+	public int getPuzzleID()
 	{
 		return puzzleID;
 	}
 
-	/** Method: setPuzzleID
+	/**
+	 * Method: setPuzzleID
+	 * 
 	 * @param puzzleID
-	 */ 
+	 */
 	public void setPuzzleID(int puzzleID)
 	{
 		this.puzzleID = puzzleID;
 	}
 
-	/** Method: getPuzzleID
+	/**
+	 * Method: getPuzzleID
+	 * 
 	 * @return puzzleID
-	 */ 
+	 */
 	public String getPuzzleQuestion()
 	{
 		return puzzleQuestion;
 	}
 
-	/** Method: setPuzzleQuestion
-	 * Sets the Puzzle to be solved
+	/**
+	 * Method: setPuzzleQuestion Sets the Puzzle to be solved
+	 * 
 	 * @param puzzleID
-	 */ 
-	public void setPuzzleQuestion(String puzzleQuestion) 
+	 */
+	public void setPuzzleQuestion(String puzzleQuestion)
 	{
 		this.puzzleQuestion = puzzleQuestion;
 	}
 
-	/** Method: getPuzzleID
+	/**
+	 * Method: getPuzzleID
+	 * 
 	 * @return puzzleID
-	 */ 
-	public String getPuzzleAnswer() 
+	 */
+	public String getPuzzleAnswer()
 	{
 		return puzzleAnswer;
 	}
 
-	/** Method: setPuzzleAnswer
-	 * Sets the answer to the puzzle being solved
+	/**
+	 * Method: setPuzzleAnswer Sets the answer to the puzzle being solved
+	 * 
 	 * @param puzzleID
-	 */ 
-	public void setPuzzleAnswer(String puzzleAnswer) 
+	 */
+	public void setPuzzleAnswer(String puzzleAnswer)
 	{
 		this.puzzleAnswer = puzzleAnswer;
 	}
 
-	/** Method: getPuzzleID
+	/**
+	 * Method: getPuzzleID
+	 * 
 	 * @return puzzleID
-	 */ 
-	public String getOptA() 
+	 */
+	public String getOptA()
 	{
 		return optA;
 	}
 
-	/** Method: setOptionA
-	 * Sets the first answer choice for the puzzle
+	/**
+	 * Method: setOptionA Sets the first answer choice for the puzzle
+	 * 
 	 * @param optionA
-	 */ 
-	public void setOptA(String optA) 
+	 */
+	public void setOptA(String optA)
 	{
 		this.optA = optA;
 	}
 
-	/** Method: getOptionB
+	/**
+	 * Method: getOptionB
+	 * 
 	 * @return optionB
-	 */ 
-	public String getOptB() 
+	 */
+	public String getOptB()
 	{
 		return optB;
 	}
 
-	/** Method: setOptionB
-	 * Sets the second answer choice for the puzzle
+	/**
+	 * Method: setOptionB Sets the second answer choice for the puzzle
+	 * 
 	 * @param optionB
-	 */ 
-	public void setOptB(String optB) 
+	 */
+	public void setOptB(String optB)
 	{
 		this.optB = optB;
 	}
 
-	/** Method: getOptionC
+	/**
+	 * Method: getOptionC
+	 * 
 	 * @return optionC
-	 */ 
-	public String getOptC() 
+	 */
+	public String getOptC()
 	{
 		return optC;
 	}
 
-	/** Method: setOptionC
-	 * Sets the third answer choice for the puzzle
+	/**
+	 * Method: setOptionC Sets the third answer choice for the puzzle
+	 * 
 	 * @param optionC
-	 */ 
-	public void setOptC(String optC) 
+	 */
+	public void setOptC(String optC)
 	{
 		this.optC = optC;
 	}
 
-	/** Method: getOptionD
+	/**
+	 * Method: getOptionD
+	 * 
 	 * @return OptionD
-	 */ 
-	public String getOptD() 
+	 */
+	public String getOptD()
 	{
 		return optD;
 	}
 
-	/** Method: setOptionD
-	 * Sets the fourth answer choice for the puzzle
+	/**
+	 * Method: setOptionD Sets the fourth answer choice for the puzzle
+	 * 
 	 * @param optionD
-	 */ 
-	public void setOptD(String optD) 
+	 */
+	public void setOptD(String optD)
 	{
 		this.optD = optD;
 	}
 
-	/** Method: getIncorrectAnsDamage
+	/**
+	 * Method: getIncorrectAnsDamage
+	 * 
 	 * @return incorrectAnsDamage
-	 */ 
-	public int getIncorrectAnsDamage() 
+	 */
+	public int getIncorrectAnsDamage()
 	{
 		return incorrectDamage;
 	}
 
-	/** Method: setIncorrectAnsDamage
-	 * Sets the point reduction for the puzzle
+	/**
+	 * Method: setIncorrectAnsDamage Sets the point reduction for the puzzle
+	 * 
 	 * @param incorrectAnsDamage
-	 */ 
-	public void setIncorrectAnsDamage(int incorrectAnsDamage) 
+	 */
+	public void setIncorrectAnsDamage(int incorrectAnsDamage)
 	{
 		this.incorrectDamage = incorrectAnsDamage;
 	}
 
-	/** Method: getCorrectAnsReward
+	/**
+	 * Method: getCorrectAnsReward
+	 * 
 	 * @return correctAnsReward
-	 */ 
-	public int getCorrectAnsReward() 
+	 */
+	public int getCorrectAnsReward()
 	{
 		return correctReward;
 	}
 
-	/** Method: setCorrectAnsDamage
-	 * Sets the reward for solving the puzzle
+	/**
+	 * Method: setCorrectAnsDamage Sets the reward for solving the puzzle
+	 * 
 	 * @param correctAnsReward
-	 */ 
-	public void setCorrectAnsReward(int correctAnsReward) 
+	 */
+	public void setCorrectAnsReward(int correctAnsReward)
 	{
 		this.correctReward = correctAnsReward;
 	}
 
-	public int getSolved() {
+	public int getSolved()
+	{
 		return solved;
 	}
 
-	public void setSolved(int solved) {
+	public void setSolved(int solved)
+	{
 		this.solved = solved;
 	}
 
 	@Override
-	public String toString() 
+	public String toString()
 	{
-		return "Puzzles [\npuzzleID=" + puzzleID + "\npuzzleQuestion=" + puzzleQuestion + " \npuzzleAnswer=" + puzzleAnswer
-				+ "\noptA=" + optA + "\noptB=" + optB + "\noptC=" + optC + "\noptD=" + optD + "\nincorrectAnsDamage="
-				+ incorrectDamage + "\ncorrectAnsReward=" + correctReward + "]";
-	}	
+		return "Puzzles [\npuzzleID=" + puzzleID + "\npuzzleQuestion=" + puzzleQuestion + " \npuzzleAnswer="
+				+ puzzleAnswer + "\noptA=" + optA + "\noptB=" + optB + "\noptC=" + optC + "\noptD=" + optD
+				+ "\nincorrectAnsDamage=" + incorrectDamage + "\ncorrectAnsReward=" + correctReward + "]";
+	}
 }
