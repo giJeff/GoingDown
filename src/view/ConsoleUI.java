@@ -27,13 +27,11 @@ import model.SQLiteDB;
  */
 public class ConsoleUI
 {
+
+	String uriString = new File("src/music.mp3").toURI().toString();
+	MediaPlayer audio = new MediaPlayer(new Media(uriString.toString()));
 	GameController gc = new GameController();
 
-	boolean game = false;
-	int currentFloor = 1;
-	int oldRoom = 1;
-	int currentRoom = 1;
-	int currentPlayer = 1;
 	/**
 	 * Method: startGame Purpose: handles the demo void
 	 */
@@ -41,13 +39,20 @@ public class ConsoleUI
 
 	public void startGame() throws ClassNotFoundException, SQLException
 	{
-		playMP3("src/music.mp3");
+		playMP3(audio);
 		Combat combat = new Combat();
 		Quest quest = new Quest();
 		Movement move = new Movement();
 		Player player = new Player();
 		Room room = new Room();
 		Puzzle puzzle = new Puzzle();
+
+		boolean game = false;
+		int oldRoom = 1;
+		int currentPlayer = 1;
+		int currentRoom = player.getPlayer(currentPlayer).getCurrentRoom();
+		int currentFloor = gc.getFloorData(currentRoom);
+		System.out.println(currentRoom);
 
 		try
 		{
@@ -163,11 +168,9 @@ public class ConsoleUI
 
 	}
 
-	void playMP3(String fileName)
+	void playMP3(MediaPlayer audio)
 	{
 		// javafx.embed.swing.JFXPanel a = new javafx.embed.swing.JFXPanel();
-		String uriString = new File(fileName).toURI().toString();
-		MediaPlayer audio = new MediaPlayer(new Media(uriString.toString()));
 		audio.setOnEndOfMedia(new Runnable()
 		{
 			public void run()

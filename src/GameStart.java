@@ -5,6 +5,7 @@ import java.util.IllegalFormatException;
 import java.util.Scanner;
 
 import controller.CreateFilesController;
+import controller.GameController;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -24,13 +25,17 @@ import view.GoingDownUI;;
 public class GameStart extends Application
 {
 
+	static String uriString = new File("src/sound1.mp3").toURI().toString();
+	static MediaPlayer audio = new MediaPlayer(new Media(uriString.toString()));
+	GameController gc = new GameController();
+
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 
 		Scanner input = new Scanner(System.in);
 		File dbFile = new File("Game.db");
 
-		playMP3("src/sound1.mp3");
+		playMP3(audio);
 
 		logo();
 
@@ -79,6 +84,7 @@ public class GameStart extends Application
 		if (choice == 1)
 		{
 			ConsoleUI cui = new ConsoleUI();
+			stopMP3(audio);
 			cui.startGame();
 		}
 		else
@@ -107,11 +113,8 @@ public class GameStart extends Application
 		System.out.println();
 	}
 
-	static void playMP3(String fileName)
+	static void playMP3(MediaPlayer audio)
 	{
-		// javafx.embed.swing.JFXPanel a = new javafx.embed.swing.JFXPanel();
-		String uriString = new File(fileName).toURI().toString();
-		MediaPlayer audio = new MediaPlayer(new Media(uriString.toString()));
 		audio.setOnEndOfMedia(new Runnable()
 		{
 			public void run()
@@ -125,21 +128,27 @@ public class GameStart extends Application
 
 	}
 
+	static void stopMP3(MediaPlayer audio)
+	{
+		audio.stop();
+
+	}
+
 	public static void logo()
 	{
-		slowText("_______________________________________________________________");
-		slowText("$                                  (                          $");
-		slowText("$   (                              )\\ )                JG     $");
-		slowText("$   )\\ )        (          (  (   (()/(        (  (           $");
-		slowText("$  (()/(     (  )\\   (     )\\))(   /(_))   (   )\\))(    (     $");
-		slowText("$   /(_))_   )\\((_)  )\\ ) ((_))\\  (_))_    )\\ ((_)()\\   )\\ )  $");
-		slowText("$  (_)) __| ((_)(_) _(_/(  (()(_)  |   \\  ((_)_(()((_) _(_/(  $");
-		slowText("$    | (_ |/ _ \\| || ' \\))/ _` |   | |) |/ _ \\\\ V  V /| ' \\)) $");
-		slowText("$     \\___|\\___/|_||_||_| \\__, |   |___/ \\___/ \\_/\\_/ |_||_|  $");
-		slowText("$                         |___/                               $");
-		slowText("***************************************************************");
-		slowText("$\t\t\t       By: Jeff G, Charneaka, Brendon $");
-		slowText("***************************************************************\n\n");
+		slowText("_________________________________________________________________");
+		slowText("$                                  (                            $");
+		slowText("$   (                              )\\ )                JG       $");
+		slowText("$   )\\ )        (          (  (   (()/(        (  (             $");
+		slowText("$  (()/(     (  )\\   (     )\\))(   /(_))   (   )\\))(    (       $");
+		slowText("$   /(_))_   )\\((_)  )\\ ) ((_))\\  (_))_    )\\ ((_)()\\   )\\ )    $");
+		slowText("$  (_)) __| ((_)(_) _(_/(  (()(_)  |   \\  ((_)_(()((_) _(_/(    $");
+		slowText("$    | (_ |/ _ \\| || ' \\))/ _` |   | |) |/ _ \\\\ V  V /| ' \\))   $");
+		slowText("$     \\___|\\___/|_||_||_| \\__, |   |___/ \\___/ \\_/\\_/ |_||_|    $");
+		slowText("$                         |___/                                 $");
+		slowText("*****************************************************************");
+		slowText("$\t\t\t       By: Jeff G \t\t\t$");
+		slowText("*****************************************************************\n\n");
 	}
 
 	@Override
